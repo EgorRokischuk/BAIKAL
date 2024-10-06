@@ -19,7 +19,7 @@ http.interceptors.request.use(
 	},
 	(error) => {
 		return Promise.reject(error);
-	}
+	},
 );
 
 http.interceptors.response.use(
@@ -32,5 +32,5 @@ http.interceptors.response.use(
 	},
 	function (error) {
 		return Promise.reject(error);
-	}
+	},
 );
