@@ -1,11 +1,12 @@
 {
 	"name": "isbaikal",
 	"version": "1.0.0",
-	"main": "index.js",
+	"main": "src/index.tsx",
 	"scripts": {
 		"devlocal": "webpack serve --env mode=development",
 		"devserver": "webpack serve --env mode=production",
-		"build:prod": "webpack --env mode=production"
+		"build": "webpack --env mode=production",
+		"prettier": "npx prettier --write **/*.{ts,tsx,json}"
 	},
 	"keywords": [],
 	"author": "",
