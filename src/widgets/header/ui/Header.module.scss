@@ -5,15 +5,6 @@
     align-items: center;
     justify-content: space-around;
     background: linear-gradient(360deg, #0C4493 0%, #1969CB 100%);
-
-    &__image {
-        height: 100%;
-    
-        img {
-            height: 100%;
-            object-fit: cover;
-        }
-    }
     
     &__title {
         width: 700px;
