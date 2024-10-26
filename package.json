@@ -3,7 +3,7 @@
 	"version": "1.0.0",
 	"main": "src/index.tsx",
 	"scripts": {
-		"devlocal": "webpack serve --env mode=development",
+		"devlocal": "npx webpack serve --env mode=development --config ./webpack.config.ts",
 		"devserver": "webpack serve --env mode=production",
 		"build": "webpack --env mode=production",
 		"prettier": "npx prettier --write **/*.{ts,tsx,json}"
@@ -39,6 +39,11 @@
 		"webpack-hot-middleware": "^2.26.1"
 	},
 	"dependencies": {
+		"@emotion/react": "^11.13.3",
+		"@emotion/styled": "^11.13.0",
+		"@fontsource/roboto": "^5.1.0",
+		"@mui/icons-material": "^6.1.5",
+		"@mui/material": "^6.1.5",
 		"axios": "^1.7.7",
 		"classnames": "^2.5.1",
 		"react": "^18.3.1",

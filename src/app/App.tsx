@@ -1,9 +1,13 @@
+import { Header } from '@/widgets/header';
 import { AppRouter } from './providers';
 
 import './styles/normalize.scss';
 
 function App() {
-	return <AppRouter />;
+	return <>
+		<Header />
+		<AppRouter />
+	</>;
 }
 
 export { App };
