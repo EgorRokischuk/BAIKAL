@@ -1,4 +1,4 @@
-import { AppRouter } from './providers';
+import { AppRouter } from './providers/routers';
 
 import './styles/normalize.scss';
 
