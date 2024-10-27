@@ -1,8 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
+import { globalReducer } from '../model/globalReducer';
 
 const createReduxStore = () => {
 	return configureStore({
-		reducer: {},
+		reducer: {
+			global: globalReducer,
+		},
 	});
 };
 
