@@ -4,7 +4,7 @@
 	"main": "src/index.tsx",
 	"scripts": {
 		"prepare": "husky",
-		"devlocal": "webpack serve --env mode=development",
+		"devlocal": "npx webpack serve --env mode=development --config ./webpack.config.ts",
 		"devserver": "webpack serve --env mode=production",
 		"build": "webpack --env mode=production",
 		"prettier": "npx prettier --write **/*.{ts,tsx,json}"
