@@ -16,7 +16,7 @@ const MemoHeader = () => {
 						{' зоны с помощью спутниковых снимков'}
 					</span>
 				</div>
-				<div className={s.header__user_button} >
+				<div>
 					<UserMenuButton />
 				</div>
 			</div>

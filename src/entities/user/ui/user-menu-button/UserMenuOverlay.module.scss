@@ -1,26 +1,35 @@
-.user_menu_block_header{
-    color: #FFF;
-    text-align: center;
-}
-.user_menu_block_text{
-    color: #FFF;
-    text-align: justify;
-    margin-left: 20px;
-    margin-right: 20px;
-    margin-top: 15px;
-}
-.user_menu_block_buttons{
-    margin-top: 25px;   
-}
-.user_menu_block_button{
-    display: block;
-    width: 200px;
-    height: 30px;
-    margin-bottom: 10px;
-    text-align: center;
-    background-color: #ECECEC;
-    color: #0C4493;
-    border-radius: 5px;
-    margin-left: auto;
-    margin-right: auto;
+.user_menu_block {
+    background: #0C4493;
+    width: 336px;
+    height: 290px;
+
+    &_header {
+        color: #FFF;
+        text-align: center;
+    }
+
+    &_text {
+        color: #FFF;
+        text-align: justify;
+        margin-left: 20px;
+        margin-right: 20px;
+        margin-top: 15px;
+    }
+
+    &_buttons {
+        margin-top: 25px;   
+    }
+
+    &_button {
+        display: block;
+        width: 200px;
+        height: 30px;
+        margin-bottom: 10px;
+        text-align: center;
+        background-color: #ECECEC;
+        color: #0C4493;
+        border-radius: 5px;
+        margin-left: auto;
+        margin-right: auto;
+    }
 }
