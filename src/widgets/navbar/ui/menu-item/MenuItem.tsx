@@ -1,6 +1,9 @@
-import { useState } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
-import { IMenuItem } from '../../model/types';
+import { NavLink } from 'react-router-dom';
+import { IMenuItem } from '@/widgets/navbar/model/types';
+
+import { useAppDispatch } from '@/shared/hooks/useAppDispatch';
+import { useAppSelector } from '@/shared/hooks/useAppSelector';
+import { globalActions } from '@/app/providers/store';
 
 import classNames from 'classnames';
 import * as s from './MenuItem.module.scss';
@@ -10,20 +13,20 @@ interface IMenuItemProps {
 }
 
 const MenuItem = ({ menuItem }: IMenuItemProps) => {
-	const location = useLocation();
+	const dispatch = useAppDispatch();
+	const currentPage = useAppSelector(({ global }) => global.currentPage);
 
-	const [active, setActive] = useState(location.pathname.endsWith(menuItem.route));
-
-	const handleActive = () => {
-		setActive((prev) => !prev);
-	};
+	const handleClick = () => dispatch(globalActions.setCurrentPage(menuItem.route));
 
 	return (
 		<div className={s.block}>
 			<NavLink to={menuItem.route} end>
 				<button
-					className={classNames({ [s.block__btn]: true, [s.block__btn_active]: active })}
-					onClick={handleActive}
+					className={classNames({
+						[s.block__btn]: true,
+						[s.block__btn_active]: currentPage.endsWith(menuItem.route),
+					})}
+					onClick={handleClick}
 				>
 					{menuItem.name}
 				</button>
