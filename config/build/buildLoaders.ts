@@ -22,6 +22,14 @@ export function buildLoaders({ mode }: IBuildOptions): ModuleOptions['rules'] {
 		},
 	};
 
+	const cssLoader = {
+		test: /\.css$/i,
+		use: [
+			isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
+			'css-loader'
+		],
+	};
+
 	const scssLoader = {
 		test: /\.s[ac]ss$/i,
 		use: [
@@ -71,5 +79,5 @@ export function buildLoaders({ mode }: IBuildOptions): ModuleOptions['rules'] {
 		],
 	};
 
-	return [assetLoader, scssLoader, tsLoader, svgrLoader];
+	return [assetLoader, cssLoader, scssLoader, tsLoader, svgrLoader];
 }
