@@ -1,15 +1,6 @@
-import { Header } from '@/widgets/header';
-import { AppRouter } from './providers/routers';
-
+import { Outlet } from 'react-router-dom';
 import './styles/normalize.scss';
 
-function App() {
-	return (
-		<>
-			<Header />
-			<AppRouter />
-		</>
-	);
-}
+const App = () => <Outlet />;
 
 export { App };
