@@ -13,6 +13,7 @@ import { About } from '@/pages/about';
 import { Publications } from '@/pages/publications';
 import { ExternalResources } from '@/pages/external-resources';
 import { AccessDenied } from '@/pages/access-denied';
+import { AuthLayout } from '@/app/layouts/AuthLayout';
 
 const navBarItems = [
 	{ name: 'Карта', route: '/', },
@@ -87,7 +88,7 @@ const router = createBrowserRouter([
 			{
 				path: ROUTES.auth.route,
 				element: (
-					<MainLayout navbarItems={navBarItems} />
+					<AuthLayout />
 				),
 				children: [
 					{
