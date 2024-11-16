@@ -1,0 +1,23 @@
+.container {
+    border-radius: 5px;
+    background: white;
+    box-shadow: 1px 1px 5px;
+}
+
+.header {
+    background: #CECECE;
+    padding: 5px;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+}
+
+.footer {
+    padding: 7px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.radio_group {
+    padding: 7px;
+}
