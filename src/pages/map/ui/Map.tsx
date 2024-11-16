@@ -1,8 +1,10 @@
+import { Map as MapContainer } from '@/widgets/map';
+
 function Map() {
 	return (
-		<div>
-			<h1>Map</h1>
-		</div>
+		<>
+			<MapContainer />
+		</>
 	);
 }
 
