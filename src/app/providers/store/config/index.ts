@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { globalReducer } from '../model/globalReducer';
+import { mapReducer } from '@/entities/Map';
 
 const createReduxStore = () => {
 	return configureStore({
 		reducer: {
 			global: globalReducer,
+			map: mapReducer,
 		},
 	});
 };
