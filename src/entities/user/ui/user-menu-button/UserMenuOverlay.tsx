@@ -2,7 +2,7 @@ import { styled, alpha } from '@mui/material/styles';
 import * as s from './UserMenuOverlay.module.scss';
 import { Typography } from '@mui/material';
 import Menu from '@mui/material/Menu';
-import { BorderAll, BorderClear } from '@mui/icons-material';
+import { BorderAll, BorderClear, Height } from '@mui/icons-material';
 
 const CustomMenu = styled((props: any) => (
     <Menu

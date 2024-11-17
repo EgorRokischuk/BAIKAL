@@ -3,6 +3,7 @@ import { memo } from 'react';
 import * as s from './Header.module.scss';
 import { UserMenuButton } from '@/entities/user';
 import { UserMenuOverlay } from '@/entities/user/ui/user-menu-button/UserMenuOverlay';
+import { Typography } from '@mui/material';
 
 const MemoHeader = () => {
 	return (
@@ -10,11 +11,13 @@ const MemoHeader = () => {
 			<div className={s.header}>
 				<div></div>
 				<div className={s.header__title}>
-					<span>
+					<Typography
+						variant='h5'
+					>
 						{'ИС анализа Байкальской природной'}
 						<br />
 						{' зоны с помощью спутниковых снимков'}
-					</span>
+					</Typography>
 				</div>
 				<div>
 					<UserMenuButton />
