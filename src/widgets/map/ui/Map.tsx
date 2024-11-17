@@ -1,6 +1,7 @@
 import { MapContainer, TileLayer } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 
+import { ShowCoordinates } from '@/features/Map/show-coordinates';
 import { useAppSelector } from '@/shared/hooks/useAppSelector';
 import { ChangeZoom } from '@/features/Map/change-zoom';
 import { getMapZoom } from '@/entities/Map';
@@ -16,6 +17,7 @@ const Map = () => {
 			<TileLayer url={LAYER_LINK} />
 
 			<ChangeZoom />
+			<ShowCoordinates />
 		</MapContainer>
 	);
 };
