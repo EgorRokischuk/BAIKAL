@@ -4,7 +4,7 @@ import 'leaflet/dist/leaflet.css';
 import { ShowCoordinates } from '@/features/Map/show-coordinates';
 import { useAppSelector } from '@/shared/hooks/useAppSelector';
 import { ChangeZoom } from '@/features/Map/change-zoom';
-import { getMapZoom } from '@/entities/Map';
+import { getMapZoom } from '@/entities/map';
 
 import { LAYER_LINK, MAP_PROPS } from '../config/constants';
 import './Map.css';

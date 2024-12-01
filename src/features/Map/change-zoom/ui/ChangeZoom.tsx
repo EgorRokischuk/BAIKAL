@@ -2,7 +2,7 @@ import { useMap, useMapEvent } from 'react-leaflet';
 import { Button, IconButton } from '@mui/material';
 
 import { useAppDispatch } from '@/shared/hooks/useAppDispatch';
-import { mapActions } from '@/entities/Map';
+import { mapActions } from '@/entities/map';
 import { DragControl } from '@/shared/ui';
 
 import * as s from './ChangeZoom.module.scss';

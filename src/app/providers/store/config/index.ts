@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { globalReducer } from '../model/globalReducer';
-import { mapReducer } from '@/entities/Map';
+import { mapReducer } from '@/entities/map';
 
 const createReduxStore = () => {
 	return configureStore({

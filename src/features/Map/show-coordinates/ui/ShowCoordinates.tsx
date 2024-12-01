@@ -3,7 +3,7 @@ import { LatLngLiteral } from 'leaflet';
 
 import { useAppDispatch } from '@/shared/hooks/useAppDispatch';
 import { useAppSelector } from '@/shared/hooks/useAppSelector';
-import { getMapLocation, mapActions } from '@/entities/Map';
+import { getMapLocation, mapActions } from '@/entities/map';
 import { DragControl } from '@/shared/ui';
 
 import * as s from './ShowCoordinates.module.scss';
