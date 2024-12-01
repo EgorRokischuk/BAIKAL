@@ -27,10 +27,10 @@ export const UserMenuButton = () => {
                 <div className={s.user_menu_button}>
                     <div className={s.user_menu_button_avatar_container}>
                         <AccountCircleOutlinedIcon
-                            sx={{ fontSize: 70 }} />
+                            sx={{ fontSize: 50 }} />
                     </div>
                     <span className={s.user_menu_button_caption}>
-                        Гость
+                        <Typography variant='caption'>Гость</Typography>
                     </span>
                 </div>
             </Button>

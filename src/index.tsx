@@ -5,7 +5,7 @@ import { StoreProvider } from './app/providers/store';
 import { theme } from '@/shared/ui/themes/theme';
 import { ThemeProvider } from '@mui/material/styles';
 import { LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
 const root = document.getElementById('root');
 

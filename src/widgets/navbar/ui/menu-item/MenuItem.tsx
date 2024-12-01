@@ -7,6 +7,7 @@ import { globalActions } from '@/app/providers/store';
 
 import classNames from 'classnames';
 import * as s from './MenuItem.module.scss';
+import { Typography } from '@mui/material';
 
 interface IMenuItemProps {
 	menuItem: IMenuItem;
@@ -28,7 +29,7 @@ const MenuItem = ({ menuItem }: IMenuItemProps) => {
 					})}
 					onClick={handleClick}
 				>
-					{menuItem.name}
+					<Typography variant='body1'>{menuItem.name}</Typography>
 				</button>
 			</NavLink>
 		</div>

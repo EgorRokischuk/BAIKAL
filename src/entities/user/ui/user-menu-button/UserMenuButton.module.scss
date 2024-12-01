@@ -5,12 +5,13 @@
     text-align: center;
 
     &_avatar_container {
-        height: 70px;
+        height: 39px;
+        padding-bottom: 5px;
     }
 
     &_caption {
         display: block;
-        font-size: 10px;
-        font-family: Roboto, Helvetica, Arial, sans-serif
+        font-size: 8px;
+        //font-family: Roboto, Helvetica, Arial, sans-serif
     }
 }
