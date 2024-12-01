@@ -2,6 +2,7 @@ import webpack from 'webpack';
 import path from 'path';
 import { buildWebpack } from './config/build/buildWebpack';
 import { BuildMode, IBuildPaths } from './config/build/types';
+import Dotenv from 'dotenv-webpack';
 
 interface IEnvVariables {
 	mode: BuildMode;
@@ -25,6 +26,15 @@ export default (env: IEnvVariables) => {
 		paths,
 		analyzer: env.analyzer || false,
 	});
+	
+	config.plugins = config.plugins || [];
+
+	config.plugins.push(
+		new Dotenv({
+			path: path.resolve(__dirname, '.env'),
+			systemvars: true,
+		})
+	);
 
 	if (isDev) {
 		config.devServer = {

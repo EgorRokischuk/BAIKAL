@@ -15,9 +15,12 @@ const TabMenuHeader = (props: any) => {
 		<Tabs
 			value={tabIndex}
 			onChange={(e, index) => { setTabIndex(index) }}
-			variant='fullWidth'
+			variant={typeof tabs[0].title === 'number' ? 'scrollable' : 'fullWidth'}
 		>
-			{tabs.map((tab: any) => (<Tab disabled={!tab.enabled} label={tab.title} sx={{ textTransform: 'none' }} />))}
+			{tabs.map((tab: any) => (<Tab disabled={!tab.enabled} label={<Typography variant={tab.enabled ? 'map_menu' : 'map_menu_disabled'}>{tab.title}</Typography>} sx={{
+				textTransform: 'none',
+				padding: '6px 12px',
+			}} />))}
 		</Tabs>
 	)
 };
@@ -57,7 +60,7 @@ const TabMenu = (props: any) => {
 
 	for (let i = 0; i < tabs.length; i++) {
 		const tab = tabs[i]
-		if(tab.enabled === true) {
+		if (tab.enabled === true) {
 			firstActiveTab = i
 			break;
 		}
@@ -112,7 +115,7 @@ const MenuHeader = (props: any) => {
 	return (<div className={s.header}
 		onClick={onClick}>
 		<ArrowBackIosIcon />
-		<Typography color='primary' align='center' >Продукты</Typography>
+		<Typography variant="map_menu_label" align='center'>Продукты</Typography>
 		<div />
 	</div>)
 }
@@ -154,28 +157,28 @@ const Menu = () => {
 							content: (<TabMenu tabs={[
 								{
 									title: 4,
-										enabled: true,
+									enabled: false,
 									content: (<DatePicker label='день' />),
 								},
 								{
 									title: 5,
 
-										enabled: true,
+									enabled: false,
 									content: (<DatePicker label='день' />),
 								},
 								{
 									title: 6,
-										enabled: true,
+									enabled: false,
 									content: (<DatePicker label='день' />),
 								},
 								{
 									title: 7,
-										enabled: true,
+									enabled: false,
 									content: (<DatePicker label='день' />),
 								},
 								{
 									title: 8,
-										enabled: true,
+									enabled: true,
 									content: (<DatePicker label='день' />),
 								},
 							]} />)
