@@ -17,8 +17,10 @@ const Map = () => {
 			<TileLayer url={LAYER_LINK} />
 			<TileLayer
 				opacity={0.8}
-				/* minZoom={8} maxZoom={12}  */
-				url={`${API.TILE_DOMAIN}/temperature/landsat/Landsat_8_25_05_24/tiles/{z}/{x}/{-y}.png`} />
+				minZoom={8}
+				maxZoom={12}
+				url={`${API.TILE_DOMAIN}/temperature/landsat/Landsat_8_25_05_24/tiles/{z}/{x}/{-y}.png`}
+			/>
 			<ChangeZoom />
 			<ShowCoordinates />
 		</MapContainer>
