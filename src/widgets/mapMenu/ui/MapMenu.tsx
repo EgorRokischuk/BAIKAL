@@ -1,6 +1,5 @@
 import { ArrowBackIos, ArrowForwardIos } from '@mui/icons-material';
 import { Button, Collapse, Typography } from '@mui/material';
-import DownloadIcon from '@mui/icons-material/Download';
 import InfoIcon from '@mui/icons-material/Info';
 import { useState } from 'react';
 
@@ -8,6 +7,7 @@ import * as s from './MapMenu.module.scss';
 import { MENU_STRUCTURE } from '../config/constants';
 import { TabMenu } from '@/entities/map';
 import { ShowTile } from '@/features/Map/show-tile';
+import { DownloadTile } from '@/features/Map/download-tile';
 
 const MapMenu = () => {
 	const [collapsed, setCollapsed] = useState(false);
@@ -34,9 +34,7 @@ const MapMenu = () => {
 
 					{/* Menu Footer (with features) */}
 					<div className={s.footer}>
-						<Button variant="contained">
-							<DownloadIcon />
-						</Button>
+						<DownloadTile />
 						<ShowTile />
 						<Button>
 							<InfoIcon />
