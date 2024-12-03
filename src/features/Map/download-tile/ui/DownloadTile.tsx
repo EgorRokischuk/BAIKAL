@@ -12,15 +12,15 @@ const DownloadTile = () => {
 	const tile = useAppSelector(getTile);
 
 	return (
-		<Button variant="contained" disabled={!isTileVisible}>
-			<Link
-				className={s.link}
-				to={`${process.env.TILE_API_URL}/${tile.join('/')}_${date}/${tile[tile.length - 1]}_${date}.tif`}
-				download
-			>
+		<Link
+			className={s.link}
+			to={`${process.env.TILE_API_URL}/${tile.join('/')}_${date}/${tile[tile.length - 1]}_${date}.tif`}
+			download
+		>
+			<Button variant="contained" disabled={!isTileVisible}>
 				<DownloadIcon />
-			</Link>
-		</Button>
+			</Button>
+		</Link>
 	);
 };
 
