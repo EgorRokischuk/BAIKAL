@@ -30,8 +30,9 @@ const TabMenuHeader = ({ tabIndex, tabs, setTabIndex }: IProps) => {
 				tabs.every((tab: IMapMenuItem) => '45678'.includes(tab.title)) ? 'scrollable' : 'fullWidth'
 			}
 		>
-			{tabs.map((tab: IMapMenuItem) => (
+			{tabs.map((tab: IMapMenuItem, index: number) => (
 				<Tab
+					key={index}
 					onClick={() => setTileSettings(tab.level, tab.value || '')}
 					disabled={disabledTabs.includes(tab.title)}
 					label={
