@@ -1,5 +1,4 @@
-export * from "./ui/Menu";
-export type { IMapState } from './types';
+export * from './ui';
 export * from './model/selectors';
 export { mapReducer, mapActions } from './model/slices';
-
+export * from './types';
