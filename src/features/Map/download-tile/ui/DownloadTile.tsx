@@ -11,16 +11,19 @@ const DownloadTile = () => {
 	const date = useAppSelector(getTileDate);
 	const tile = useAppSelector(getTile);
 
+	const handleDownload = () => {
+		const fileUrl = `${process.env.TILE_API_URL}/${tile.join('/')}_${date}/${tile[tile.length - 1]}_${date}.tif`;
+		window.open(fileUrl, '_blank');
+	};
+
 	return (
-		<Link
-			className={s.link}
-			to={`${process.env.TILE_API_URL}/${tile.join('/')}_${date}/${tile[tile.length - 1]}_${date}.tif`}
-			download
+		<Button
+			variant="contained"
+			disabled={!isTileVisible}
+			onClick={handleDownload}
 		>
-			<Button variant="contained" disabled={!isTileVisible}>
-				<DownloadIcon />
-			</Button>
-		</Link>
+			<DownloadIcon />
+		</Button>
 	);
 };
 

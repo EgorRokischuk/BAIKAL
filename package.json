@@ -4,8 +4,11 @@
 	"main": "src/index.tsx",
 	"scripts": {
 		"prepare": "husky",
+		"start-http-server": "cd ../baikal_test && npx http-server -p 2000",
+		"devNhttp": "npx webpack serve --env mode=development --config ./webpack.config.ts && npm run start-http-server",
 		"devlocal": "npx webpack serve --env mode=development --config ./webpack.config.ts",
 		"devserver": "webpack serve --env mode=production",
+		"runbuild": "npx http-server ./build -p 3000",
 		"build": "webpack --env mode=production",
 		"prettier": "npx prettier --write **/*.{ts,tsx,json}"
 	},
