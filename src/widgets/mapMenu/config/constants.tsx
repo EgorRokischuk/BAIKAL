@@ -1,5 +1,6 @@
-import { TabMenu, Accordions, RadioDayNight } from '@/entities/map';
+import { TabMenu, Accordions, RadioDayNight, getTileDate, mapActions } from '@/entities/map';
 import type { IMapMenu, IMapMenuContent } from '@/entities/map';
+import { TileDatePicker } from '@/entities/map';
 import {
 	Accordion,
 	AccordionSummary,
@@ -7,7 +8,6 @@ import {
 	FormControlLabel,
 	Checkbox,
 } from '@mui/material';
-import { DatePicker } from '@mui/x-date-pickers';
 
 // Содержимое таба "Наземные данные"
 const groundDataContent: IMapMenuContent = (
@@ -30,43 +30,43 @@ const groundDataContent: IMapMenuContent = (
 		<Accordion>
 			<AccordionSummary>Выбор даты</AccordionSummary>
 			<AccordionDetails>
-				<DatePicker label="день" />
+				<TileDatePicker />
 			</AccordionDetails>
 		</Accordion>
 	</>
 );
 
 // Содержимое таба "Озеро Байкал - LST - LANDSAT"
-const landsatTabs: IMapMenu = [
+const landsatTabs = [
 	{
 		title: '4',
 		level: 2,
-		value: '4',
-		content: <DatePicker label="день" />,
+		value: 'Landsat_4',
+		content: <TileDatePicker />,
 	},
 	{
 		title: '5',
 		level: 2,
-		value: '5',
-		content: <DatePicker label="день" />,
+		value: 'Landsat_5',
+		content: <TileDatePicker />,
 	},
 	{
 		title: '6',
 		level: 2,
-		value: '6',
-		content: <DatePicker label="день" />,
+		value: 'Landsat_6',
+		content: <TileDatePicker />,
 	},
 	{
 		title: '7',
 		level: 2,
-		value: '7',
-		content: <DatePicker label="день" />,
+		value: 'Landsat_7',
+		content: <TileDatePicker />,
 	},
 	{
 		title: '8',
 		level: 2,
-		value: '8',
-		content: <DatePicker label="день" />,
+		value: 'Landsat_8',
+		content: <TileDatePicker />,
 	},
 ];
 

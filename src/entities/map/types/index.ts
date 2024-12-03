@@ -1,8 +1,12 @@
+import { Dayjs } from 'dayjs';
 import { LatLngLiteral } from 'leaflet';
 
 export interface IMapState {
 	zoom: number;
 	location: LatLngLiteral;
+	date: string;
+	isTileVisible: boolean;
+	tile: Array<string>;
 }
 
 export interface IMapMenuContent extends React.ReactElement {}

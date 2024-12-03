@@ -7,6 +7,7 @@ import { useState } from 'react';
 import * as s from './MapMenu.module.scss';
 import { MENU_STRUCTURE } from '../config/constants';
 import { TabMenu } from '@/entities/map';
+import { ShowTile } from '@/features/Map/show-tile';
 
 const MapMenu = () => {
 	const [collapsed, setCollapsed] = useState(false);
@@ -36,7 +37,7 @@ const MapMenu = () => {
 						<Button variant="contained">
 							<DownloadIcon />
 						</Button>
-						<Button variant="contained">Подтвердить</Button>
+						<ShowTile />
 						<Button>
 							<InfoIcon />
 						</Button>

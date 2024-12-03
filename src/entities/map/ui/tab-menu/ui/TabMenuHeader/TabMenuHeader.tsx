@@ -1,6 +1,9 @@
 import { Tabs, Tab, Typography } from '@mui/material';
 import { disabledTabs } from '../../config/constants';
 import { IMapMenu, IMapMenuItem } from '@/entities/map/types';
+import { useAppDispatch } from '@/shared/hooks/useAppDispatch';
+import { mapActions } from '@/entities/map/model/slices';
+import { useEffect } from 'react';
 
 interface IProps {
 	tabIndex: number;
@@ -9,6 +12,16 @@ interface IProps {
 }
 
 const TabMenuHeader = ({ tabIndex, tabs, setTabIndex }: IProps) => {
+	const dispatch = useAppDispatch();
+
+	const setTileSettings = (pos: number, tile: string) => {
+		dispatch(mapActions.setTile({ pos, tile }));
+	};
+
+	useEffect(() => {
+		setTileSettings(tabs[tabIndex].level, tabs[tabIndex].value || '');
+	}, []);
+
 	return (
 		<Tabs
 			value={tabIndex}
@@ -19,6 +32,7 @@ const TabMenuHeader = ({ tabIndex, tabs, setTabIndex }: IProps) => {
 		>
 			{tabs.map((tab: IMapMenuItem) => (
 				<Tab
+					onClick={() => setTileSettings(tab.level, tab.value || '')}
 					disabled={disabledTabs.includes(tab.title)}
 					label={
 						<Typography

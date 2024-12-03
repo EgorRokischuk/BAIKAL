@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { getAvailableTab } from '../lib';
 import { TabMenuHeader } from './TabMenuHeader';
 import { MenuBody } from './MenuBody';
