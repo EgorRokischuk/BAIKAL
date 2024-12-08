@@ -3,9 +3,7 @@ import { IBuildOptions } from './types';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import ReactRefreshTypeScript from 'react-refresh-typescript';
 
-export function buildLoaders({ mode }: IBuildOptions): ModuleOptions['rules'] {
-	const isDev = mode === 'development';
-
+export function buildLoaders({ isDev }: IBuildOptions): ModuleOptions['rules'] {
 	const assetLoader = {
 		test: /\.(png|jpe?g|gif|woff2|woff)$/i,
 		type: 'asset/resource',
@@ -15,19 +13,14 @@ export function buildLoaders({ mode }: IBuildOptions): ModuleOptions['rules'] {
 		loader: 'css-loader',
 		options: {
 			modules: {
-				localIdentName: isDev
-					? '[path]__[name]__[local]'
-					: '[hash:base64:8]',
+				localIdentName: isDev ? '[path]__[name]__[local]' : '[hash:base64:8]',
 			},
 		},
 	};
 
 	const cssLoader = {
 		test: /\.css$/i,
-		use: [
-			isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
-			'css-loader'
-		],
+		use: [isDev ? 'style-loader' : MiniCssExtractPlugin.loader, 'css-loader'],
 	};
 
 	const scssLoader = {
@@ -47,9 +40,7 @@ export function buildLoaders({ mode }: IBuildOptions): ModuleOptions['rules'] {
 				options: {
 					transpileOnly: true,
 					getCustomTransformers: () => ({
-						before: [isDev && ReactRefreshTypeScript()].filter(
-							Boolean
-						),
+						before: [isDev && ReactRefreshTypeScript()].filter(Boolean),
 					}),
 				},
 			},

@@ -3,7 +3,7 @@ import { useCookies } from 'react-cookie';
 
 export const http = axios.create({
 	withCredentials: true,
-	baseURL: __API_URL__,
+	baseURL: process.env.API_URL,
 });
 
 http.interceptors.request.use(
