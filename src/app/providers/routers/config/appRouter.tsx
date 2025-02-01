@@ -13,28 +13,27 @@ import { About } from '@/pages/about';
 import { Publications } from '@/pages/publications';
 import { ExternalResources } from '@/pages/external-resources';
 import { AccessDenied } from '@/pages/access-denied';
-import { AuthLayout } from '@/app/layouts/AuthLayout';
 
 const navBarItems = [
-	{ name: 'Карта', route: '/', },
-	{ name: 'О проекте', route: '/about'},
+	{ name: 'Карта', route: '/' },
+	{ name: 'О проекте', route: '/about' },
 	{
-	  name: 'Публикации',
-	  route: '/publications',
+		name: 'Публикации',
+		route: '/publications',
 	},
 	{
-	  name: 'Внешние ресурсы',
-	  route: '/externalResources',
+		name: 'Внешние ресурсы',
+		route: '/externalResources',
 	},
 	{
-	  name: 'Руководство пользователя',
-	  route: '/guide',
+		name: 'Руководство пользователя',
+		route: '/guide',
 	},
 	{
-	  name: 'Служба поддержки',
-	  route: '/support',
+		name: 'Служба поддержки',
+		route: '/support',
 	},
-  ];
+];
 
 const router = createBrowserRouter([
 	{
@@ -43,9 +42,7 @@ const router = createBrowserRouter([
 		children: [
 			{
 				path: ROUTES.appRoute,
-				element: (
-					<MainLayout navbarItems={navBarItems} />
-				),
+				element: <MainLayout isAuth={false} navbarItems={navBarItems} />,
 				children: [
 					{
 						index: true,
@@ -81,15 +78,13 @@ const router = createBrowserRouter([
 					},
 					{
 						path: ROUTES.exceptions.accessDenied.route,
-						element: <AccessDenied />
-					}
+						element: <AccessDenied />,
+					},
 				],
 			},
 			{
 				path: ROUTES.auth.route,
-				element: (
-					<AuthLayout />
-				),
+				element: <MainLayout isAuth={true} />,
 				children: [
 					{
 						path: ROUTES.auth.login.route,
