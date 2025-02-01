@@ -1,1 +1,1 @@
-export { UserMenuButton} from './ui/user-menu-button/UserMenuButton';
+export { UserMenuButton } from './ui/user-menu-button';

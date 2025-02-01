@@ -1,16 +1,16 @@
 import { useMap, useMapEvent } from 'react-leaflet';
-import { Button, IconButton } from '@mui/material';
+import { Button } from '@mui/material';
 
 import { useAppDispatch } from '@/shared/hooks/useAppDispatch';
-import { mapActions } from '@/entities/map';
-import { DragControl } from '@/shared/ui';
+import { mapActions } from '@/entities/Map';
+import { DragControl } from '@/shared/ui/DragControl';
 
 import * as s from './ChangeZoom.module.scss';
 import { btnStyle } from '../config/sxStyles';
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
 
-function ChangeZoom() {
+const ChangeZoom: React.FC = () => {
 	const map = useMap();
 	const dispatch = useAppDispatch();
 
@@ -38,6 +38,6 @@ function ChangeZoom() {
 			</div>
 		</DragControl>
 	);
-}
+};
 
 export { ChangeZoom };

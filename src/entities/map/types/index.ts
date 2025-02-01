@@ -1,4 +1,3 @@
-import { Dayjs } from 'dayjs';
 import { LatLngLiteral } from 'leaflet';
 
 export interface IMapState {

@@ -1,8 +1,8 @@
 import { Map as MapContainer } from '@/widgets/map';
-import { MapMenu } from '@/widgets/mapMenu';
+import { MapMenu } from '@/widgets/map-menu';
 import * as s from './Map.module.scss';
 
-function Map() {
+const Map: React.FC = () => {
 	return (
 		<>
 			<MapContainer />
@@ -11,6 +11,6 @@ function Map() {
 			</div>
 		</>
 	);
-}
+};
 
 export { Map };

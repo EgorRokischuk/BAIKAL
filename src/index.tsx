@@ -2,7 +2,7 @@ import { createRoot } from 'react-dom/client';
 import { router } from './app/providers/routers';
 import { RouterProvider } from 'react-router-dom';
 import { StoreProvider } from './app/providers/store';
-import { theme } from '@/shared/ui/themes/theme';
+import { theme } from '@/app/themes/theme';
 import { ThemeProvider } from '@mui/material/styles';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';

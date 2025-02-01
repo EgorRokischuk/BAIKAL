@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IMapState } from '../../types';
 import { LatLngLiteral } from 'leaflet';
-import dayjs, { Dayjs } from 'dayjs';
+import dayjs from 'dayjs';
 
 const initialState: IMapState = {
 	zoom: 7,

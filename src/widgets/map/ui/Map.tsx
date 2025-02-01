@@ -4,12 +4,12 @@ import 'leaflet/dist/leaflet.css';
 import { ShowCoordinates } from '@/features/Map/show-coordinates';
 import { useAppSelector } from '@/shared/hooks/useAppSelector';
 import { ChangeZoom } from '@/features/Map/change-zoom';
-import { getIsTileVisible, getMapZoom, getTile, getTileDate } from '@/entities/map';
+import { getIsTileVisible, getMapZoom, getTile, getTileDate } from '@/entities/Map';
 
 import { API, LAYER_LINK, MAP_PROPS } from '../config/constants';
 import './Map.css';
 
-const Map = () => {
+const Map: React.FC = () => {
 	const zoom = useAppSelector(getMapZoom);
 	const isTileVisible = useAppSelector(getIsTileVisible);
 	const tile = useAppSelector(getTile);

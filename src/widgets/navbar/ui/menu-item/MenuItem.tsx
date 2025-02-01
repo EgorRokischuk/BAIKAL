@@ -13,7 +13,7 @@ interface IMenuItemProps {
 	menuItem: IMenuItem;
 }
 
-const MenuItem = ({ menuItem }: IMenuItemProps) => {
+const MenuItem: React.FC<IMenuItemProps> = ({ menuItem }) => {
 	const dispatch = useAppDispatch();
 	const currentPage = useAppSelector(({ global }) => global.currentPage);
 
@@ -29,7 +29,7 @@ const MenuItem = ({ menuItem }: IMenuItemProps) => {
 					})}
 					onClick={handleClick}
 				>
-					<Typography variant='body1'>{menuItem.name}</Typography>
+					<Typography variant="body1">{menuItem.name}</Typography>
 				</button>
 			</NavLink>
 		</div>

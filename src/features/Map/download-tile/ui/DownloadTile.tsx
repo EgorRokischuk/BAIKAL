@@ -1,12 +1,9 @@
 import { Button } from '@mui/material';
 import DownloadIcon from '@mui/icons-material/Download';
 import { useAppSelector } from '@/shared/hooks/useAppSelector';
-import { getIsTileVisible, getTile, getTileDate } from '@/entities/map';
-import { Link } from 'react-router-dom';
+import { getIsTileVisible, getTile, getTileDate } from '@/entities/Map';
 
-import * as s from './DownloadTile.module.scss';
-
-const DownloadTile = () => {
+const DownloadTile: React.FC = () => {
 	const isTileVisible = useAppSelector(getIsTileVisible);
 	const date = useAppSelector(getTileDate);
 	const tile = useAppSelector(getTile);
@@ -17,11 +14,7 @@ const DownloadTile = () => {
 	};
 
 	return (
-		<Button
-			variant="contained"
-			disabled={!isTileVisible}
-			onClick={handleDownload}
-		>
+		<Button variant="contained" disabled={!isTileVisible} onClick={handleDownload}>
 			<DownloadIcon />
 		</Button>
 	);

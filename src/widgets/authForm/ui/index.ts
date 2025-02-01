@@ -1,3 +1,0 @@
-
-
-export {AuthForm} from "./AuthForm"

@@ -6,7 +6,7 @@ interface INavbarProps {
 	menuItems: IMenuItem[];
 }
 
-const Navbar = ({ menuItems }: INavbarProps) => {
+const Navbar: React.FC<INavbarProps> = ({ menuItems }) => {
 	return (
 		<div className={s.block}>
 			{menuItems.map((item: IMenuItem, index: number) => (
