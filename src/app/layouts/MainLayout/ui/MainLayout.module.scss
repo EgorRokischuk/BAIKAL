@@ -7,11 +7,11 @@
 $bg-img: url('../../../../shared/assets/gallery/auth_bg.png');
 
 .main {
-    @include layout(150px);
+    @include layout(110px);
 }
 
 .auth {
-    @include layout(110px);
+    @include layout(70px);
     background-image: $bg-img;
 }
   

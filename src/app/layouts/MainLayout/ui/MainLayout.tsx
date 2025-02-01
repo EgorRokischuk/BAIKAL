@@ -33,7 +33,7 @@ const MainLayout = ({ isAuth, navbarItems }: IMainLayoutProps) => {
 				</div>
 			</main>
 
-			<Footer />
+			<Footer useLightText={isAuth} />
 		</section>
 	);
 };
