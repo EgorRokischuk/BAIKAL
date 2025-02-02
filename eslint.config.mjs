@@ -12,7 +12,7 @@ export default [
 		ignores: ['node_modules', 'config', 'build'],
 	},
 	{
-		files: ['*.ts', '**/*.ts', '*.tsx', '**/*.tsx', '*.js', '**/*.js'],
+		files: ['**/*.{js,ts,tsx}'],
 		languageOptions: {
 			parserOptions: {
 				parser: '@typescript-eslint/parser',
@@ -27,8 +27,11 @@ export default [
 			},
 		},
 		rules: {
-			'react/react-in-jsx-scope': 0,
 			'react/prop-types': 0,
+			'react/react-in-jsx-scope': 0,
+			'react/self-closing-comp': 1,
+			'react/jsx-no-literals': 1,
+			'react/jsx-boolean-value': 1,
 			'react/function-component-definition': [
 				2,
 				{
