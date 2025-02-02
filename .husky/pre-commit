@@ -6,3 +6,13 @@ if ! echo "$branch_name" | grep -qE "^(\d+(-[a-z]+){1,4})|([a-z]+)$"; then
   echo "Error: The branch name must be in the format 'XXX-example-branch-name', 'branch' or 'example-branch'"
   exit 1
 fi
+
+echo '🔍🎨 Formating and checking staged files before committing!'
+
+npx lint-staged ||
+(
+  echo '💀❌ Ooops! Formating and checking process has failed!';
+  false;
+)
+
+echo '🥳✅ Formating and checking process has been successfully completed!'
