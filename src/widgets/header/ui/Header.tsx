@@ -7,7 +7,7 @@ const MemoHeader: React.FC = () => {
 	return (
 		<div>
 			<div className={s.header}>
-				<div></div>
+				<div />
 				<div className={s.header__title}>
 					<Typography variant="h5">
 						{'ИС анализа Байкальской природной'}

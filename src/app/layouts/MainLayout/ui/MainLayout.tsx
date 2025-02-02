@@ -25,8 +25,7 @@ const MainLayout = ({ isAuth, navbarItems }: IMainLayoutProps) => {
 				})}
 			>
 				<div className={s.container}>
-					{/* TODO: Add skeleton */}
-					<Suspense fallback={<h1>loading...</h1>}>
+					<Suspense fallback={<h1>{'loading...'}</h1>}>
 						<Outlet />
 					</Suspense>
 				</div>
