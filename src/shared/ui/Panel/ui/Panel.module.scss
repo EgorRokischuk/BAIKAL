@@ -1,0 +1,36 @@
+.btn {
+    position: absolute !important;
+
+    &__right {
+        top: 0px;
+        left: 0px;
+    }
+
+    &__left {
+        top: 0px;
+        left: calc(100% - 40px);
+    }
+}
+
+.panel {
+    z-index: 2;
+    position: relative;
+    background-color: #FFF;
+    border-radius: 5px;
+    box-shadow: 1px 1px 5px;
+
+    &__header {
+        padding: 5px;
+        overflow: hidden;
+        display: flex;
+        justify-content: space-between;
+        background-color: #CECECE;
+        vertical-align: middle;
+    }
+
+    &__footer {
+        padding: 7px;
+        display: flex;
+        justify-content: space-between;
+    }
+}
