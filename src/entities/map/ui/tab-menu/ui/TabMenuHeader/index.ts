@@ -1,1 +1,1 @@
-export { TabMenuHeader } from './TabMenuHeader';
+export { TabMenuHeader } from './ui/TabMenuHeader';

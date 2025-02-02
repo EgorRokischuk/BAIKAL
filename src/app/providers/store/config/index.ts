@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
+import { mapReducer } from '@/entities/Map';
 import { globalReducer } from '../model/globalReducer';
-import { mapReducer } from '@/entities/map';
 
 const createReduxStore = () => {
 	return configureStore({
@@ -11,9 +11,9 @@ const createReduxStore = () => {
 	});
 };
 
-const store = createReduxStore();
+const _store = createReduxStore();
 
-type RootState = ReturnType<typeof store.getState>;
-type AppDispatch = typeof store.dispatch;
+type RootState = ReturnType<typeof _store.getState>;
+type AppDispatch = typeof _store.dispatch;
 
 export { createReduxStore, type RootState, type AppDispatch };

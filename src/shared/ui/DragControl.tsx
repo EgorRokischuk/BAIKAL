@@ -1,12 +1,12 @@
-import { useMapDragging } from '@/shared/hooks/useMapDragging';
 import { PropsWithChildren } from 'react';
 import { useMap } from 'react-leaflet';
+import { useMapDragging } from '@/shared/hooks/useMapDragging';
 
 interface IProps {
 	className: string;
 }
 
-function DragControl({ className, children }: PropsWithChildren<IProps>) {
+const DragControl: React.FC<PropsWithChildren<IProps>> = ({ className, children }) => {
 	const map = useMap();
 	const { enableMapDragging, disableMapDragging } = useMapDragging(map);
 
@@ -15,6 +15,6 @@ function DragControl({ className, children }: PropsWithChildren<IProps>) {
 			{children}
 		</div>
 	);
-}
+};
 
 export { DragControl };

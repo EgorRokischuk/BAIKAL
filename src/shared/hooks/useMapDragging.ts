@@ -1,5 +1,5 @@
-import { useCallback } from 'react';
 import { Map } from 'leaflet';
+import { useCallback } from 'react';
 
 const useMapDragging = (map: Map) => {
 	const disableMapDragging = useCallback(() => {

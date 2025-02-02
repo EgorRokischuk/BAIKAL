@@ -1,40 +1,36 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom';
-
-import { ROUTES } from '@/shared/config/router/routes';
-import { MainLayout } from '@/app/layouts/MainLayout';
-
-import { Map } from '@/pages/map';
-
 import { App } from '@/app/App';
-import { Login } from '@/pages/login';
-import { SignUp } from '@/pages/sign-up';
-import { NotFound } from '@/pages/not-found';
+import { MainLayout } from '@/app/layouts/MainLayout';
 import { About } from '@/pages/about';
-import { Publications } from '@/pages/publications';
-import { ExternalResources } from '@/pages/external-resources';
 import { AccessDenied } from '@/pages/access-denied';
-import { AuthLayout } from '@/app/layouts/AuthLayout';
+import { ExternalResources } from '@/pages/external-resources';
+import { Login } from '@/pages/login';
+import { Map } from '@/pages/map';
+import { NotFound } from '@/pages/not-found';
+import { Publications } from '@/pages/publications';
+import { SignUp } from '@/pages/sign-up';
+import { ROUTES } from '@/shared/config/router/routes';
 
 const navBarItems = [
-	{ name: 'Карта', route: '/', },
-	{ name: 'О проекте', route: '/about'},
+	{ name: 'Карта', route: '/' },
+	{ name: 'О проекте', route: '/about' },
 	{
-	  name: 'Публикации',
-	  route: '/publications',
+		name: 'Публикации',
+		route: '/publications',
 	},
 	{
-	  name: 'Внешние ресурсы',
-	  route: '/externalResources',
+		name: 'Внешние ресурсы',
+		route: '/externalResources',
 	},
 	{
-	  name: 'Руководство пользователя',
-	  route: '/guide',
+		name: 'Руководство пользователя',
+		route: '/guide',
 	},
 	{
-	  name: 'Служба поддержки',
-	  route: '/support',
+		name: 'Служба поддержки',
+		route: '/support',
 	},
-  ];
+];
 
 const router = createBrowserRouter([
 	{
@@ -43,9 +39,7 @@ const router = createBrowserRouter([
 		children: [
 			{
 				path: ROUTES.appRoute,
-				element: (
-					<MainLayout navbarItems={navBarItems} />
-				),
+				element: <MainLayout isAuth={false} navbarItems={navBarItems} />,
 				children: [
 					{
 						index: true,
@@ -81,15 +75,13 @@ const router = createBrowserRouter([
 					},
 					{
 						path: ROUTES.exceptions.accessDenied.route,
-						element: <AccessDenied />
-					}
+						element: <AccessDenied />,
+					},
 				],
 			},
 			{
 				path: ROUTES.auth.route,
-				element: (
-					<AuthLayout />
-				),
+				element: <MainLayout isAuth />,
 				children: [
 					{
 						path: ROUTES.auth.login.route,

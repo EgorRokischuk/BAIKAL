@@ -1,15 +1,13 @@
-import { useMapEvent } from 'react-leaflet';
 import { LatLngLiteral } from 'leaflet';
-
+import { useMapEvent } from 'react-leaflet';
+import { getMapLocation, mapActions } from '@/entities/Map';
 import { useAppDispatch } from '@/shared/hooks/useAppDispatch';
 import { useAppSelector } from '@/shared/hooks/useAppSelector';
-import { getMapLocation, mapActions } from '@/entities/map';
-import { DragControl } from '@/shared/ui';
-
-import * as s from './ShowCoordinates.module.scss';
+import { DragControl } from '@/shared/ui/DragControl';
 import { convertLocation } from '../lib';
+import * as s from './ShowCoordinates.module.scss';
 
-function ShowCoordinates() {
+const ShowCoordinates: React.FC = () => {
 	const dispatch = useAppDispatch();
 	const location = useAppSelector(getMapLocation);
 
@@ -24,6 +22,6 @@ function ShowCoordinates() {
 			<span className={s.block__text}>{convertLocation(location.lng, true)}</span>
 		</DragControl>
 	);
-}
+};
 
 export { ShowCoordinates };
