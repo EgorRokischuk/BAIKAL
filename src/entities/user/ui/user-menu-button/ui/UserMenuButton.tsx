@@ -1,9 +1,9 @@
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
-import * as s from './UserMenuButton.module.scss';
 import { Typography } from '@mui/material';
 import Button from '@mui/material/Button';
-import { UserMenuOverlay } from './user-menu-overlay';
 import { useState } from 'react';
+import { UserMenuOverlay } from './user-menu-overlay';
+import * as s from './UserMenuButton.module.scss';
 
 const UserMenuButton: React.FC = () => {
 	const [anchorEl, setAnchorEl] = useState(null);

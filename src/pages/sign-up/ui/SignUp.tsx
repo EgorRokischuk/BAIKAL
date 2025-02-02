@@ -1,5 +1,5 @@
-import { AuthForm } from '@/widgets/auth-form';
 import { Button } from '@mui/material';
+import { AuthForm } from '@/widgets/auth-form';
 
 const SignUp: React.FC = () => {
 	return (

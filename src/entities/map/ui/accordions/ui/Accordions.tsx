@@ -6,7 +6,7 @@ import { useState } from 'react';
 const Accordions: React.FC = () => {
 	const [expanded, setExpanded] = useState<any>(false);
 
-	const makeChangeHandler = (panel: any) => (event: any, isExpanded: any) => {
+	const makeChangeHandler = (panel: any) => (_: any, isExpanded: any) => {
 		setExpanded(isExpanded ? panel : false);
 	};
 

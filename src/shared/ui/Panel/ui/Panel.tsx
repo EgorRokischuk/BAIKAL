@@ -1,9 +1,9 @@
 import { ArrowBackIos, ArrowForwardIos } from '@mui/icons-material';
-import { Box, Collapse, IconButton, Slide, Typography } from '@mui/material';
 import InfoIcon from '@mui/icons-material/Info';
+import { Box, IconButton, Slide, Typography } from '@mui/material';
+import classNames from 'classnames';
 import { PropsWithChildren, useRef, useState } from 'react';
 import * as s from './Panel.module.scss';
-import classNames from 'classnames';
 
 interface IPanelProps {
 	dir?: 'right' | 'left';

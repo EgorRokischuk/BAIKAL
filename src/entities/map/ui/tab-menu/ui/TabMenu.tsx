@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { getAvailableTab } from '../lib';
-import { TabMenuHeader } from './TabMenuHeader';
-import { MenuBody } from './MenuBody';
 import type { IMapMenu } from '@/entities/Map/types';
+import { getAvailableTab } from '../lib';
+import { MenuBody } from './MenuBody';
+import { TabMenuHeader } from './TabMenuHeader';
 
 interface IProps {
 	tabs: IMapMenu;

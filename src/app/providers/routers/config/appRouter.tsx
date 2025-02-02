@@ -1,18 +1,15 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom';
-
-import { ROUTES } from '@/shared/config/router/routes';
-import { MainLayout } from '@/app/layouts/MainLayout';
-
-import { Map } from '@/pages/map';
-
 import { App } from '@/app/App';
-import { Login } from '@/pages/login';
-import { SignUp } from '@/pages/sign-up';
-import { NotFound } from '@/pages/not-found';
+import { MainLayout } from '@/app/layouts/MainLayout';
 import { About } from '@/pages/about';
-import { Publications } from '@/pages/publications';
-import { ExternalResources } from '@/pages/external-resources';
 import { AccessDenied } from '@/pages/access-denied';
+import { ExternalResources } from '@/pages/external-resources';
+import { Login } from '@/pages/login';
+import { Map } from '@/pages/map';
+import { NotFound } from '@/pages/not-found';
+import { Publications } from '@/pages/publications';
+import { SignUp } from '@/pages/sign-up';
+import { ROUTES } from '@/shared/config/router/routes';
 
 const navBarItems = [
 	{ name: 'Карта', route: '/' },

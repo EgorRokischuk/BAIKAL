@@ -1,13 +1,11 @@
-import { useMapEvent } from 'react-leaflet';
 import { LatLngLiteral } from 'leaflet';
-
+import { useMapEvent } from 'react-leaflet';
+import { getMapLocation, mapActions } from '@/entities/Map';
 import { useAppDispatch } from '@/shared/hooks/useAppDispatch';
 import { useAppSelector } from '@/shared/hooks/useAppSelector';
-import { getMapLocation, mapActions } from '@/entities/Map';
 import { DragControl } from '@/shared/ui/DragControl';
-
-import * as s from './ShowCoordinates.module.scss';
 import { convertLocation } from '../lib';
+import * as s from './ShowCoordinates.module.scss';
 
 const ShowCoordinates: React.FC = () => {
 	const dispatch = useAppDispatch();

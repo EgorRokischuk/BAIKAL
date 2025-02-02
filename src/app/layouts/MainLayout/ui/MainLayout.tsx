@@ -1,12 +1,11 @@
-import { Footer } from '@/widgets/footer';
-import { Header } from '@/widgets/header';
+import classNames from 'classnames';
 import { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
-
-import * as s from './MainLayout.module.scss';
+import { Footer } from '@/widgets/footer';
+import { Header } from '@/widgets/header';
 import { Navbar } from '@/widgets/navbar';
 import type { IMenuItem } from '@/widgets/navbar';
-import classNames from 'classnames';
+import * as s from './MainLayout.module.scss';
 
 interface IMainLayoutProps {
 	isAuth: boolean;

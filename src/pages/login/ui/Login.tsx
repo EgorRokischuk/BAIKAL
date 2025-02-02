@@ -1,6 +1,6 @@
-import { InputField } from '@/shared/ui/InputField';
-import { AuthForm } from '@/widgets/auth-form';
 import { Button } from '@mui/material';
+import { AuthForm } from '@/widgets/auth-form';
+import { InputField } from '@/shared/ui/InputField';
 
 const Login: React.FC = () => {
 	return (

@@ -1,7 +1,7 @@
+import { Button } from '@mui/material';
 import { getIsTileVisible, mapActions } from '@/entities/Map';
 import { useAppDispatch } from '@/shared/hooks/useAppDispatch';
 import { useAppSelector } from '@/shared/hooks/useAppSelector';
-import { Button } from '@mui/material';
 
 const ShowTile: React.FC = () => {
 	const dispatch = useAppDispatch();

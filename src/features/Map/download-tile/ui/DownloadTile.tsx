@@ -1,7 +1,7 @@
-import { Button } from '@mui/material';
 import DownloadIcon from '@mui/icons-material/Download';
-import { useAppSelector } from '@/shared/hooks/useAppSelector';
+import { Button } from '@mui/material';
 import { getIsTileVisible, getTile, getTileDate } from '@/entities/Map';
+import { useAppSelector } from '@/shared/hooks/useAppSelector';
 
 const DownloadTile: React.FC = () => {
 	const isTileVisible = useAppSelector(getIsTileVisible);

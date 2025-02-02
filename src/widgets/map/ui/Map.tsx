@@ -1,11 +1,9 @@
 import { MapContainer, TileLayer } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
-
-import { ShowCoordinates } from '@/features/Map/show-coordinates';
-import { useAppSelector } from '@/shared/hooks/useAppSelector';
 import { ChangeZoom } from '@/features/Map/change-zoom';
+import { ShowCoordinates } from '@/features/Map/show-coordinates';
 import { getIsTileVisible, getMapZoom, getTile, getTileDate } from '@/entities/Map';
-
+import { useAppSelector } from '@/shared/hooks/useAppSelector';
 import { API, LAYER_LINK, MAP_PROPS } from '../config/constants';
 import './Map.css';
 

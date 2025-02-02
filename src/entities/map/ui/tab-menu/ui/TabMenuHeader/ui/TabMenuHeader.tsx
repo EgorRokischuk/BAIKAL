@@ -1,9 +1,9 @@
 import { Tabs, Tab, Typography } from '@mui/material';
-import { disabledTabs } from '../../../config/constants';
+import { useEffect } from 'react';
+import { mapActions } from '@/entities/Map/model/slices';
 import { IMapMenu, IMapMenuItem } from '@/entities/Map/types';
 import { useAppDispatch } from '@/shared/hooks/useAppDispatch';
-import { mapActions } from '@/entities/Map/model/slices';
-import { useEffect } from 'react';
+import { disabledTabs } from '../../../config/constants';
 
 interface IProps {
 	tabIndex: number;

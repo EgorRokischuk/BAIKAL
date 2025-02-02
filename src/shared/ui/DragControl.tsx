@@ -1,6 +1,6 @@
-import { useMapDragging } from '@/shared/hooks/useMapDragging';
 import { PropsWithChildren } from 'react';
 import { useMap } from 'react-leaflet';
+import { useMapDragging } from '@/shared/hooks/useMapDragging';
 
 interface IProps {
 	className: string;

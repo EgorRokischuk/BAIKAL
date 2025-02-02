@@ -1,6 +1,3 @@
-import { TabMenu, Accordions, RadioDayNight, getTileDate, mapActions } from '@/entities/Map';
-import type { IMapMenu, IMapMenuContent } from '@/entities/Map';
-import { TileDatePicker } from '@/entities/Map';
 import {
 	Accordion,
 	AccordionSummary,
@@ -8,6 +5,9 @@ import {
 	FormControlLabel,
 	Checkbox,
 } from '@mui/material';
+import type { IMapMenu, IMapMenuContent } from '@/entities/Map';
+import { TabMenu, Accordions, RadioDayNight } from '@/entities/Map';
+import { TileDatePicker } from '@/entities/Map';
 
 // Содержимое таба "Наземные данные"
 const groundDataContent: IMapMenuContent = (

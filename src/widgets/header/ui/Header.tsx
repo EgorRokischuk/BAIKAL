@@ -1,8 +1,7 @@
-import { memo } from 'react';
-
-import * as s from './Header.module.scss';
-import { UserMenuButton } from '@/entities/User';
 import { Typography } from '@mui/material';
+import { memo } from 'react';
+import { UserMenuButton } from '@/entities/User';
+import * as s from './Header.module.scss';
 
 const MemoHeader: React.FC = () => {
 	return (

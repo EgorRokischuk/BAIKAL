@@ -1,6 +1,6 @@
+import { IMapMenu, IMapMenuItem } from '@/entities/Map/types';
 import { disabledTabs } from '../config/constants';
-import { IMapMenu } from '@/entities/Map/types';
 
 export const getAvailableTab = (tabs: IMapMenu) => {
-	return tabs.findIndex((tab: any) => !disabledTabs.includes(tab.title));
+	return tabs.findIndex((tab: IMapMenuItem) => !disabledTabs.includes(tab.title));
 };

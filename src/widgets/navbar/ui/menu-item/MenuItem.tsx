@@ -1,13 +1,11 @@
+import { Typography } from '@mui/material';
+import classNames from 'classnames';
 import { NavLink } from 'react-router-dom';
+import { globalActions } from '@/app/providers/store';
 import { IMenuItem } from '@/widgets/navbar/model/types';
-
 import { useAppDispatch } from '@/shared/hooks/useAppDispatch';
 import { useAppSelector } from '@/shared/hooks/useAppSelector';
-import { globalActions } from '@/app/providers/store';
-
-import classNames from 'classnames';
 import * as s from './MenuItem.module.scss';
-import { Typography } from '@mui/material';
 
 interface IMenuItemProps {
 	menuItem: IMenuItem;

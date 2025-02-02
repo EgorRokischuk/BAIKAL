@@ -1,7 +1,7 @@
-import { styled } from '@mui/material/styles';
-import * as s from './UserMenuOverlay.module.scss';
 import { Typography } from '@mui/material';
 import Menu from '@mui/material/Menu';
+import { styled } from '@mui/material/styles';
+import * as s from './UserMenuOverlay.module.scss';
 
 const CustomMenu = styled((props: any) => <Menu {...props} />)(({ theme }) => ({
 	'& .MuiPaper-root': {
