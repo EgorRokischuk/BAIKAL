@@ -22,8 +22,6 @@ const baseQueryWithReauth: BaseQueryFn = async (args, api, extraOptions) => {
 	const result = await baseQuery(args, api, extraOptions);
 	api.dispatch(globalActions.setLoading(false));
 
-	api.dispatch(globalActions.setErrorMessage('Something was wrong'));
-
 	if (result.error?.status === 401 && args.url !== '/auth/refresh')
 		api.dispatch(apiAccessTokenExpired());
 
