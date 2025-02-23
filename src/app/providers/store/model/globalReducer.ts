@@ -31,7 +31,10 @@ const globalSlice = createSlice({
 		setAccessToken: (state, action: PayloadAction<string>) => {
 			state.accessToken = action.payload;
 		},
-		setMessage: (state, action: PayloadAction<string>) => {
+		clearMeesage: (state) => {
+			state.message = '';
+		},
+		setInfoMessage: (state, action: PayloadAction<string>) => {
 			state.message = action.payload;
 			state.messageType = 'info';
 		},

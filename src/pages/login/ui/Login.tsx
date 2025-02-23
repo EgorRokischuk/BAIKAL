@@ -50,6 +50,7 @@ const Login: React.FC = () => {
 						<InputField
 							type="password"
 							label="Пароль"
+							autoComplete="off"
 							error={Boolean(errors.password)}
 							helperText={errors.password?.message}
 							inputRef={ref}

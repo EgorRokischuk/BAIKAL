@@ -27,18 +27,20 @@ const authApi = baseApi.injectEndpoints({
 				}
 			},
 		}),
-		register: build.mutation<void, IRegister>({
+		register: build.mutation<ILoginResponse, IRegister>({
 			query: (auth) => ({
 				url: 'auth/register',
 				method: 'POST',
 				body: auth,
 			}),
-			async onQueryStarted(_, { queryFulfilled, extra }) {
+			async onQueryStarted(_, { queryFulfilled, dispatch, extra }) {
 				try {
 					await queryFulfilled;
 
 					const typedExtra = extra as IExtraArgument;
 					typedExtra.navigate('/');
+
+					dispatch(globalActions.setSuccessMessage('Заявка на регистрацию отправлена'));
 				} catch (e) {
 					console.error(e);
 				}

@@ -16,7 +16,7 @@ export const Snackbar: React.FC = () => {
 	}, [message]);
 
 	const handleClose = () => {
-		dispatch(globalActions.setErrorMessage(''));
+		dispatch(globalActions.clearMeesage());
 	};
 
 	return (

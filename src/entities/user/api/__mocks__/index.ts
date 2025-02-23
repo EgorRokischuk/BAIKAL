@@ -9,7 +9,7 @@ const authLogin = http.post(url + '/auth/login', async () => {
 	return HttpResponse.json(mockLoginResponse);
 });
 
-const authRegister = http.get(url + '/auth/register', async () => {
+const authRegister = http.post(url + '/auth/register', async () => {
 	await delay(3000);
 	return HttpResponse.text('', { status: 200 });
 });
