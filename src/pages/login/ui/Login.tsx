@@ -1,7 +1,10 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Controller, useForm } from 'react-hook-form';
+import { globalActions } from '@/app/providers/store';
 import { AuthForm } from '@/widgets/auth-form';
 import { useLoginMutation, type ILogin } from '@/entities/User';
+import { ROUTES } from '@/shared/config/router/routes';
+import { useAppDispatch } from '@/shared/hooks/useAppDispatch';
 import { Button } from '@/shared/ui/Button';
 import { InputField } from '@/shared/ui/InputField';
 import { loginSchema, defaultValues } from '../model';
@@ -16,6 +19,7 @@ const Login: React.FC = () => {
 		resolver: zodResolver(loginSchema),
 		defaultValues,
 	});
+	const dispatch = useAppDispatch();
 
 	const [loginMutation] = useLoginMutation();
 
@@ -57,10 +61,20 @@ const Login: React.FC = () => {
 				<Button size="small" type="submit" variant="contained" color="primary">
 					{'Войти'}
 				</Button>
-				<Button href="/" size="small" variant="contained" color="secondary">
+				<Button
+					size="small"
+					variant="contained"
+					color="secondary"
+					onClick={() => dispatch(globalActions.setCurrentPage(ROUTES.appRoute))}
+				>
 					{'Вернуться на главную'}
 				</Button>
-				<Button href="/auth/register" size="small" variant="contained" color="secondary">
+				<Button
+					size="small"
+					variant="contained"
+					color="secondary"
+					onClick={() => dispatch(globalActions.setCurrentPage(ROUTES.auth.register.page))}
+				>
 					{'Регистрация'}
 				</Button>
 			</AuthForm>

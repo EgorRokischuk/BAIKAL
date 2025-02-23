@@ -1,9 +1,12 @@
 import { Typography } from '@mui/material';
-import Menu from '@mui/material/Menu';
+import Menu, { MenuProps } from '@mui/material/Menu';
 import { styled } from '@mui/material/styles';
+import { globalActions } from '@/app/providers/store';
+import { ROUTES } from '@/shared/config/router/routes';
+import { useAppDispatch } from '@/shared/hooks/useAppDispatch';
 import * as s from './UserMenuOverlay.module.scss';
 
-const CustomMenu = styled((props: any) => <Menu {...props} />)(({ theme }) => ({
+const CustomMenu = styled((props: MenuProps) => <Menu {...props} />)(({ theme }) => ({
 	'& .MuiPaper-root': {
 		backgroundColor: 'rgb(12, 68, 147)',
 		borderRadius: 0,
@@ -11,14 +14,16 @@ const CustomMenu = styled((props: any) => <Menu {...props} />)(({ theme }) => ({
 		boxShadow: '0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14)',
 	},
 }));
-const UserMenuOverlay: React.FC<any> = (props) => {
+const UserMenuOverlay: React.FC<MenuProps> = (props) => {
+	const dispatch = useAppDispatch();
+
 	return (
 		<CustomMenu
 			id="demo-positioned-menu"
 			aria-labelledby="demo-positioned-button"
 			anchorEl={props.anchorEl}
 			open={props.open}
-			onClose={props.handleClose}
+			onClose={props.onClose}
 			anchorOrigin={{
 				vertical: 'bottom',
 				horizontal: 'left',
@@ -42,10 +47,16 @@ const UserMenuOverlay: React.FC<any> = (props) => {
 					</Typography>
 				</div>
 				<div className={s.user_menu_block_buttons}>
-					<button className={s.user_menu_block_button}>
+					<button
+						className={s.user_menu_block_button}
+						onClick={() => dispatch(globalActions.setCurrentPage(ROUTES.auth.login.page))}
+					>
 						<Typography variant="subtitle1">{'Авторизация'}</Typography>
 					</button>
-					<button className={s.user_menu_block_button}>
+					<button
+						className={s.user_menu_block_button}
+						onClick={() => dispatch(globalActions.setCurrentPage(ROUTES.auth.register.page))}
+					>
 						<Typography variant="subtitle1">{'Регистрация'}</Typography>
 					</button>
 				</div>

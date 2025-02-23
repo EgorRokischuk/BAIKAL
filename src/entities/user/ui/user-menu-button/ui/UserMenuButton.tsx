@@ -8,7 +8,7 @@ import * as s from './UserMenuButton.module.scss';
 const UserMenuButton: React.FC = () => {
 	const [anchorEl, setAnchorEl] = useState(null);
 	const open = Boolean(anchorEl);
-	const handleClick = (event: any) => {
+	const handleClick = (event: React.MouseEvent) => {
 		setAnchorEl(event.currentTarget);
 	};
 	const handleClose = () => {
@@ -33,7 +33,7 @@ const UserMenuButton: React.FC = () => {
 					</span>
 				</div>
 			</Button>
-			<UserMenuOverlay open={open} anchorEl={anchorEl} handleClose={handleClose} />
+			<UserMenuOverlay open={open} anchorEl={anchorEl} onClose={handleClose} />
 		</div>
 	);
 };
