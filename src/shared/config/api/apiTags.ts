@@ -1,1 +1,3 @@
-export enum ApiTags {}
+export enum ApiTags {
+	PROFILE = 'Profile',
+}
