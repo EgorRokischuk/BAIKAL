@@ -1,5 +1,5 @@
-import { Button } from '@mui/material';
 import { AuthForm } from '@/widgets/auth-form';
+import { Button } from '@/shared/ui/Button';
 import { InputField } from '@/shared/ui/InputField';
 
 const Login: React.FC = () => {

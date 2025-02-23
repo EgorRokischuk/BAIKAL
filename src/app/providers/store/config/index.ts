@@ -16,7 +16,7 @@ const createReduxStore = () => {
 			getDefaultMiddleware({
 				thunk: {
 					extraArgument: {
-						navigate: () => router.navigate,
+						navigate: (to: string) => router.navigate(to),
 					},
 				},
 			}).concat(baseApi.middleware, refreshMiddleware.middleware),

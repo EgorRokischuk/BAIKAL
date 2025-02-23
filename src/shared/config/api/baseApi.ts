@@ -1,4 +1,5 @@
 import { BaseQueryFn, createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { globalActions } from '@/app/providers/store';
 import { getFromLS } from '@/shared/lib/manageLocalStorage';
 import { LS_ACCESS_TOKEN } from '../constants/authConstants';
 import { apiAccessTokenExpired } from './apiAccessTokenExpired';
@@ -17,7 +18,9 @@ const baseQuery = fetchBaseQuery({
 });
 
 const baseQueryWithReauth: BaseQueryFn = async (args, api, extraOptions) => {
+	api.dispatch(globalActions.setLoading(true));
 	const result = await baseQuery(args, api, extraOptions);
+	api.dispatch(globalActions.setLoading(false));
 
 	if (result.error?.status === 401 && args.url !== '/auth/refresh')
 		api.dispatch(apiAccessTokenExpired());
