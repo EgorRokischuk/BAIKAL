@@ -17,11 +17,10 @@ const Login: React.FC = () => {
 		defaultValues,
 	});
 
-	const [loginMutation, { isLoading }] = useLoginMutation();
+	const [loginMutation] = useLoginMutation();
 
 	const onLogin = async (data: ILogin) => {
 		await loginMutation(data);
-		console.log(isLoading);
 	};
 
 	return (
