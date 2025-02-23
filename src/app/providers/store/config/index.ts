@@ -1,6 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { mapReducer } from '@/entities/map';
+import { mapReducer } from '@/entities/Map';
+import { refreshMiddleware } from '@/entities/User';
 import { baseApi } from '@/shared/config/api/baseApi';
+import { router } from '../../routers';
 import { globalReducer } from '../model/globalReducer';
 
 const createReduxStore = () => {
@@ -10,7 +12,14 @@ const createReduxStore = () => {
 			global: globalReducer,
 			map: mapReducer,
 		},
-		middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(baseApi.middleware),
+		middleware: (getDefaultMiddleware) =>
+			getDefaultMiddleware({
+				thunk: {
+					extraArgument: {
+						navigate: () => router.navigate,
+					},
+				},
+			}).concat(baseApi.middleware, refreshMiddleware.middleware),
 	});
 };
 
