@@ -15,7 +15,7 @@ interface IMainLayoutProps {
 const MainLayout = ({ isAuth, navbarItems }: IMainLayoutProps) => {
 	return (
 		<section>
-			<Header />
+			<Header isUserMenuVisible={!isAuth} />
 			{!isAuth && <Navbar menuItems={navbarItems} />}
 
 			<main

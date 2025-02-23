@@ -3,7 +3,11 @@ import { memo } from 'react';
 import { UserMenuButton } from '@/entities/User';
 import * as s from './Header.module.scss';
 
-const MemoHeader: React.FC = () => {
+interface IHeaderProps {
+	isUserMenuVisible: boolean;
+}
+
+const MemoHeader: React.FC<IHeaderProps> = ({ isUserMenuVisible }) => {
 	return (
 		<div>
 			<div className={s.header}>
@@ -15,9 +19,7 @@ const MemoHeader: React.FC = () => {
 						{' зоны с помощью спутниковых снимков'}
 					</Typography>
 				</div>
-				<div>
-					<UserMenuButton />
-				</div>
+				<div>{isUserMenuVisible && <UserMenuButton />}</div>
 			</div>
 		</div>
 	);
