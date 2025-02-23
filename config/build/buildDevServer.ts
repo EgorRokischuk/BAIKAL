@@ -5,9 +5,6 @@ export function buildDevServer({ paths, port }: IBuildOptions): DevServerConfigu
 	return {
 		hot: true,
 		historyApiFallback: true,
-		static: {
-			directory: paths.output,
-		},
 		port: port || 8080,
 		open: true,
 	};
