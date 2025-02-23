@@ -6,7 +6,7 @@ import { apiAccessTokenExpired } from './apiAccessTokenExpired';
 import { ApiTags } from './apiTags';
 
 const baseQuery = fetchBaseQuery({
-	baseUrl: process.env.__API_URL__,
+	baseUrl: process.env.API_URL,
 	credentials: 'include',
 	prepareHeaders: (headers) => {
 		const accessToken = getFromLS(LS_ACCESS_TOKEN);

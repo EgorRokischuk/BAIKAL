@@ -2,8 +2,7 @@ import { HttpResponse, delay, http } from 'msw';
 import mockLoginResponse from './data/mockLoginResponse';
 import mockProfileResponse from './data/mockProfileResponse';
 
-// TODO
-const url = 'http://localhost:3000/api';
+const url = process.env.API_URL;
 
 const authLogin = http.post(url + '/auth/login', async () => {
 	await delay(3000);

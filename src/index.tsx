@@ -12,7 +12,7 @@ const root = document.getElementById('root');
 if (!root) throw new Error('Root element not found');
 
 async function enableMocking() {
-	if (!process.env.__IS_DEV__) {
+	if (!__IS_DEV__) {
 		return;
 	}
 
