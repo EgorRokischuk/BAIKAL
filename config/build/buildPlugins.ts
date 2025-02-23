@@ -22,11 +22,13 @@ export function buildPlugins({ paths, isDev, envs }: IBuildOptions): Configurati
 	if (isDev) {
 		plugins.push(new ForkTsCheckerWebpackPlugin());
 		plugins.push(new ReactRefreshWebpackPlugin());
+		/*
 		plugins.push(
 			new CircularDependencyPlugin({
 			  failOnError: true,
 			}),
 		);
+		*/
 	}
 
 	if (!isDev) {
