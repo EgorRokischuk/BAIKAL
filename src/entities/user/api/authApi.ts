@@ -23,7 +23,9 @@ const authApi = baseApi.injectEndpoints({
 					const typedExtra = extra as IExtraArgument;
 					typedExtra.navigate('/');
 				} catch (e) {
-					console.error(e);
+					if (__IS_DEV__) console.error(e);
+					// TODO: configure error messages
+					dispatch(globalActions.setErrorMessage('Неверный логин или пароль'));
 				}
 			},
 		}),
@@ -42,7 +44,9 @@ const authApi = baseApi.injectEndpoints({
 
 					dispatch(globalActions.setSuccessMessage('Заявка на регистрацию отправлена'));
 				} catch (e) {
-					console.error(e);
+					if (__IS_DEV__) console.error(e);
+					// TODO: configure error messages
+					dispatch(globalActions.setErrorMessage('Заявка на регистрацию не отправлена'));
 				}
 			},
 		}),
@@ -69,7 +73,7 @@ const authApi = baseApi.injectEndpoints({
 					dispatch(globalActions.setAccessToken(''));
 					dispatch(baseApi.util.resetApiState());
 				} catch (e) {
-					console.error(e);
+					if (__IS_DEV__) console.error(e);
 				}
 			},
 		}),
@@ -83,7 +87,7 @@ const authApi = baseApi.injectEndpoints({
 					const response = await queryFulfilled;
 					setToLS(LS_ACCESS_TOKEN, response.data.accessToken);
 				} catch (e) {
-					console.error(e);
+					if (__IS_DEV__) console.error(e);
 					removeFromLS(LS_ACCESS_TOKEN);
 
 					const typedExtra = extra as IExtraArgument;

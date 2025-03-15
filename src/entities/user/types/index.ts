@@ -1,6 +1,8 @@
+export type TRole = 'admin' | 'user';
+
 export interface IRole {
 	id: string;
-	name: 'admin' | 'user';
+	name: TRole;
 }
 
 export interface IUser {
@@ -8,12 +10,18 @@ export interface IUser {
 	fullname: string;
 	email: string;
 	workplace: string;
+	avatarUrl: string;
 	userRights: Array<IRole>;
 }
 
 export interface ILogin {
 	login: string;
 	password: string;
+}
+
+export interface ILoginResponse {
+	accessToken: string;
+	user: IUser;
 }
 
 export interface IRegister extends ILogin {
@@ -23,16 +31,14 @@ export interface IRegister extends ILogin {
 	passwordAgain: string;
 }
 
-export interface ILoginResponse {
-	accessToken: string;
-	userData: IUser;
-}
-
 export interface IProfileResponse {
 	user: IUser;
-	requestsHistory: unknown; // TODO
 }
 
 export interface IExtraArgument {
 	navigate: (path: string) => void;
+}
+
+export interface IUserState {
+	fullProfile: IUser | null;
 }

@@ -31,9 +31,6 @@ const globalSlice = createSlice({
 		setAccessToken: (state, action: PayloadAction<string>) => {
 			state.accessToken = action.payload;
 		},
-		clearMeesage: (state) => {
-			state.message = '';
-		},
 		setInfoMessage: (state, action: PayloadAction<string>) => {
 			state.message = action.payload;
 			state.messageType = 'info';
@@ -49,6 +46,9 @@ const globalSlice = createSlice({
 		setErrorMessage: (state, action: PayloadAction<string>) => {
 			state.message = action.payload;
 			state.messageType = 'error';
+		},
+		clearMeesage: (state) => {
+			state.message = '';
 		},
 	},
 });

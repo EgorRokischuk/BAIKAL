@@ -16,7 +16,7 @@ const authRegister = http.post(url + '/auth/register', async () => {
 
 const authProfile = http.get(url + '/auth/profile', async () => {
 	await delay(3000);
-	return HttpResponse.json(mockLoginResponse);
+	return HttpResponse.json(mockProfileResponse);
 });
 
 const authRefresh = http.get(url + '/auth/refresh', async () => {

@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { mapReducer } from '@/entities/Map';
-import { refreshMiddleware } from '@/entities/User';
+import { refreshMiddleware, userReducer } from '@/entities/User';
 import { baseApi } from '@/shared/config/api/baseApi';
 import { router } from '../../routers';
 import { globalReducer } from '../model/globalReducer';
@@ -10,6 +10,7 @@ const createReduxStore = () => {
 		reducer: {
 			[baseApi.reducerPath]: baseApi.reducer,
 			global: globalReducer,
+			user: userReducer,
 			map: mapReducer,
 		},
 		middleware: (getDefaultMiddleware) =>

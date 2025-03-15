@@ -5,6 +5,8 @@
     text-align: center;
 
     &_avatar_container {
+        display: flex;
+        justify-content: center;
         height: 39px;
         padding-bottom: 5px;
     }

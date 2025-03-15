@@ -4,7 +4,6 @@ import './styles/normalize.scss';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '@/shared/hooks/useAppDispatch';
 import { useAppSelector } from '@/shared/hooks/useAppSelector';
-import { Snackbar } from '@/shared/ui/Snackbar';
 import { globalActions } from './providers/store';
 
 const App = () => {
@@ -15,19 +14,16 @@ const App = () => {
 	const pathname = useAppSelector(({ global }) => global.currentPage);
 
 	useEffect(() => {
+		if (location.pathname === pathname) return;
+
 		dispatch(globalActions.setCurrentPage(location.pathname));
-	}, []);
+	}, [location]);
 
 	useEffect(() => {
 		navigate(pathname);
 	}, [pathname]);
 
-	return (
-		<>
-			<Outlet />
-			<Snackbar />
-		</>
-	);
+	return <Outlet />;
 };
 
 export { App };

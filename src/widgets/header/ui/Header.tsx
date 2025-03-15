@@ -11,7 +11,8 @@ const MemoHeader: React.FC<IHeaderProps> = ({ isUserMenuVisible }) => {
 	return (
 		<div>
 			<div className={s.header}>
-				<div />
+				<div className={s.header__profile} />
+
 				<div className={s.header__title}>
 					<Typography variant="h5">
 						{'ИС анализа Байкальской природной'}
@@ -19,7 +20,8 @@ const MemoHeader: React.FC<IHeaderProps> = ({ isUserMenuVisible }) => {
 						{' зоны с помощью спутниковых снимков'}
 					</Typography>
 				</div>
-				<div>{isUserMenuVisible && <UserMenuButton />}</div>
+
+				<div className={s.header__profile}>{isUserMenuVisible && <UserMenuButton />}</div>
 			</div>
 		</div>
 	);

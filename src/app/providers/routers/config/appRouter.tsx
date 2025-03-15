@@ -10,6 +10,7 @@ import { NotFound } from '@/pages/not-found';
 import { Publications } from '@/pages/publications';
 import { SignUp } from '@/pages/sign-up';
 import { ROUTES } from '@/shared/config/router/routes';
+import { UnAuthRoute } from '../ui/UnAuthRoute';
 
 const navBarItems = [
 	{ name: 'Карта', route: '/' },
@@ -77,19 +78,23 @@ const router = createBrowserRouter([
 						path: ROUTES.exceptions.accessDenied.route,
 						element: <AccessDenied />,
 					},
-				],
-			},
-			{
-				path: ROUTES.auth.route,
-				element: <MainLayout isAuth />,
-				children: [
 					{
-						path: ROUTES.auth.login.route,
-						element: <Login />,
-					},
-					{
-						path: ROUTES.auth.register.route,
-						element: <SignUp />,
+						path: ROUTES.auth.route,
+						element: (
+							<UnAuthRoute>
+								<MainLayout isAuth />
+							</UnAuthRoute>
+						),
+						children: [
+							{
+								path: ROUTES.auth.login.route,
+								element: <Login />,
+							},
+							{
+								path: ROUTES.auth.register.route,
+								element: <SignUp />,
+							},
+						],
 					},
 				],
 			},
