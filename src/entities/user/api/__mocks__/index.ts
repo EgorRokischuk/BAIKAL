@@ -21,10 +21,10 @@ const authProfile = http.get(url + '/auth/profile', async () => {
 
 const authRefresh = http.get(url + '/auth/refresh', async () => {
 	await delay(3000);
-	return HttpResponse.json(mockProfileResponse);
+	return HttpResponse.json(mockLoginResponse);
 });
 
-const authLogout = http.get(url + '/auth/logout', async () => {
+const authLogout = http.post(url + '/auth/logout', async () => {
 	await delay(3000);
 	return HttpResponse.text('', { status: 200 });
 });

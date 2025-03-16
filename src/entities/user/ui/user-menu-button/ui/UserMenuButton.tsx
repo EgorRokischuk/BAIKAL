@@ -1,9 +1,9 @@
-import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
-import { Avatar, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import { useState } from 'react';
+import { Avatar } from '@/shared/ui/Avatar';
 import { useProfileQuery } from '../../../api/authApi';
-import { UserMenuOverlay } from './user-menu-overlay';
+import { AuthOverlay, UnAuthOverlay } from './user-menu-overlay';
 import * as s from './UserMenuButton.module.scss';
 
 const UserMenuButton: React.FC = () => {
@@ -23,22 +23,22 @@ const UserMenuButton: React.FC = () => {
 				aria-expanded={anchorEl !== null ? 'true' : undefined}
 				onClick={handleClick}
 			>
-				<div className={s.user_menu_button}>
-					<div className={s.user_menu_button_avatar_container}>
-						{profile?.user.avatarUrl ? (
-							<Avatar alt={profile?.user.email} src={profile.user.avatarUrl} />
-						) : (
-							<AccountCircleOutlinedIcon sx={{ fontSize: 50 }} />
-						)}
+				<div className={s.menu_button}>
+					<div className={s.menu_button__avatar}>
+						<Avatar alt={profile?.user?.email} src={profile?.user?.avatarUrl} sizes="40px" />
 					</div>
 
-					<span className={s.user_menu_button_caption}>
-						<Typography variant="caption">{profile?.user.fullname ?? 'Гость'}</Typography>
+					<span className={s.menu_button__caption}>
+						<Typography variant="caption">{profile?.user?.fullname ?? 'Гость'}</Typography>
 					</span>
 				</div>
 			</Button>
 
-			<UserMenuOverlay open={anchorEl !== null} anchorEl={anchorEl} onClose={() => handleClick()} />
+			{profile ? (
+				<AuthOverlay open={anchorEl !== null} anchorEl={anchorEl} onClose={() => handleClick()} />
+			) : (
+				<UnAuthOverlay open={anchorEl !== null} anchorEl={anchorEl} onClose={() => handleClick()} />
+			)}
 		</div>
 	);
 };

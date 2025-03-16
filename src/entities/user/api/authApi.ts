@@ -24,8 +24,7 @@ const authApi = baseApi.injectEndpoints({
 					typedExtra.navigate('/');
 				} catch (e) {
 					if (__IS_DEV__) console.error(e);
-					// TODO: configure error messages
-					dispatch(globalActions.setErrorMessage('Неверный логин или пароль'));
+					dispatch(globalActions.setErrorMessage('Неверный логин или пароль!'));
 				}
 			},
 		}),
@@ -45,8 +44,11 @@ const authApi = baseApi.injectEndpoints({
 					dispatch(globalActions.setSuccessMessage('Заявка на регистрацию отправлена'));
 				} catch (e) {
 					if (__IS_DEV__) console.error(e);
-					// TODO: configure error messages
-					dispatch(globalActions.setErrorMessage('Заявка на регистрацию не отправлена'));
+					dispatch(
+						globalActions.setErrorMessage(
+							'Не удалось создать новую учетную запись. Повторите попытку позже.',
+						),
+					);
 				}
 			},
 		}),
@@ -98,14 +100,19 @@ const authApi = baseApi.injectEndpoints({
 	}),
 });
 
-const { useLoginMutation, useRegisterMutation, useProfileQuery, useLogoutQuery, useRefreshQuery } =
-	authApi;
+const {
+	useLoginMutation,
+	useRegisterMutation,
+	useProfileQuery,
+	useLazyLogoutQuery,
+	useRefreshQuery,
+} = authApi;
 
 export {
 	authApi,
 	useLoginMutation,
 	useRegisterMutation,
 	useProfileQuery,
-	useLogoutQuery,
+	useLazyLogoutQuery,
 	useRefreshQuery,
 };

@@ -1,5 +1,6 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 import { App } from '@/app/App';
+import { AuthLayout } from '@/app/layouts/AuthLayout';
 import { MainLayout } from '@/app/layouts/MainLayout';
 import { About } from '@/pages/about';
 import { AccessDenied } from '@/pages/access-denied';
@@ -40,7 +41,7 @@ const router = createBrowserRouter([
 		children: [
 			{
 				path: ROUTES.appRoute,
-				element: <MainLayout isAuth={false} navbarItems={navBarItems} />,
+				element: <MainLayout navbarItems={navBarItems} />,
 				children: [
 					{
 						index: true,
@@ -78,23 +79,23 @@ const router = createBrowserRouter([
 						path: ROUTES.exceptions.accessDenied.route,
 						element: <AccessDenied />,
 					},
+				],
+			},
+			{
+				path: ROUTES.auth.route,
+				element: (
+					<UnAuthRoute>
+						<AuthLayout />
+					</UnAuthRoute>
+				),
+				children: [
 					{
-						path: ROUTES.auth.route,
-						element: (
-							<UnAuthRoute>
-								<MainLayout isAuth />
-							</UnAuthRoute>
-						),
-						children: [
-							{
-								path: ROUTES.auth.login.route,
-								element: <Login />,
-							},
-							{
-								path: ROUTES.auth.register.route,
-								element: <SignUp />,
-							},
-						],
+						path: ROUTES.auth.login.route,
+						element: <Login />,
+					},
+					{
+						path: ROUTES.auth.register.route,
+						element: <SignUp />,
 					},
 				],
 			},

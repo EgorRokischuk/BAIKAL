@@ -1,19 +1,39 @@
-.user_menu_button 
+.menu_button 
 {
     display: block;
     color: white;
     text-align: center;
 
-    &_avatar_container {
+    &__avatar {
         display: flex;
         justify-content: center;
         height: 39px;
         padding-bottom: 5px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 
-    &_caption {
+    &__caption {
         display: block;
         font-size: 8px;
         //font-family: Roboto, Helvetica, Arial, sans-serif
+    }
+}
+
+.menu_button 
+{
+    display: block;
+    color: white;
+    text-align: center;
+
+    &__avatar {
+        height: 39px;
+        padding-bottom: 5px;
+    }
+
+    &__caption {
+        display: block;
+        width: 100px;
     }
 }

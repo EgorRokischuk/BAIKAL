@@ -1,1 +1,2 @@
-export { UserMenuOverlay } from './ui/UserMenuOverlay';
+export { UnAuthOverlay } from './ui/UnAuthOverlay';
+export { AuthOverlay } from './ui/AuthOverlay';
