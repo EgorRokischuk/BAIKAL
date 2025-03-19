@@ -1,39 +1,44 @@
-import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import { Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import { useState } from 'react';
-import { UserMenuOverlay } from './user-menu-overlay';
+import { Avatar } from '@/shared/ui/Avatar';
+import { useProfileQuery } from '../../../api/authApi';
+import { AuthOverlay, UnAuthOverlay } from './user-menu-overlay';
 import * as s from './UserMenuButton.module.scss';
 
 const UserMenuButton: React.FC = () => {
-	const [anchorEl, setAnchorEl] = useState(null);
-	const open = Boolean(anchorEl);
-	const handleClick = (event: any) => {
-		setAnchorEl(event.currentTarget);
-	};
-	const handleClose = () => {
-		setAnchorEl(null);
+	const [anchorEl, setAnchorEl] = useState<Element | null>(null);
+	const { data: profile } = useProfileQuery();
+
+	const handleClick = (event?: React.MouseEvent) => {
+		setAnchorEl(event?.currentTarget ?? null);
 	};
 
 	return (
 		<div>
 			<Button
 				id="demo-positioned-button"
-				aria-controls={open ? 'demo-positioned-menu' : undefined}
+				aria-controls={anchorEl !== null ? 'demo-positioned-menu' : undefined}
 				aria-haspopup="true"
-				aria-expanded={open ? 'true' : undefined}
+				aria-expanded={anchorEl !== null ? 'true' : undefined}
 				onClick={handleClick}
 			>
-				<div className={s.user_menu_button}>
-					<div className={s.user_menu_button_avatar_container}>
-						<AccountCircleOutlinedIcon sx={{ fontSize: 50 }} />
+				<div className={s.menu_button}>
+					<div className={s.menu_button__avatar}>
+						<Avatar alt={profile?.user?.email} src={profile?.user?.avatarUrl} sizes="40px" />
 					</div>
-					<span className={s.user_menu_button_caption}>
-						<Typography variant="caption">{'Гость'}</Typography>
+
+					<span className={s.menu_button__caption}>
+						<Typography variant="caption">{profile?.user?.fullname ?? 'Гость'}</Typography>
 					</span>
 				</div>
 			</Button>
-			<UserMenuOverlay open={open} anchorEl={anchorEl} handleClose={handleClose} />
+
+			{profile ? (
+				<AuthOverlay open={anchorEl !== null} anchorEl={anchorEl} onClose={() => handleClick()} />
+			) : (
+				<UnAuthOverlay open={anchorEl !== null} anchorEl={anchorEl} onClose={() => handleClick()} />
+			)}
 		</div>
 	);
 };

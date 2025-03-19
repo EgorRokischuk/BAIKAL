@@ -10,11 +10,6 @@ $bg-img: url('../../../../shared/assets/gallery/auth_bg.png');
     @include layout(110px);
 }
 
-.auth {
-    @include layout(70px);
-    background-image: $bg-img;
-}
-  
 .container {
 	width: 100%;
 }

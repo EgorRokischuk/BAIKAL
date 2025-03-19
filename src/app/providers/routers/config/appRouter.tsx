@@ -1,5 +1,6 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 import { App } from '@/app/App';
+import { AuthLayout } from '@/app/layouts/AuthLayout';
 import { MainLayout } from '@/app/layouts/MainLayout';
 import { About } from '@/pages/about';
 import { AccessDenied } from '@/pages/access-denied';
@@ -10,6 +11,7 @@ import { NotFound } from '@/pages/not-found';
 import { Publications } from '@/pages/publications';
 import { SignUp } from '@/pages/sign-up';
 import { ROUTES } from '@/shared/config/router/routes';
+import { UnAuthRoute } from '../ui/UnAuthRoute';
 
 const navBarItems = [
 	{ name: 'Карта', route: '/' },
@@ -39,7 +41,7 @@ const router = createBrowserRouter([
 		children: [
 			{
 				path: ROUTES.appRoute,
-				element: <MainLayout isAuth={false} navbarItems={navBarItems} />,
+				element: <MainLayout navbarItems={navBarItems} />,
 				children: [
 					{
 						index: true,
@@ -81,7 +83,11 @@ const router = createBrowserRouter([
 			},
 			{
 				path: ROUTES.auth.route,
-				element: <MainLayout isAuth />,
+				element: (
+					<UnAuthRoute>
+						<AuthLayout />
+					</UnAuthRoute>
+				),
 				children: [
 					{
 						path: ROUTES.auth.login.route,
