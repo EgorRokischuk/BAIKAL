@@ -1,5 +1,6 @@
 import { blue, green, red, yellow, grey } from '@mui/material/colors';
 import { createTheme } from '@mui/material/styles';
+import React from 'react';
 
 declare module '@mui/material/styles' {
 	interface TypographyVariants {
@@ -7,6 +8,8 @@ declare module '@mui/material/styles' {
 		map_menu_disabled: React.CSSProperties;
 		map_menu_active: React.CSSProperties;
 		map_menu_label: React.CSSProperties;
+		modal_title: React.CSSProperties;
+		modal_description: React.CSSProperties;
 	}
 
 	interface TypographyVariantsOptions {
@@ -14,6 +17,8 @@ declare module '@mui/material/styles' {
 		map_menu?: React.CSSProperties;
 		map_menu_active?: React.CSSProperties;
 		map_menu_label?: React.CSSProperties;
+		modal_title?: React.CSSProperties;
+		modal_description?: React.CSSProperties;
 	}
 }
 
@@ -23,6 +28,8 @@ declare module '@mui/material/Typography' {
 		map_menu: true;
 		map_menu_active: true;
 		map_menu_label: true;
+		modal_title: true;
+		modal_description: true;
 	}
 }
 
@@ -30,7 +37,7 @@ declare module '@mui/material/Typography' {
 export const theme = createTheme({
 	palette: {
 		primary: {
-			main: blue[500],
+			main: '#1969CB',
 		},
 		secondary: {
 			main: grey[300],
@@ -104,6 +111,20 @@ export const theme = createTheme({
 			fontWeight: 600,
 			lineHeight: 1.3,
 			color: '#0C4493',
+		},
+		modal_title: {
+			fontFamily: 'Roboto, sans-serif',
+			fontSize: '24px',
+			fontWeight: 500,
+			lineHeight: '100%',
+			color: '#FFF',
+		},
+		modal_description: {
+			fontFamily: 'Roboto, sans-serif',
+			fontSize: '22px',
+			fontWeight: 400,
+			lineHeight: '28px',
+			color: '#000',
 		},
 	},
 });
