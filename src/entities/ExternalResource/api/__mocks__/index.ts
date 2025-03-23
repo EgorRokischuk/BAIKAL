@@ -16,17 +16,17 @@ const externalResourceById = http.get(url + '/external-resources/:id', async () 
 
 const externalResourceCreate = http.post(url + '/external-resources', async () => {
 	await delay(3000);
-	return HttpResponse.text('9df0c6cc-3ee2-43b0-97be-f384d7f876d7', { status: 200 });
+	return HttpResponse.json('9df0c6cc-3ee2-43b0-97be-f384d7f876d7', { status: 200 });
 });
 
 const externalResourceUpdate = http.put(url + '/external-resources/:id', async () => {
 	await delay(3000);
-	return HttpResponse.text('', { status: 200 });
+	return HttpResponse.json('', { status: 200 });
 });
 
 const externalResourceDelete = http.delete(url + '/external-resources/:id', async () => {
 	await delay(3000);
-	return HttpResponse.text('', { status: 200 });
+	return HttpResponse.json('', { status: 200 });
 });
 
 export const externalResourceHandlers = [

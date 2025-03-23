@@ -1,22 +1,21 @@
 import AddIcon from '@mui/icons-material/Add';
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { useState } from 'react';
+import { Button } from '@/shared/ui/Button';
 import { ModalCarcass } from '@/shared/ui/ModalCarcass';
+import { Progress } from '@/shared/ui/Progress';
+import { useEntityService } from '../lib';
 import * as s from './CreateEntity.module.scss';
 
-interface ICreateEntityProps<T> {
-	width?: number;
-
+interface ICreateEntityBaseProps {
 	type: 'external-resource' | 'publication' | 'about-record';
-	entity: T;
-
-	action: () => Promise<boolean>;
 }
 
-const CreateEntityContent = <T,>({
-	type,
-	entity,
-}: Pick<ICreateEntityProps<T>, 'type' | 'entity'>) => {
+interface ICreateEntityContentProps<T> extends ICreateEntityBaseProps {
+	entity: T;
+}
+
+const CreateEntityContent = <T,>({ type, entity }: ICreateEntityContentProps<T>) => {
 	switch (type) {
 		case 'external-resource':
 			return <div>{entity as string}</div>; // not released
@@ -29,20 +28,22 @@ const CreateEntityContent = <T,>({
 	}
 };
 
-export const CreateEntity = <T,>({
-	width = 500,
-	type,
-	entity,
-	action,
-}: ICreateEntityProps<T>): React.ReactElement => {
+interface ICreateEntityProps extends ICreateEntityBaseProps {
+	width?: number;
+}
+
+export const CreateEntity = <T,>({ width = 500, type }: ICreateEntityProps): React.ReactElement => {
 	const [open, setOpen] = useState<boolean>(false);
+	const [entity, _] = useState<T>();
+
+	const { createEntityService } = useEntityService<T>();
 
 	const handleModal = () => {
 		setOpen((v) => !v);
 	};
 
 	const onCreateClick = async () => {
-		const response = await action();
+		const response = await createEntityService(type, entity);
 
 		if (response) handleModal();
 	};
@@ -63,6 +64,8 @@ export const CreateEntity = <T,>({
 			</Box>
 
 			<ModalCarcass open={open} title="Добавление записи" width={width}>
+				<Progress />
+
 				<Box className={s.modal}>
 					<CreateEntityContent<T> type={type} entity={entity} />
 
