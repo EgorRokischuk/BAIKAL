@@ -23,7 +23,7 @@ const adaptTileOptionsDTO = (options: ITileOptions): ITileOptionsDTO => ({
 
 const mapApi = baseApi.injectEndpoints({
 	endpoints: (build) => ({
-		getTileLink: build.query<string, ITileOptions>({
+		getTileLink: build.mutation<string, ITileOptions>({
 			query: (options) => ({
 				url: 'tile/get_link',
 				method: 'GET',
@@ -38,7 +38,7 @@ const mapApi = baseApi.injectEndpoints({
 				}
 			},
 		}),
-		getTifFileLink: build.query<string, ITileOptions>({
+		getTifFileLink: build.mutation<string, ITileOptions>({
 			query: (options) => ({
 				url: 'files/get_link',
 				method: 'GET',
@@ -55,6 +55,6 @@ const mapApi = baseApi.injectEndpoints({
 	}),
 });
 
-const { useGetTileLinkQuery, useGetTifFileLinkQuery } = mapApi;
+const { useGetTileLinkMutation, useGetTifFileLinkMutation } = mapApi;
 
-export { mapApi, useGetTileLinkQuery, useGetTifFileLinkQuery };
+export { mapApi, useGetTileLinkMutation, useGetTifFileLinkMutation };

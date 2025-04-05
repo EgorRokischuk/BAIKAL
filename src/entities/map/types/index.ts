@@ -10,19 +10,17 @@ export interface ITileOptions {
 export interface IMapState {
 	zoom: number;
 	location: LatLngLiteral;
-	date: string;
 	isTileVisible: boolean;
 	tileLink: string;
-	tileOptions: Partial<ITileOptions>;
-	tile: Array<string>;
+	tileOptions: ITileOptions;
 }
 
 export interface IMapMenuContent extends React.ReactElement {}
 
 export interface IMapMenuItem {
 	title: string;
-	value?: string;
-	level: number;
+	key: keyof Omit<ITileOptions, 'date'>;
+	value: string;
 	content: IMapMenuContent;
 }
 
