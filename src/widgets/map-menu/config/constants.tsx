@@ -41,31 +41,31 @@ const landsatTabs: IMapMenu = [
 	{
 		title: '4',
 		key: 'device',
-		value: 'LANDSAT',
+		value: 'landsat',
 		content: <TileDatePicker />,
 	},
 	{
 		title: '5',
 		key: 'device',
-		value: 'LANDSAT',
+		value: 'landsat',
 		content: <TileDatePicker />,
 	},
 	{
 		title: '6',
 		key: 'device',
-		value: 'LANDSAT',
+		value: 'landsat',
 		content: <TileDatePicker />,
 	},
 	{
 		title: '7',
 		key: 'device',
-		value: 'LANDSAT',
+		value: 'landsat',
 		content: <TileDatePicker />,
 	},
 	{
 		title: '8',
 		key: 'device',
-		value: 'LANDSAT',
+		value: 'landsat',
 		content: <TileDatePicker />,
 	},
 ];

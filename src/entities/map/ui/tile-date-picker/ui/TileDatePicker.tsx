@@ -17,10 +17,8 @@ const TileDatePicker: React.FC<DatePickerProps<Dayjs, false>> = (props) => {
 			<DatePicker
 				{...props}
 				label="День"
-				value={date ? dayjs(date, 'DD_MM_YY') : null}
-				onChange={(date) =>
-					dispatch(mapActions.setTileOptions({ key: 'date', value: date?.toISOString() ?? '' }))
-				}
+				value={date ? dayjs(date, 'DD.MM.YYYY') : null}
+				onChange={(date) => dispatch(mapActions.setTileDate(date))}
 				slotProps={{
 					textField: {
 						sx: {

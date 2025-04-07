@@ -1,10 +1,11 @@
+import type { Dayjs } from 'dayjs';
 import { LatLngLiteral } from 'leaflet';
 
 export interface ITileOptions {
 	type: string;
 	parameter: string;
 	device: string;
-	date: string;
+	date: Dayjs | null;
 }
 
 export interface IMapState {

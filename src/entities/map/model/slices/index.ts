@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { Dayjs } from 'dayjs';
 import { LatLngLiteral } from 'leaflet';
 import { IMapState, ITileOptions } from '../../types';
 
@@ -14,7 +15,7 @@ const initialState: IMapState = {
 		type: 'Озеро Байкал',
 		parameter: 'LST',
 		device: 'LANDSAT',
-		date: '',
+		date: null,
 	},
 };
 
@@ -35,8 +36,14 @@ const mapSlice = createSlice({
 			state.tileLink = action.payload;
 			state.isTileVisible = !!action.payload;
 		},
-		setTileOptions: (state, action: PayloadAction<{ key: keyof ITileOptions; value: string }>) => {
+		setTileOptions: (
+			state,
+			action: PayloadAction<{ key: keyof Omit<ITileOptions, 'date'>; value: string }>,
+		) => {
 			state.tileOptions[action.payload.key] = action.payload.value;
+		},
+		setTileDate: (state, action: PayloadAction<Dayjs | null>) => {
+			state.tileOptions.date = action.payload;
 		},
 		resetState: () => initialState,
 	},
