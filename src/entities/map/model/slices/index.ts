@@ -15,6 +15,7 @@ const initialState: IMapState = {
 		type: 'Озеро Байкал',
 		parameter: 'LST',
 		device: 'LANDSAT',
+		photoTime: null,
 		date: null,
 	},
 };
@@ -41,6 +42,8 @@ const mapSlice = createSlice({
 			action: PayloadAction<{ key: keyof Omit<ITileOptions, 'date'>; value: string }>,
 		) => {
 			state.tileOptions[action.payload.key] = action.payload.value;
+
+			if (action.payload.key !== 'photoTime') state.tileOptions.date = null;
 		},
 		setTileDate: (state, action: PayloadAction<Dayjs | null>) => {
 			state.tileOptions.date = action.payload;

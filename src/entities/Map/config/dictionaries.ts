@@ -20,3 +20,8 @@ export const deviceDictionary: TDictinary = {
 	aqua: 'MODIS Aqua',
 	landsat: 'LANDSAT',
 };
+
+export const photoTimeDictionary: TDictinary = {
+	daily: 'Дневные',
+	nightly: 'Ночные',
+};

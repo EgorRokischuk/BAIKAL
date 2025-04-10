@@ -76,7 +76,12 @@ const lstSatellites: IMapMenu = [
 		title: 'VIIRS',
 		key: 'device',
 		value: 'viirs',
-		content: <Accordions />,
+		content: (
+			<>
+				<RadioDayNight />
+				<Accordions />
+			</>
+		),
 	},
 	{
 		title: 'MODIS Terra',

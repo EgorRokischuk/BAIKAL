@@ -5,7 +5,7 @@
 	"scripts": {
 		"prepare": "husky",
 		"devlocal": "npx webpack serve --mode development --env mode=development --config ./webpack.config.ts",
-		"devserver": "npx webpack serve --mode development --env mode=development --config ./webpack.config.ts",
+		"devserver": "npx webpack serve --mode production --env mode=production --config ./webpack.config.ts",
 		"runbuild": "npx serve -s build",
 		"build": "npx webpack --mode production --env mode=production",
 		"start-http-server": "cd ../baikal_test && npx http-server -p 2000",

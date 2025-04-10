@@ -5,6 +5,8 @@ export interface ITileOptions {
 	type: string;
 	parameter: string;
 	device: string;
+	photoType?: string;
+	photoTime: string | null;
 	date: Dayjs | null;
 }
 

@@ -16,7 +16,6 @@ const TileDatePicker: React.FC<DatePickerProps<Dayjs, false>> = (props) => {
 		<LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="ru">
 			<DatePicker
 				{...props}
-				label="День"
 				value={date ? dayjs(date, 'DD.MM.YYYY') : null}
 				onChange={(date) => dispatch(mapActions.setTileDate(date))}
 				slotProps={{
