@@ -1,13 +1,8 @@
-@mixin layout($heigth) {
-    display: flex;
-    height: calc(100vh - #{$heigth});
-    max-height: 100%;
-}
-
-$bg-img: url('../../../../shared/assets/gallery/auth_bg.png');
-
 .main {
-    @include layout(110px);
+    display: flex;
+    height: calc(100vh - 110px);
+    max-height: 100%;
+    background: #ECECEC;
 }
 
 .container {

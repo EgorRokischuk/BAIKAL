@@ -3,6 +3,7 @@ import { ApiTags } from '@/shared/config/api/apiTags';
 import { baseApi } from '@/shared/config/api/baseApi';
 import { LS_ACCESS_TOKEN } from '@/shared/config/constants/authConstants';
 import { removeFromLS, setToLS } from '@/shared/lib/manageLocalStorage';
+import { userActions } from '../model/slices';
 import { IExtraArgument, ILogin, ILoginResponse, IProfileResponse, IRegister } from '../types';
 
 const authApi = baseApi.injectEndpoints({
@@ -57,6 +58,15 @@ const authApi = baseApi.injectEndpoints({
 				url: 'auth/profile',
 				method: 'GET',
 			}),
+			async onQueryStarted(_, { queryFulfilled, dispatch }) {
+				try {
+					const response = await queryFulfilled;
+
+					dispatch(userActions.setProfile(response.data.user));
+				} catch (e) {
+					if (__IS_DEV__) console.error(e);
+				}
+			},
 			providesTags: [ApiTags.PROFILE],
 		}),
 		logout: build.query<void, void>({

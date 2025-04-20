@@ -1,0 +1,22 @@
+.modal { 
+    position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: '#FFF';
+	border: none;
+
+    &__title {
+        height: 72px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #0C4493;
+        border-radius: 5px 5px 0px 0px;
+    }
+
+    &__content {
+        background: #ECECEC;
+        border-radius: 0px 0px 5px 5px;
+    }
+}
