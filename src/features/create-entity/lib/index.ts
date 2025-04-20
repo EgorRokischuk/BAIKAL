@@ -2,6 +2,7 @@ import {
 	IExternalResourceRequest,
 	useCreateExternalResourceMutation,
 } from '@/entities/ExternalResource';
+import { externalResourceDefaultValue, externalResourceSchema } from '../model';
 
 export const useEntityService = <T>() => {
 	const [createExternalResourceMutation] = useCreateExternalResourceMutation();
@@ -20,4 +21,18 @@ export const useEntityService = <T>() => {
 	};
 
 	return { createEntityService };
+};
+
+export const initEntitySchema = (type: string) => {
+	switch (type) {
+		case 'external-resource':
+			return externalResourceSchema;
+	}
+};
+
+export const initDefaultValues = <T>(type: string) => {
+	switch (type) {
+		case 'external-resource':
+			return externalResourceDefaultValue as T;
+	}
 };

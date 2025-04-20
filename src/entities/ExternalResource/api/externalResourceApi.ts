@@ -18,11 +18,14 @@ const externalResourceApi = baseApi.injectEndpoints({
 			query: (id) => `/external-resources/${id}`,
 		}),
 		createExternalResource: build.mutation<string, IExternalResourceRequest>({
-			query: (body) => ({
-				url: '/external-resources',
-				method: 'POST',
-				body,
-			}),
+			query: (body) => {
+				const formData = new FormData();
+				formData.append('title', body.title);
+				formData.append('link', body.link);
+				formData.append('image', body.image);
+
+				return { url: '/external-resources', method: 'POST', body: formData };
+			},
 			async onQueryStarted(_, { queryFulfilled, dispatch }) {
 				try {
 					await queryFulfilled;

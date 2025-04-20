@@ -5,7 +5,7 @@ export interface IExternalResourceResponse {
 	imageUrl: string;
 }
 
-export interface IExternalResourceRequest extends IExternalResourceResponse {
+export interface IExternalResourceRequest {
 	title: string;
 	link: string;
 	image: File;
