@@ -13,20 +13,15 @@ interface IAlertProps {
 
 	onOkClick?: () => void | Promise<void>;
 	onCancelClick?: () => void | Promise<void>;
-	close: () => void;
 }
 
 export const Alert: React.FC<IAlertProps> = ({ hideCancelButton = false, ...props }) => {
 	const onOkClick = async () => {
 		if (props.onOkClick) await props.onOkClick();
-
-		props.close();
 	};
 
 	const onCancelClick = async () => {
 		if (props.onCancelClick) await props.onCancelClick();
-
-		props.close();
 	};
 
 	return (

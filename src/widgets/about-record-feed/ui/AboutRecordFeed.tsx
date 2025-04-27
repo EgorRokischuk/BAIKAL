@@ -1,4 +1,5 @@
 import { Box, Typography } from '@mui/material';
+import { DeleteRecord } from '@/features/AboutRecord/record-delete';
 import { useGetAboutRecordsListQuery } from '@/entities/AboutRecord';
 import * as s from './AboutRecordFeed.module.scss';
 import { AboutRecordFeedSkeleton } from './AboutRecordFeed.skeleton';
@@ -19,7 +20,9 @@ export const AboutRecordFeed: React.FC = () => {
 					<Box>{/* TODO: edit button */}</Box>
 				</Box>
 
-				<Box>{/* TODO: delete button */}</Box>
+				<Box>
+					<DeleteRecord id={ar.id} />
+				</Box>
 			</Box>
 
 			<Box className={s.block_description}>
