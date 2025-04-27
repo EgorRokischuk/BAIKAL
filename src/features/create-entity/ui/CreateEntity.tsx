@@ -3,11 +3,13 @@ import AddIcon from '@mui/icons-material/Add';
 import { Box, Typography } from '@mui/material';
 import { useState } from 'react';
 import { Control, FieldErrors, useForm } from 'react-hook-form';
+import { IAboutRecordRequest } from '@/entities/AboutRecord';
 import { IExternalResourceRequest } from '@/entities/ExternalResource';
 import { Button } from '@/shared/ui/Button';
 import { ModalCarcass } from '@/shared/ui/ModalCarcass';
 import { Progress } from '@/shared/ui/Progress';
 import { initDefaultValues, initEntitySchema, useEntityService } from '../lib';
+import { AboutRecordContent } from './AboutRecordContent';
 import * as s from './CreateEntity.module.scss';
 import { ExternalResourceContent } from './ExternalResourceContent/ui/ExternalResourceContent';
 
@@ -32,7 +34,12 @@ const CreateEntityContent = <T,>({ type, control, errors }: ICreateEntityContent
 		case 'publication':
 			return null; // not released
 		case 'about-record':
-			return null; // not released
+			return (
+				<AboutRecordContent
+					control={control as unknown as Control<IAboutRecordRequest>}
+					errors={errors as FieldErrors<IAboutRecordRequest>}
+				/>
+			);
 		default:
 			return null;
 	}

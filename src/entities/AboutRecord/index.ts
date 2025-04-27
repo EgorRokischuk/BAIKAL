@@ -7,3 +7,4 @@ export {
 	useUpdateAboutRecordMutation,
 	useDeleteAboutRecordMutation,
 } from './api/aboutRecordApi';
+export type { IAboutRecordRequest } from './types';
