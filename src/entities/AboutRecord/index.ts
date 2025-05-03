@@ -8,3 +8,4 @@ export {
 	useDeleteAboutRecordMutation,
 } from './api/aboutRecordApi';
 export type { IAboutRecordRequest } from './types';
+export { AboutRecordFields } from './ui/AboutRecordFields';
