@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useDeleteAboutRecordMutation } from '@/entities/AboutRecord';
 import { Alert } from '@/shared/ui/Alert';
 import { Button } from '@/shared/ui/Button';
-import * as s from './RecordDelete.module.scss';
+import { btnStyle } from '../config/sxStyles';
 
 interface IRecordDeleteProps {
 	id: string;
@@ -26,8 +26,8 @@ export const RecordDelete: React.FC<IRecordDeleteProps> = ({ id }) => {
 
 	return (
 		<>
-			<Button className={s.delete__btn} onClick={handleModal}>
-				<DeleteIcon />
+			<Button sx={btnStyle} onClick={handleModal}>
+				<DeleteIcon fontSize="inherit" />
 			</Button>
 
 			<Alert
