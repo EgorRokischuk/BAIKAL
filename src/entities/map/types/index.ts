@@ -1,19 +1,29 @@
+import type { Dayjs } from 'dayjs';
 import { LatLngLiteral } from 'leaflet';
+
+export interface ITileOptions {
+	type: string;
+	parameter: string;
+	device: string;
+	photoType?: string;
+	photoTime: string | null;
+	date: Dayjs | null;
+}
 
 export interface IMapState {
 	zoom: number;
 	location: LatLngLiteral;
-	date: string;
 	isTileVisible: boolean;
-	tile: Array<string>;
+	tileLink: string;
+	tileOptions: ITileOptions;
 }
 
 export interface IMapMenuContent extends React.ReactElement {}
 
 export interface IMapMenuItem {
 	title: string;
-	value?: string;
-	level: number;
+	key: keyof Omit<ITileOptions, 'date'>;
+	value: string;
 	content: IMapMenuContent;
 }
 

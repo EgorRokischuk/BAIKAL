@@ -37,35 +37,35 @@ const groundDataContent: IMapMenuContent = (
 );
 
 // Содержимое таба "Озеро Байкал - LST - LANDSAT"
-const landsatTabs = [
+const landsatTabs: IMapMenu = [
 	{
 		title: '4',
-		level: 2,
-		value: 'Landsat_4',
+		key: 'device',
+		value: 'landsat',
 		content: <TileDatePicker />,
 	},
 	{
 		title: '5',
-		level: 2,
-		value: 'Landsat_5',
+		key: 'device',
+		value: 'landsat',
 		content: <TileDatePicker />,
 	},
 	{
 		title: '6',
-		level: 2,
-		value: 'Landsat_6',
+		key: 'device',
+		value: 'landsat',
 		content: <TileDatePicker />,
 	},
 	{
 		title: '7',
-		level: 2,
-		value: 'Landsat_7',
+		key: 'device',
+		value: 'landsat',
 		content: <TileDatePicker />,
 	},
 	{
 		title: '8',
-		level: 2,
-		value: 'Landsat_8',
+		key: 'device',
+		value: 'landsat',
 		content: <TileDatePicker />,
 	},
 ];
@@ -74,14 +74,19 @@ const landsatTabs = [
 const lstSatellites: IMapMenu = [
 	{
 		title: 'VIIRS',
+		key: 'device',
 		value: 'viirs',
-		level: 1,
-		content: <Accordions />,
+		content: (
+			<>
+				<RadioDayNight />
+				<Accordions />
+			</>
+		),
 	},
 	{
 		title: 'MODIS Terra',
+		key: 'device',
 		value: 'terra',
-		level: 1,
 		content: (
 			<>
 				<RadioDayNight />
@@ -91,8 +96,8 @@ const lstSatellites: IMapMenu = [
 	},
 	{
 		title: 'MODIS Aqua',
+		key: 'device',
 		value: 'aqua',
-		level: 1,
 		content: (
 			<>
 				<RadioDayNight />
@@ -102,8 +107,8 @@ const lstSatellites: IMapMenu = [
 	},
 	{
 		title: 'LANDSAT',
+		key: 'device',
 		value: 'landsat',
-		level: 1,
 		content: <TabMenu tabs={landsatTabs} />,
 	},
 ];
@@ -112,20 +117,20 @@ const lstSatellites: IMapMenu = [
 const baikalRiverTabs: IMapMenu = [
 	{
 		title: 'LST',
+		key: 'parameter',
 		value: 'temperature',
-		level: 0,
 		content: <TabMenu tabs={lstSatellites} />,
 	},
 	{
 		title: 'Хлорофилл',
+		key: 'parameter',
 		value: 'chlorophyll',
-		level: 0,
 		content: null,
 	},
 	{
 		title: 'Прозрачность',
+		key: 'parameter',
 		value: 'transparency',
-		level: 0,
 		content: null,
 	},
 ];
@@ -134,17 +139,20 @@ const baikalRiverTabs: IMapMenu = [
 export const MENU_STRUCTURE: IMapMenu = [
 	{
 		title: 'Озеро Байкал',
-		level: -1,
+		key: 'type',
+		value: 'baikalRiver',
 		content: <TabMenu tabs={baikalRiverTabs} />,
 	},
 	{
 		title: 'Байкальская природная территория',
-		level: -1,
+		key: 'type',
+		value: 'baikalNature',
 		content: null,
 	},
 	{
 		title: 'Наземные данные',
-		level: -1,
+		key: 'type',
+		value: 'groundData',
 		content: groundDataContent,
 	},
 ];

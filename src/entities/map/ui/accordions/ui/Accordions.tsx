@@ -1,31 +1,35 @@
 import { Accordion, AccordionSummary, Typography, AccordionDetails } from '@mui/material';
-import { DatePicker } from '@mui/x-date-pickers';
-import { useState } from 'react';
+import { useAppDispatch } from '@/shared/hooks/useAppDispatch';
+import { useAppSelector } from '@/shared/hooks/useAppSelector';
+import { getTileOptionByKey } from '../../../model/selectors';
+import { mapActions } from '../../../model/slices';
+import { TileDatePicker } from '../../tile-date-picker';
 
-// TODO: replace "any"
 const Accordions: React.FC = () => {
-	const [expanded, setExpanded] = useState<any>(false);
+	const dispatch = useAppDispatch();
 
-	const makeChangeHandler = (panel: any) => (_: any, isExpanded: any) => {
-		setExpanded(isExpanded ? panel : false);
+	const expanded = useAppSelector(getTileOptionByKey('photoType'));
+
+	const makeChangeHandler = (panel: string) => (_: unknown, isExpanded: boolean) => {
+		dispatch(mapActions.setTileOptions({ key: 'photoType', value: isExpanded ? panel : null }));
 	};
 
 	return (
 		<>
-			<Accordion expanded={expanded === 'panel1'} onChange={makeChangeHandler('panel1')}>
+			<Accordion expanded={expanded === 'avgYear'} onChange={makeChangeHandler('avgYear')}>
 				<AccordionSummary>
 					<Typography>{'Средние ежегодные'}</Typography>
 				</AccordionSummary>
 				<AccordionDetails>
-					<DatePicker views={['year', 'month']} label="Месяц и год" />
+					<TileDatePicker views={['year', 'month']} label="Месяц и год" />
 				</AccordionDetails>
 			</Accordion>
-			<Accordion expanded={expanded === 'panel2'} onChange={makeChangeHandler('panel2')}>
+			<Accordion expanded={expanded === 'avgMonth'} onChange={makeChangeHandler('avgMonth')}>
 				<AccordionSummary>
 					<Typography>{'Многолетние среднемесячные'}</Typography>
 				</AccordionSummary>
 				<AccordionDetails>
-					<DatePicker views={['month']} label="Месяц" />
+					<TileDatePicker views={['month']} label="Месяц" />
 				</AccordionDetails>
 			</Accordion>
 		</>

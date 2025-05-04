@@ -1,3 +1,4 @@
+import { Box } from '@mui/material';
 import { useState } from 'react';
 import type { IMapMenu } from '@/entities/Map/types';
 import { getAvailableTab } from '../lib';
@@ -16,10 +17,10 @@ const TabMenu: React.FC<IProps> = ({ tabs }) => {
 	};
 
 	return (
-		<div>
+		<Box>
 			<TabMenuHeader tabIndex={tabIndex} tabs={tabs} setTabIndex={changeTabIndex} />
 			<MenuBody tabs={tabs} tabIndex={tabIndex} />
-		</div>
+		</Box>
 	);
 };
 

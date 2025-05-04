@@ -1,8 +1,8 @@
 import { Tabs, Tab, Typography } from '@mui/material';
 import { useEffect } from 'react';
-import { mapActions } from '@/entities/Map/model/slices';
-import { IMapMenu, IMapMenuItem } from '@/entities/Map/types';
 import { useAppDispatch } from '@/shared/hooks/useAppDispatch';
+import { mapActions } from '../../../../../model/slices';
+import { IMapMenu, IMapMenuItem, ITileOptions } from '../../../../../types';
 import { disabledTabs } from '../../../config/constants';
 
 interface IProps {
@@ -14,12 +14,12 @@ interface IProps {
 const TabMenuHeader: React.FC<IProps> = ({ tabIndex, tabs, setTabIndex }) => {
 	const dispatch = useAppDispatch();
 
-	const setTileSettings = (pos: number, tile: string) => {
-		dispatch(mapActions.setTile({ pos, tile }));
+	const setTileSettings = (key: keyof Omit<ITileOptions, 'date'>, value: string) => {
+		dispatch(mapActions.setTileOptions({ key, value }));
 	};
 
 	useEffect(() => {
-		setTileSettings(tabs[tabIndex].level, tabs[tabIndex].value || '');
+		setTileSettings(tabs[tabIndex].key, tabs[tabIndex].value);
 	}, []);
 
 	return (
@@ -33,7 +33,7 @@ const TabMenuHeader: React.FC<IProps> = ({ tabIndex, tabs, setTabIndex }) => {
 			{tabs.map((tab: IMapMenuItem, index: number) => (
 				<Tab
 					key={index}
-					onClick={() => setTileSettings(tab.level, tab.value || '')}
+					onClick={() => setTileSettings(tab.key, tab.value || '')}
 					disabled={disabledTabs.includes(tab.title)}
 					label={
 						<Typography

@@ -1,24 +1,23 @@
 import { DatePicker, DatePickerProps, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs, { Dayjs } from 'dayjs';
-import { getTileDate } from '@/entities/Map/model/selectors';
-import { mapActions } from '@/entities/Map/model/slices';
 import { useAppDispatch } from '@/shared/hooks/useAppDispatch';
 import { useAppSelector } from '@/shared/hooks/useAppSelector';
+import { getTileOptionByKey } from '../../../model/selectors';
+import { mapActions } from '../../../model/slices';
 import 'dayjs/locale/ru';
 dayjs.locale('ru');
 
 const TileDatePicker: React.FC<DatePickerProps<Dayjs, false>> = (props) => {
-	const date = useAppSelector(getTileDate);
+	const date = useAppSelector(getTileOptionByKey('date'));
 	const dispatch = useAppDispatch();
 
 	return (
 		<LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="ru">
 			<DatePicker
 				{...props}
-				label="День"
-				value={date ? dayjs(date, 'DD_MM_YY') : null}
-				onChange={(date) => dispatch(mapActions.setDate(date ? date.toISOString() : null))}
+				value={date ? dayjs(date, 'DD.MM.YYYY') : null}
+				onChange={(date) => dispatch(mapActions.setTileDate(date))}
 				slotProps={{
 					textField: {
 						sx: {

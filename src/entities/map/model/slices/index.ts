@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import dayjs from 'dayjs';
+import { Dayjs } from 'dayjs';
 import { LatLngLiteral } from 'leaflet';
-import { IMapState } from '../../types';
+import { IMapState, ITileOptions } from '../../types';
 
 const initialState: IMapState = {
 	zoom: 7,
@@ -10,8 +10,14 @@ const initialState: IMapState = {
 		lng: 107.7,
 	},
 	isTileVisible: false,
-	date: '',
-	tile: ['temperature', 'landsat', 'Landsat_8'],
+	tileLink: '',
+	tileOptions: {
+		type: 'Озеро Байкал',
+		parameter: 'LST',
+		device: 'LANDSAT',
+		photoTime: null,
+		date: null,
+	},
 };
 
 const mapSlice = createSlice({
@@ -24,23 +30,23 @@ const mapSlice = createSlice({
 		setLocation: (state, action: PayloadAction<LatLngLiteral>) => {
 			state.location = action.payload;
 		},
-		setDate: (state, action: PayloadAction<string>) => {
-			const formattedDate = dayjs(action.payload).format('DD_MM_YY');
-			state.date = formattedDate;
-		},
 		setIsTileVisible: (state, action: PayloadAction<boolean>) => {
 			state.isTileVisible = action.payload;
 		},
-		setTile: (state, action: PayloadAction<{ pos: number; tile: string }>) => {
-			state.isTileVisible = false;
+		setTileLink: (state, action: PayloadAction<string>) => {
+			state.tileLink = action.payload;
+			state.isTileVisible = !!action.payload;
+		},
+		setTileOptions: (
+			state,
+			action: PayloadAction<{ key: keyof Omit<ITileOptions, 'date'>; value: string }>,
+		) => {
+			state.tileOptions[action.payload.key] = action.payload.value;
 
-			if (action.payload.pos === -1) {
-				state.tile = [];
-				return;
-			}
-
-			state.tile.splice(action.payload.pos, state.tile.length - action.payload.pos);
-			state.tile[action.payload.pos] = action.payload.tile;
+			if (action.payload.key !== 'photoTime') state.tileOptions.date = null;
+		},
+		setTileDate: (state, action: PayloadAction<Dayjs | null>) => {
+			state.tileOptions.date = action.payload;
 		},
 		resetState: () => initialState,
 	},
