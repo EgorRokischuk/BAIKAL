@@ -1,0 +1,11 @@
+.page {
+    display: flex;
+
+    &__block {
+        width: 90px;
+    }
+
+    &__gallery {
+        width: 100%;
+    }
+}

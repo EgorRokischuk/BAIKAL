@@ -4,4 +4,4 @@ export { authHandlers } from './api/__mocks__';
 export * from './api/authApi';
 export type { ILogin, IRegister, IUserState } from './types';
 export { userReducer, userActions } from './model/slices';
-export { getFullProfile } from './model/selector';
+export { getFullProfile, getUserRights } from './model/selector';
