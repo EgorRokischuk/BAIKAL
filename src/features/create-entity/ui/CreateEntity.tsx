@@ -6,8 +6,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { AboutRecordFields } from '@/entities/AboutRecord';
 import { ExternalResourceFields } from '@/entities/ExternalResource';
 import { Button } from '@/shared/ui/Button';
-import { ModalCarcass } from '@/shared/ui/ModalCarcass';
-import { Progress } from '@/shared/ui/Progress';
+import { EntityForm } from '@/shared/ui/EntityForm';
 import { initDefaultValues, initEntitySchema, useEntityService } from '../lib';
 import * as s from './CreateEntity.module.scss';
 
@@ -38,7 +37,7 @@ export const CreateEntity = <T,>({ width = 500, type }: ICreateEntityProps): Rea
 	const { createEntityService } = useEntityService<T>();
 
 	const methods = useForm<T>({
-		mode: 'onSubmit',
+		mode: 'onTouched',
 		resolver: zodResolver(initEntitySchema(type)),
 		defaultValues: initDefaultValues(type),
 	});
@@ -52,8 +51,7 @@ export const CreateEntity = <T,>({ width = 500, type }: ICreateEntityProps): Rea
 		setOpen((v) => !v);
 	};
 
-	const onCreateClick = async (test: unknown) => {
-		console.log(entity, test);
+	const onCreateClick = async () => {
 		const response = await createEntityService(type, entity);
 
 		if (response) handleModal();
@@ -74,32 +72,17 @@ export const CreateEntity = <T,>({ width = 500, type }: ICreateEntityProps): Rea
 				<Typography variant="body2">{'Новая запись'}</Typography>
 			</Box>
 
-			<ModalCarcass open={open} title="Добавление записи" width={width}>
-				<Progress />
-
-				<Box className={s.modal}>
-					<FormProvider {...methods}>
-						<Box className={s.modal__fields}>
-							<EntityFields type={type} />
-						</Box>
-
-						<Box className={s.modal__actions}>
-							<Button
-								fullWidth
-								variant="contained"
-								color="primary"
-								onClick={handleSubmit(onCreateClick)}
-							>
-								{'Подтвердить'}
-							</Button>
-
-							<Button fullWidth variant="contained" color="secondary" onClick={handleModal}>
-								{'Закрыть'}
-							</Button>
-						</Box>
-					</FormProvider>
-				</Box>
-			</ModalCarcass>
+			<FormProvider {...methods}>
+				<EntityForm
+					open={open}
+					title="Добавление записи"
+					width={width}
+					onSubmit={handleSubmit(onCreateClick)}
+					onCancel={handleModal}
+				>
+					<EntityFields type={type} />
+				</EntityForm>
+			</FormProvider>
 		</>
 	);
 };

@@ -7,5 +7,5 @@ export {
 	useUpdateAboutRecordMutation,
 	useDeleteAboutRecordMutation,
 } from './api/aboutRecordApi';
-export type { IAboutRecordRequest } from './types';
+export type { IAboutRecordRequest, IAboutRecordResponse } from './types';
 export { AboutRecordFields } from './ui/AboutRecordFields';
