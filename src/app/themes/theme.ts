@@ -10,6 +10,9 @@ declare module '@mui/material/styles' {
 		map_menu_label: React.CSSProperties;
 		modal_title: React.CSSProperties;
 		modal_description: React.CSSProperties;
+
+		about_record_title: React.CSSProperties;
+		about_record_description: React.CSSProperties;
 	}
 
 	interface TypographyVariantsOptions {
@@ -19,6 +22,9 @@ declare module '@mui/material/styles' {
 		map_menu_label?: React.CSSProperties;
 		modal_title?: React.CSSProperties;
 		modal_description?: React.CSSProperties;
+
+		about_record_title?: React.CSSProperties;
+		about_record_description?: React.CSSProperties;
 	}
 }
 
@@ -30,6 +36,9 @@ declare module '@mui/material/Typography' {
 		map_menu_label: true;
 		modal_title: true;
 		modal_description: true;
+
+		about_record_title: true;
+		about_record_description: true;
 	}
 }
 
@@ -123,6 +132,18 @@ export const theme = createTheme({
 			fontFamily: 'Roboto, sans-serif',
 			fontSize: '22px',
 			fontWeight: 400,
+			lineHeight: '28px',
+			color: '#000',
+		},
+		about_record_title: {
+			fontFamily: 'Roboto, sans-serif',
+			fontSize: '28px',
+			lineHeight: '36px',
+			color: '#FFF',
+		},
+		about_record_description: {
+			fontFamily: 'Roboto, sans-serif',
+			fontSize: '22px',
 			lineHeight: '28px',
 			color: '#000',
 		},

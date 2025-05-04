@@ -1,11 +1,18 @@
+import { IAboutRecordRequest, useCreateAboutRecordMutation } from '@/entities/AboutRecord';
 import {
 	IExternalResourceRequest,
 	useCreateExternalResourceMutation,
 } from '@/entities/ExternalResource';
-import { externalResourceDefaultValue, externalResourceSchema } from '../model';
+import {
+	aboutRecordDefaultValue,
+	aboutRecordSchema,
+	externalResourceDefaultValue,
+	externalResourceSchema,
+} from '../model';
 
 export const useEntityService = <T>() => {
 	const [createExternalResourceMutation] = useCreateExternalResourceMutation();
+	const [createAboutRecordMutation] = useCreateAboutRecordMutation();
 
 	const createEntityService = async (type: string, entity: T) => {
 		switch (type) {
@@ -14,7 +21,7 @@ export const useEntityService = <T>() => {
 			case 'publication':
 				return null; // not released
 			case 'about-record':
-				return null; // not released
+				return createAboutRecordMutation(entity as IAboutRecordRequest);
 			default:
 				return null; // returns when uncorrect type
 		}
@@ -27,6 +34,8 @@ export const initEntitySchema = (type: string) => {
 	switch (type) {
 		case 'external-resource':
 			return externalResourceSchema;
+		case 'about-record':
+			return aboutRecordSchema;
 	}
 };
 
@@ -34,5 +43,7 @@ export const initDefaultValues = <T>(type: string) => {
 	switch (type) {
 		case 'external-resource':
 			return externalResourceDefaultValue as T;
+		case 'about-record':
+			return aboutRecordDefaultValue as T;
 	}
 };

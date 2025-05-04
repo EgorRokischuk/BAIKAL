@@ -2,37 +2,26 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import AddIcon from '@mui/icons-material/Add';
 import { Box, Typography } from '@mui/material';
 import { useState } from 'react';
-import { Control, FieldErrors, useForm } from 'react-hook-form';
-import { IExternalResourceRequest } from '@/entities/ExternalResource';
+import { FormProvider, useForm } from 'react-hook-form';
+import { AboutRecordFields } from '@/entities/AboutRecord';
+import { ExternalResourceFields } from '@/entities/ExternalResource';
 import { Button } from '@/shared/ui/Button';
-import { ModalCarcass } from '@/shared/ui/ModalCarcass';
-import { Progress } from '@/shared/ui/Progress';
+import { EntityForm } from '@/shared/ui/EntityForm';
 import { initDefaultValues, initEntitySchema, useEntityService } from '../lib';
 import * as s from './CreateEntity.module.scss';
-import { ExternalResourceContent } from './ExternalResourceContent/ui/ExternalResourceContent';
 
 interface ICreateEntityBaseProps {
 	type: 'external-resource' | 'publication' | 'about-record';
 }
 
-interface ICreateEntityContentProps<T> extends ICreateEntityBaseProps {
-	control: Control<T>;
-	errors: FieldErrors<T>;
-}
-
-const CreateEntityContent = <T,>({ type, control, errors }: ICreateEntityContentProps<T>) => {
+const EntityFields = ({ type }: ICreateEntityBaseProps) => {
 	switch (type) {
 		case 'external-resource':
-			return (
-				<ExternalResourceContent
-					control={control as unknown as Control<IExternalResourceRequest>}
-					errors={errors as FieldErrors<IExternalResourceRequest>}
-				/>
-			);
+			return <ExternalResourceFields />;
 		case 'publication':
 			return null; // not released
 		case 'about-record':
-			return null; // not released
+			return <AboutRecordFields />;
 		default:
 			return null;
 	}
@@ -47,25 +36,22 @@ export const CreateEntity = <T,>({ width = 500, type }: ICreateEntityProps): Rea
 
 	const { createEntityService } = useEntityService<T>();
 
-	const {
-		control,
-		handleSubmit,
-		formState: { errors },
-		watch,
-	} = useForm<T>({
-		mode: 'onSubmit',
+	const methods = useForm<T>({
+		mode: 'onTouched',
 		resolver: zodResolver(initEntitySchema(type)),
 		defaultValues: initDefaultValues(type),
 	});
 
+	const { handleSubmit, watch, reset } = methods;
+
 	const entity = watch();
 
 	const handleModal = () => {
+		if (!open) reset();
 		setOpen((v) => !v);
 	};
 
 	const onCreateClick = async () => {
-		console.log(entity);
 		const response = await createEntityService(type, entity);
 
 		if (response) handleModal();
@@ -86,27 +72,17 @@ export const CreateEntity = <T,>({ width = 500, type }: ICreateEntityProps): Rea
 				<Typography variant="body2">{'Новая запись'}</Typography>
 			</Box>
 
-			<ModalCarcass open={open} title="Добавление записи" width={width}>
-				<Progress />
-
-				<Box className={s.modal}>
-					<form onSubmit={handleSubmit(onCreateClick)}>
-						<Box className={s.modal__fields}>
-							<CreateEntityContent<T> type={type} control={control} errors={errors} />
-						</Box>
-
-						<Box className={s.modal__actions}>
-							<Button type="submit" fullWidth variant="contained" color="primary">
-								{'Подтвердить'}
-							</Button>
-
-							<Button fullWidth variant="contained" color="secondary" onClick={handleModal}>
-								{'Закрыть'}
-							</Button>
-						</Box>
-					</form>
-				</Box>
-			</ModalCarcass>
+			<FormProvider {...methods}>
+				<EntityForm
+					open={open}
+					title="Добавление записи"
+					width={width}
+					onSubmit={handleSubmit(onCreateClick)}
+					onCancel={handleModal}
+				>
+					<EntityFields type={type} />
+				</EntityForm>
+			</FormProvider>
 		</>
 	);
 };
