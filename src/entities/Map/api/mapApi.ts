@@ -9,7 +9,13 @@ import {
 } from '../config/dictionaries';
 import { initTileDay, initTileYear } from '../lib';
 import { mapActions } from '../model/slices';
-import { ITileOptions } from '../types';
+import {
+	IGroundDataParametersRequest,
+	IGroundDataPoint,
+	IGroundDataRequest,
+	IGroundDataSourcesRequest,
+	ITileOptions,
+} from '../types';
 
 interface ITileOptionsDTO {
 	data_type: string;
@@ -66,9 +72,64 @@ const mapApi = baseApi.injectEndpoints({
 				}
 			},
 		}),
+		getGroundDataParameters: build.query<Array<string>, IGroundDataParametersRequest>({
+			query: (params) => ({
+				url: 'files/ground_data/get_available_parameters',
+				method: 'GET',
+				params,
+			}),
+			async onQueryStarted(_, { queryFulfilled }) {
+				try {
+					await queryFulfilled;
+				} catch (e) {
+					if (__IS_DEV__) console.error(e);
+				}
+			},
+		}),
+		getGroundDataSources: build.query<Array<string>, IGroundDataSourcesRequest>({
+			query: (params) => ({
+				url: 'files/ground_data/get_available_sources',
+				method: 'GET',
+				params,
+			}),
+			async onQueryStarted(_, { queryFulfilled }) {
+				try {
+					await queryFulfilled;
+				} catch (e) {
+					if (__IS_DEV__) console.error(e);
+				}
+			},
+		}),
+		getGroundDataPoints: build.query<Array<IGroundDataPoint>, IGroundDataRequest>({
+			query: (params) => ({
+				url: 'files/ground_data/get_points',
+				method: 'GET',
+				params,
+			}),
+			async onQueryStarted(_, { queryFulfilled }) {
+				try {
+					await queryFulfilled;
+				} catch (e) {
+					if (__IS_DEV__) console.error(e);
+				}
+			},
+		}),
 	}),
 });
 
-const { useGetTileLinkMutation, useGetTifFileLinkMutation } = mapApi;
+const {
+	useGetTileLinkMutation,
+	useGetTifFileLinkMutation,
+	useGetGroundDataParametersQuery,
+	useGetGroundDataSourcesQuery,
+	useGetGroundDataPointsQuery,
+} = mapApi;
 
-export { mapApi, useGetTileLinkMutation, useGetTifFileLinkMutation };
+export {
+	mapApi,
+	useGetTileLinkMutation,
+	useGetTifFileLinkMutation,
+	useGetGroundDataParametersQuery,
+	useGetGroundDataSourcesQuery,
+	useGetGroundDataPointsQuery,
+};

@@ -28,3 +28,24 @@ export interface IMapMenuItem {
 }
 
 export interface IMapMenu extends Array<IMapMenuItem> {}
+
+export interface IGroundDataParametersRequest {
+	startDate: string;
+	endDate?: string;
+}
+
+export interface IGroundDataSourcesRequest extends IGroundDataParametersRequest {
+	parameter: string;
+}
+
+export interface IGroundDataRequest extends IGroundDataSourcesRequest {
+	source: string;
+}
+
+export interface IGroundDataPoint {
+	coordinates: Array<number>;
+	value: number;
+	unit: string;
+	description_unit: string;
+	sensor: string;
+}
