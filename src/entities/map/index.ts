@@ -1,10 +1,18 @@
 export { mapHandlers } from './api/__mocks__';
-export { mapApi, useGetTileLinkMutation, useGetTifFileLinkMutation } from './api/mapApi';
+export {
+	mapApi,
+	useGetTileLinkMutation,
+	useGetTifFileLinkMutation,
+	useGetGroundDataParametersQuery,
+	useGetGroundDataSourcesQuery,
+	useGetGroundDataPointsQuery,
+} from './api/mapApi';
 export {
 	getMapZoom,
 	getMapLocation,
-	getIsTileVisible,
 	getTileLink,
+	getGroundDataOptions,
+	getMapDateByKey,
 	getTileOptions,
 	getTileOptionByKey,
 } from './model/selectors';

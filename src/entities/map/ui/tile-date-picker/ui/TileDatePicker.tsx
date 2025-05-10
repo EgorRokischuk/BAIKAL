@@ -3,13 +3,17 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs, { Dayjs } from 'dayjs';
 import { useAppDispatch } from '@/shared/hooks/useAppDispatch';
 import { useAppSelector } from '@/shared/hooks/useAppSelector';
-import { getTileOptionByKey } from '../../../model/selectors';
+import { getMapDateByKey } from '../../../model/selectors';
 import { mapActions } from '../../../model/slices';
 import 'dayjs/locale/ru';
 dayjs.locale('ru');
 
-const TileDatePicker: React.FC<DatePickerProps<Dayjs, false>> = (props) => {
-	const date = useAppSelector(getTileOptionByKey('date'));
+interface ITileDatePickerProps extends DatePickerProps<Dayjs, false> {
+	dateKey?: 'startDate' | 'endDate';
+}
+
+const TileDatePicker: React.FC<ITileDatePickerProps> = ({ dateKey = 'startDate', ...props }) => {
+	const date = useAppSelector(getMapDateByKey(dateKey));
 	const dispatch = useAppDispatch();
 
 	return (
@@ -17,12 +21,14 @@ const TileDatePicker: React.FC<DatePickerProps<Dayjs, false>> = (props) => {
 			<DatePicker
 				{...props}
 				value={date ? dayjs(date, 'DD.MM.YYYY') : null}
-				onChange={(date) => dispatch(mapActions.setTileDate(date))}
+				onChange={(date) => {
+					dispatch(mapActions.setMapDate({ key: dateKey, value: date }));
+				}}
 				slotProps={{
 					textField: {
 						sx: {
 							'& .MuiInputBase-input': {
-								fontSize: '16px', // Размер текста в поле ввода
+								fontSize: '16px',
 							},
 						},
 					},

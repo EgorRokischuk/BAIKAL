@@ -1,0 +1,10 @@
+import { Dayjs } from 'dayjs';
+
+export const convertToDateInput = (date: Dayjs | null): string => {
+	if (!date) return undefined;
+	return new Intl.DateTimeFormat('en-ca', {
+		year: 'numeric',
+		month: 'numeric',
+		day: 'numeric',
+	}).format(date.toDate());
+};

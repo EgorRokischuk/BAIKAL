@@ -1,72 +1,58 @@
-import {
-	Accordion,
-	AccordionSummary,
-	AccordionDetails,
-	FormControlLabel,
-	Checkbox,
-} from '@mui/material';
+import { Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
+import { SelectGroundDataParameter } from '@/features/Map/ground-data-select-parameter';
+import { SelectGroundDataSource } from '@/features/Map/ground-data-select-source';
 import type { IMapMenu, IMapMenuContent } from '@/entities/Map';
 import { TabMenu, Accordions, RadioDayNight } from '@/entities/Map';
 import { TileDatePicker } from '@/entities/Map';
 
 // Содержимое таба "Наземные данные"
-const groundDataContent: IMapMenuContent = (
-	<>
-		<Accordion>
-			<AccordionSummary>{'Тип данных'}</AccordionSummary>
-			<AccordionDetails>
-				<FormControlLabel control={<Checkbox />} label="Хлорофил" />
-				<FormControlLabel control={<Checkbox />} label="Осадки" />
-				<FormControlLabel control={<Checkbox />} label="Температура" />
-			</AccordionDetails>
-		</Accordion>
-		<Accordion>
-			<AccordionSummary>{'Источники данных'}</AccordionSummary>
-			<AccordionDetails>
-				<FormControlLabel control={<Checkbox />} label="Томск" />
-				<FormControlLabel control={<Checkbox />} label="Севастополь" />
-			</AccordionDetails>
-		</Accordion>
-		<Accordion>
-			<AccordionSummary>{'Выбор даты'}</AccordionSummary>
-			<AccordionDetails>
-				<TileDatePicker />
-			</AccordionDetails>
-		</Accordion>
-	</>
-);
+const groundDataContent: IMapMenuContent = () => {
+	return (
+		<>
+			<Accordion>
+				<AccordionSummary>{'Выбор даты'}</AccordionSummary>
+				<AccordionDetails>
+					<TileDatePicker />
+					<TileDatePicker dateKey="endDate" />
+				</AccordionDetails>
+			</Accordion>
+			<SelectGroundDataParameter />
+			<SelectGroundDataSource />
+		</>
+	);
+};
 
 // Содержимое таба "Озеро Байкал - LST - LANDSAT"
 const landsatTabs: IMapMenu = [
 	{
 		title: '4',
-		key: 'device',
+		key: 'source',
 		value: 'landsat',
-		content: <TileDatePicker />,
+		content: () => <TileDatePicker />,
 	},
 	{
 		title: '5',
-		key: 'device',
+		key: 'source',
 		value: 'landsat',
-		content: <TileDatePicker />,
+		content: () => <TileDatePicker />,
 	},
 	{
 		title: '6',
-		key: 'device',
+		key: 'source',
 		value: 'landsat',
-		content: <TileDatePicker />,
+		content: () => <TileDatePicker />,
 	},
 	{
 		title: '7',
-		key: 'device',
+		key: 'source',
 		value: 'landsat',
-		content: <TileDatePicker />,
+		content: () => <TileDatePicker />,
 	},
 	{
 		title: '8',
-		key: 'device',
+		key: 'source',
 		value: 'landsat',
-		content: <TileDatePicker />,
+		content: () => <TileDatePicker />,
 	},
 ];
 
@@ -74,9 +60,9 @@ const landsatTabs: IMapMenu = [
 const lstSatellites: IMapMenu = [
 	{
 		title: 'VIIRS',
-		key: 'device',
+		key: 'source',
 		value: 'viirs',
-		content: (
+		content: () => (
 			<>
 				<RadioDayNight />
 				<Accordions />
@@ -85,9 +71,9 @@ const lstSatellites: IMapMenu = [
 	},
 	{
 		title: 'MODIS Terra',
-		key: 'device',
+		key: 'source',
 		value: 'terra',
-		content: (
+		content: () => (
 			<>
 				<RadioDayNight />
 				<Accordions />
@@ -96,9 +82,9 @@ const lstSatellites: IMapMenu = [
 	},
 	{
 		title: 'MODIS Aqua',
-		key: 'device',
+		key: 'source',
 		value: 'aqua',
-		content: (
+		content: () => (
 			<>
 				<RadioDayNight />
 				<Accordions />
@@ -107,9 +93,9 @@ const lstSatellites: IMapMenu = [
 	},
 	{
 		title: 'LANDSAT',
-		key: 'device',
+		key: 'source',
 		value: 'landsat',
-		content: <TabMenu tabs={landsatTabs} />,
+		content: () => <TabMenu tabs={landsatTabs} />,
 	},
 ];
 
@@ -119,19 +105,19 @@ const baikalRiverTabs: IMapMenu = [
 		title: 'LST',
 		key: 'parameter',
 		value: 'temperature',
-		content: <TabMenu tabs={lstSatellites} />,
+		content: () => <TabMenu tabs={lstSatellites} />,
 	},
 	{
 		title: 'Хлорофилл',
 		key: 'parameter',
 		value: 'chlorophyll',
-		content: null,
+		content: () => <></>,
 	},
 	{
 		title: 'Прозрачность',
 		key: 'parameter',
 		value: 'transparency',
-		content: null,
+		content: () => <></>,
 	},
 ];
 
@@ -139,19 +125,19 @@ const baikalRiverTabs: IMapMenu = [
 export const MENU_STRUCTURE: IMapMenu = [
 	{
 		title: 'Озеро Байкал',
-		key: 'type',
+		key: 'productType',
 		value: 'baikalRiver',
-		content: <TabMenu tabs={baikalRiverTabs} />,
+		content: () => <TabMenu tabs={baikalRiverTabs} />,
 	},
 	{
 		title: 'Байкальская природная территория',
-		key: 'type',
+		key: 'productType',
 		value: 'baikalNature',
-		content: null,
+		content: () => <></>,
 	},
 	{
 		title: 'Наземные данные',
-		key: 'type',
+		key: 'productType',
 		value: 'groundData',
 		content: groundDataContent,
 	},

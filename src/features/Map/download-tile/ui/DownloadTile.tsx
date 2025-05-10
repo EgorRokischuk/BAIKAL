@@ -1,10 +1,10 @@
 import DownloadIcon from '@mui/icons-material/Download';
 import { Button } from '@mui/material';
-import { getIsTileVisible, getTileOptions, useGetTifFileLinkMutation } from '@/entities/Map';
+import { getTileLink, getTileOptions, useGetTifFileLinkMutation } from '@/entities/Map';
 import { useAppSelector } from '@/shared/hooks/useAppSelector';
 
 const DownloadTile: React.FC = () => {
-	const isTileVisible = useAppSelector(getIsTileVisible);
+	const tileLink = useAppSelector(getTileLink);
 	const tileOptions = useAppSelector(getTileOptions);
 	const [getTifFileLinkMutation, { isLoading }] = useGetTifFileLinkMutation();
 
@@ -15,7 +15,7 @@ const DownloadTile: React.FC = () => {
 	};
 
 	return (
-		<Button variant="contained" disabled={!isTileVisible || isLoading} onClick={handleDownload}>
+		<Button variant="contained" disabled={!tileLink || isLoading} onClick={handleDownload}>
 			<DownloadIcon />
 		</Button>
 	);

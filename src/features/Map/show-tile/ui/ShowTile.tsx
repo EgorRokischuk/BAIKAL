@@ -1,21 +1,16 @@
 import { Button } from '@mui/material';
-import {
-	getIsTileVisible,
-	getTileOptions,
-	mapActions,
-	useGetTileLinkMutation,
-} from '@/entities/Map';
+import { getTileLink, getTileOptions, mapActions, useGetTileLinkMutation } from '@/entities/Map';
 import { useAppDispatch } from '@/shared/hooks/useAppDispatch';
 import { useAppSelector } from '@/shared/hooks/useAppSelector';
 
 const ShowTile: React.FC = () => {
 	const dispatch = useAppDispatch();
-	const isTileVisibile = useAppSelector(getIsTileVisible);
+	const tileLink = useAppSelector(getTileLink);
 	const tileOptions = useAppSelector(getTileOptions);
 	const [getTileLinkMutation, { isLoading }] = useGetTileLinkMutation();
 
 	const changeTileVisibility = async () => {
-		if (isTileVisibile) {
+		if (tileLink) {
 			dispatch(mapActions.setTileLink(''));
 			return;
 		}
@@ -25,7 +20,7 @@ const ShowTile: React.FC = () => {
 
 	return (
 		<Button variant="contained" disabled={isLoading} onClick={changeTileVisibility}>
-			{isTileVisibile ? 'Скрыть' : 'Подтвердить'}
+			{tileLink ? 'Скрыть' : 'Подтвердить'}
 		</Button>
 	);
 };

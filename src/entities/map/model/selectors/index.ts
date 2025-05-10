@@ -1,10 +1,27 @@
+import { createSelector } from '@reduxjs/toolkit';
 import { IState } from '@/shared/config/store/State';
 import { ITileOptions } from '../../types';
 
 export const getMapZoom = (state: IState) => state.map.zoom;
 export const getMapLocation = (state: IState) => state.map.location;
-export const getIsTileVisible = (state: IState) => state.map.isTileVisible;
 export const getTileLink = (state: IState) => state.map.tileLink;
-export const getTileOptions = (state: IState) => state.map.tileOptions;
-export const getTileOptionByKey = (key: keyof ITileOptions) => (state: IState) =>
+export const getMapDateByKey = (key: 'startDate' | 'endDate') => (state: IState) =>
 	state.map.tileOptions[key];
+export const getTileOptions = (state: IState) => state.map.tileOptions;
+export const getTileOptionByKey =
+	(key: keyof Omit<ITileOptions, 'startDate' | 'endDate'>) => (state: IState) =>
+		state.map.tileOptions[key];
+export const getGroundDataOptions = createSelector(
+	[
+		getTileOptionByKey('parameter'),
+		getTileOptionByKey('source'),
+		getMapDateByKey('startDate'),
+		getMapDateByKey('endDate'),
+	],
+	(parameter, source, startDate, endDate) => ({
+		parameter,
+		source,
+		startDate,
+		endDate,
+	}),
+);

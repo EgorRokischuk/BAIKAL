@@ -28,13 +28,13 @@ interface ITileOptionsDTO {
 }
 
 const adaptTileOptionsDTO = (options: ITileOptions): ITileOptionsDTO => ({
-	data_type: typeDictionary[options.type],
+	data_type: typeDictionary[options.productType],
 	measured_parameter: parameterDictionary[options.parameter],
-	measuring_device: deviceDictionary[options.device],
+	measuring_device: deviceDictionary[options.source],
 	time_of_day: options.photoTime ? photoTimeDictionary[options.photoTime] : undefined,
-	years_id: initTileYear(options.photoType, options.date),
-	month_id: Number(dayjs(options.date).format('MM')),
-	day_id: initTileDay(options.device, options.date),
+	years_id: initTileYear(options.photoType, options.startDate),
+	month_id: Number(dayjs(options.startDate).format('MM')),
+	day_id: initTileDay(options.source, options.startDate),
 });
 
 const mapApi = baseApi.injectEndpoints({

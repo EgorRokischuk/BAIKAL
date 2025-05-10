@@ -14,7 +14,10 @@ interface IProps {
 const TabMenuHeader: React.FC<IProps> = ({ tabIndex, tabs, setTabIndex }) => {
 	const dispatch = useAppDispatch();
 
-	const setTileSettings = (key: keyof Omit<ITileOptions, 'date'>, value: string) => {
+	const setTileSettings = (
+		key: keyof Omit<ITileOptions, 'startDate' | 'endDate'>,
+		value: string,
+	) => {
 		dispatch(mapActions.setTileOptions({ key, value }));
 	};
 

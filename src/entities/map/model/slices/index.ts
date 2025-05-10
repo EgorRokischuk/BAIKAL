@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Dayjs } from 'dayjs';
 import { LatLngLiteral } from 'leaflet';
+import { tileOptionsForGroundData } from '../../config/constants';
 import { IMapState, ITileOptions } from '../../types';
 
 const initialState: IMapState = {
@@ -9,14 +10,14 @@ const initialState: IMapState = {
 		lat: 53.7,
 		lng: 107.7,
 	},
-	isTileVisible: false,
 	tileLink: '',
 	tileOptions: {
-		type: 'Озеро Байкал',
+		productType: 'Озеро Байкал',
 		parameter: 'LST',
-		device: 'LANDSAT',
+		source: 'LANDSAT',
 		photoTime: null,
-		date: null,
+		startDate: null,
+		endDate: null,
 	},
 };
 
@@ -30,23 +31,30 @@ const mapSlice = createSlice({
 		setLocation: (state, action: PayloadAction<LatLngLiteral>) => {
 			state.location = action.payload;
 		},
-		setIsTileVisible: (state, action: PayloadAction<boolean>) => {
-			state.isTileVisible = action.payload;
-		},
 		setTileLink: (state, action: PayloadAction<string>) => {
 			state.tileLink = action.payload;
-			state.isTileVisible = !!action.payload;
+		},
+		setMapDate: (
+			state,
+			action: PayloadAction<{
+				key: 'startDate' | 'endDate';
+				value: Dayjs | null;
+			}>,
+		) => {
+			state.tileOptions[action.payload.key] = action.payload.value;
 		},
 		setTileOptions: (
 			state,
-			action: PayloadAction<{ key: keyof Omit<ITileOptions, 'date'>; value: string }>,
+			action: PayloadAction<{
+				key: keyof Omit<ITileOptions, 'startDate' | 'endDate'>;
+				value: string;
+			}>,
 		) => {
 			state.tileOptions[action.payload.key] = action.payload.value;
 
-			if (action.payload.key !== 'photoTime') state.tileOptions.date = null;
-		},
-		setTileDate: (state, action: PayloadAction<Dayjs | null>) => {
-			state.tileOptions.date = action.payload;
+			//if (action.payload.key !== 'photoTime') state.tileOptions.startDate = null;
+			if (action.payload.key === 'productType' && action.payload.value === 'groundData')
+				state.tileOptions = tileOptionsForGroundData;
 		},
 		resetState: () => initialState,
 	},

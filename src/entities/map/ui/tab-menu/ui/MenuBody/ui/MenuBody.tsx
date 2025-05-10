@@ -1,4 +1,4 @@
-import { IMapMenu, IMapMenuItem } from '@/entities/Map/types';
+import { IMapMenu, IMapMenuItem } from '../../../../../types';
 import { TabPanel } from './TabPanel';
 
 interface IProps {
@@ -11,7 +11,7 @@ const MenuBody: React.FC<IProps> = ({ tabs, tabIndex }) => {
 		<div>
 			{tabs.map((tab: IMapMenuItem, index: number) => (
 				<TabPanel value={tabIndex} index={index} key={index}>
-					{tab.content}
+					<tab.content />
 				</TabPanel>
 			))}
 		</div>
