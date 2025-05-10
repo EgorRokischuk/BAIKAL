@@ -4,6 +4,7 @@ import { ITileOptions } from '../../types';
 
 export const getMapZoom = (state: IState) => state.map.zoom;
 export const getMapLocation = (state: IState) => state.map.location;
+export const getIsPointsVisible = (state: IState) => state.map.isPointsVisible;
 export const getTileLink = (state: IState) => state.map.tileLink;
 export const getMapDateByKey = (key: 'startDate' | 'endDate') => (state: IState) =>
 	state.map.tileOptions[key];

@@ -1,5 +1,5 @@
 import type { Dayjs } from 'dayjs';
-import { LatLngLiteral } from 'leaflet';
+import { LatLngLiteral, LatLngTuple } from 'leaflet';
 
 export interface ITileOptions {
 	productType: string;
@@ -14,6 +14,7 @@ export interface ITileOptions {
 export interface IMapState {
 	zoom: number;
 	location: LatLngLiteral;
+	isPointsVisible: boolean;
 	tileLink: string;
 	tileOptions: ITileOptions;
 }
@@ -43,7 +44,7 @@ export interface IGroundDataRequest extends IGroundDataSourcesRequest {
 }
 
 export interface IGroundDataPoint {
-	coordinates: Array<number>;
+	coordinates: LatLngTuple;
 	value: number;
 	unit: string;
 	description_unit: string;

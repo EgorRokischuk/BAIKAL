@@ -40,15 +40,12 @@ const mapGetGroundDataSources = http.get(
 	},
 );
 
-const mapGetGroundDataPoints = http.get(
-	url + '/files/ground_data/get_available_parameters',
-	async () => {
-		await delay(3000);
-		return HttpResponse.json(mockGroundDataPointsResponse, {
-			status: 200,
-		});
-	},
-);
+const mapGetGroundDataPoints = http.get(url + '/files/ground_data/get_points', async () => {
+	await delay(3000);
+	return HttpResponse.json(mockGroundDataPointsResponse, {
+		status: 200,
+	});
+});
 
 export const mapHandlers = [
 	mapGetTileLink,

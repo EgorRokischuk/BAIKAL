@@ -10,6 +10,7 @@ const initialState: IMapState = {
 		lat: 53.7,
 		lng: 107.7,
 	},
+	isPointsVisible: false,
 	tileLink: '',
 	tileOptions: {
 		productType: 'Озеро Байкал',
@@ -30,6 +31,9 @@ const mapSlice = createSlice({
 		},
 		setLocation: (state, action: PayloadAction<LatLngLiteral>) => {
 			state.location = action.payload;
+		},
+		setPointsVisibillity: (state, action: PayloadAction<boolean>) => {
+			state.isPointsVisible = action.payload;
 		},
 		setTileLink: (state, action: PayloadAction<string>) => {
 			state.tileLink = action.payload;
@@ -53,8 +57,11 @@ const mapSlice = createSlice({
 			state.tileOptions[action.payload.key] = action.payload.value;
 
 			//if (action.payload.key !== 'photoTime') state.tileOptions.startDate = null;
-			if (action.payload.key === 'productType' && action.payload.value === 'groundData')
-				state.tileOptions = tileOptionsForGroundData;
+			if (action.payload.value === 'groundData') {
+				if (action.payload.key === 'productType') state.tileOptions = tileOptionsForGroundData;
+
+				state.isPointsVisible = false;
+			}
 		},
 		resetState: () => initialState,
 	},

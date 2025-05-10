@@ -10,6 +10,7 @@ export {
 export {
 	getMapZoom,
 	getMapLocation,
+	getIsPointsVisible,
 	getTileLink,
 	getGroundDataOptions,
 	getMapDateByKey,

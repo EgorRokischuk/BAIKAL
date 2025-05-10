@@ -1,4 +1,4 @@
-const convertLocation = (decimalDegrees: number, isLng: boolean): string => {
+export const convertLocation = (decimalDegrees: number, isLng: boolean): string => {
 	const direction = decimalDegrees < 0 ? (isLng ? 'з' : 'ю') : isLng ? 'в' : 'с';
 
 	const absoluteDegrees = Math.abs(decimalDegrees);
@@ -11,5 +11,3 @@ const convertLocation = (decimalDegrees: number, isLng: boolean): string => {
 
 	return `${degrees}° ${minutes}' ${roundedSeconds}" ${direction}.${isLng ? 'д' : 'ш'}.`;
 };
-
-export { convertLocation };
