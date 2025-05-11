@@ -9,7 +9,7 @@ import {
 import { useAppSelector } from '@/shared/hooks/useAppSelector';
 import { convertToDateInput } from '@/shared/lib/datetimeFormat';
 import { convertLocation } from '@/shared/lib/locationConverter';
-import MarkIcon from './Redpoint.png';
+import MarkIcon from '../assets/Redpoint.png';
 
 const GetIcon = () => {
 	return L.icon({
