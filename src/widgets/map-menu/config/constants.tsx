@@ -1,4 +1,5 @@
 import { Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
+import { useState } from 'react';
 import { SelectGroundDataParameter } from '@/features/Map/ground-data-select-parameter';
 import { SelectGroundDataSource } from '@/features/Map/ground-data-select-source';
 import type { IMapMenu, IMapMenuContent } from '@/entities/Map';
@@ -7,17 +8,26 @@ import { TileDatePicker } from '@/entities/Map';
 
 // Содержимое таба "Наземные данные"
 const groundDataContent: IMapMenuContent = () => {
+	const [panel, setPanel] = useState<string>('date');
+
+	const handleChange = (panel: string) => (_: React.SyntheticEvent, isExpanded: boolean) => {
+		setPanel(isExpanded ? panel : '');
+	};
+
 	return (
 		<>
-			<Accordion>
+			<Accordion expanded={panel === 'date'} onChange={handleChange('date')}>
 				<AccordionSummary>{'Выбор даты'}</AccordionSummary>
 				<AccordionDetails>
 					<TileDatePicker />
 					<TileDatePicker dateKey="endDate" />
 				</AccordionDetails>
 			</Accordion>
-			<SelectGroundDataParameter />
-			<SelectGroundDataSource />
+			<SelectGroundDataParameter
+				expanded={panel === 'parameter'}
+				onChange={handleChange('parameter')}
+			/>
+			<SelectGroundDataSource expanded={panel === 'source'} onChange={handleChange('source')} />
 		</>
 	);
 };

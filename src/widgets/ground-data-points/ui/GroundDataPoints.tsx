@@ -37,7 +37,7 @@ export const GroundDataPoints: React.FC = () => {
 		<MarkerClusterGroup
 			spiderfyDistanceMultiplier={3}
 			zoomToBoundsOnClick
-			disableClusteringAtZoom={13}
+			disableClusteringAtZoom={20}
 			maxClusterRadius={95}
 			singleMarkerMode={false}
 			animated={false}

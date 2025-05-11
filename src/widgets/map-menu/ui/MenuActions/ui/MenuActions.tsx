@@ -10,7 +10,7 @@ export const MenuActions: React.FC = () => {
 	return (
 		<>
 			<DownloadTile />
-			{dataType !== 'Наземные данные' ? <ShowTile /> : <ShowGroundData />}
+			{dataType !== 'groundData' ? <ShowTile /> : <ShowGroundData />}
 		</>
 	);
 };

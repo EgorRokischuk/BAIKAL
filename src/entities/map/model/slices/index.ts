@@ -13,9 +13,9 @@ const initialState: IMapState = {
 	isPointsVisible: false,
 	tileLink: '',
 	tileOptions: {
-		productType: 'Озеро Байкал',
-		parameter: 'LST',
-		source: 'LANDSAT',
+		productType: 'baikalRiver',
+		parameter: 'temperature',
+		source: 'viirs',
 		photoTime: null,
 		startDate: null,
 		endDate: null,
@@ -46,6 +46,13 @@ const mapSlice = createSlice({
 			}>,
 		) => {
 			state.tileOptions[action.payload.key] = action.payload.value;
+
+			if (state.tileOptions.productType === 'groundData')
+				state.tileOptions = {
+					...tileOptionsForGroundData,
+					startDate: state.tileOptions.startDate,
+					endDate: state.tileOptions.endDate,
+				};
 		},
 		setTileOptions: (
 			state,
@@ -56,11 +63,19 @@ const mapSlice = createSlice({
 		) => {
 			state.tileOptions[action.payload.key] = action.payload.value;
 
-			//if (action.payload.key !== 'photoTime') state.tileOptions.startDate = null;
-			if (action.payload.value === 'groundData') {
-				if (action.payload.key === 'productType') state.tileOptions = tileOptionsForGroundData;
+			if (state.tileOptions.productType === 'groundData') {
+				switch (action.payload.key) {
+					case 'productType':
+						state.tileOptions = { ...tileOptionsForGroundData };
+						break;
+					case 'parameter':
+						state.tileOptions.source = '';
+						break;
+				}
 
 				state.isPointsVisible = false;
+			} else {
+				if (action.payload.key !== 'photoTime') state.tileOptions.startDate = null;
 			}
 		},
 		resetState: () => initialState,

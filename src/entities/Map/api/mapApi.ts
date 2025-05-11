@@ -78,12 +78,19 @@ const mapApi = baseApi.injectEndpoints({
 				method: 'GET',
 				params,
 			}),
-			async onQueryStarted(_, { queryFulfilled }) {
+			async onQueryStarted(_, { queryFulfilled, dispatch }) {
 				try {
-					await queryFulfilled;
+					const response = await queryFulfilled;
+
+					if (!response.data) dispatch(globalActions.setErrorMessage('Параметры отсутствуют!'));
 				} catch (e) {
 					if (__IS_DEV__) console.error(e);
 				}
+			},
+			transformResponse: (baseQueryReturnValue) => {
+				const data = baseQueryReturnValue as Array<string>;
+
+				return !data.length ? undefined : data;
 			},
 		}),
 		getGroundDataSources: build.query<Array<string>, IGroundDataSourcesRequest>({

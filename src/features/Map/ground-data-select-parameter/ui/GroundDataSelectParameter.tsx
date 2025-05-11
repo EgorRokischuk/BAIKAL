@@ -1,4 +1,11 @@
-import { Accordion, AccordionDetails, AccordionSummary, MenuItem, Select } from '@mui/material';
+import {
+	Accordion,
+	AccordionDetails,
+	AccordionProps,
+	AccordionSummary,
+	MenuItem,
+	Select,
+} from '@mui/material';
 import {
 	getGroundDataOptions,
 	getTileOptionByKey,
@@ -10,7 +17,7 @@ import { useAppSelector } from '@/shared/hooks/useAppSelector';
 import { convertToDateInput } from '@/shared/lib/datetimeFormat';
 import { GroundDataSelectParameterSkeleton } from './GroundDataSelectParameter.skeleton';
 
-export const GroundDataSelectParameter = () => {
+export const GroundDataSelectParameter: React.FC<Omit<AccordionProps, 'children'>> = (props) => {
 	const dispatch = useAppDispatch();
 	const parameter = useAppSelector(getTileOptionByKey('parameter'));
 	const groundDataParams = useAppSelector(getGroundDataOptions);
@@ -24,7 +31,7 @@ export const GroundDataSelectParameter = () => {
 	);
 
 	return (
-		<Accordion disabled={!groundDataParams.startDate}>
+		<Accordion disabled={!groundDataParams.startDate || !data} {...props}>
 			<AccordionSummary>{'Параметр'}</AccordionSummary>
 			<AccordionDetails>
 				{isFetching && <GroundDataSelectParameterSkeleton />}

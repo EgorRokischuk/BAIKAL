@@ -1,7 +1,7 @@
 import { ITileOptions } from '../types';
 
 export const tileOptionsForGroundData: ITileOptions = {
-	productType: 'Наземные данные',
+	productType: 'groundData',
 	parameter: '',
 	source: '',
 	photoTime: null,
