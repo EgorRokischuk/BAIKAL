@@ -3,8 +3,8 @@ import { useMapEvent } from 'react-leaflet';
 import { getMapLocation, mapActions } from '@/entities/Map';
 import { useAppDispatch } from '@/shared/hooks/useAppDispatch';
 import { useAppSelector } from '@/shared/hooks/useAppSelector';
+import { convertLocation } from '@/shared/lib/locationConverter';
 import { DragControl } from '@/shared/ui/DragControl';
-import { convertLocation } from '../lib';
 import * as s from './ShowCoordinates.module.scss';
 
 const ShowCoordinates: React.FC = () => {

@@ -21,8 +21,8 @@ const createReduxStore = () => {
 					},
 				},
 				serializableCheck: {
-					ignoredActions: ['map/setTileDate'],
-					ignoredPaths: ['map.tileOptions.date'],
+					ignoredActions: ['map/setMapDate'],
+					ignoredPaths: ['map.tileOptions.startDate', 'map.tileOptions.endDate'],
 				},
 			}).concat(baseApi.middleware, refreshMiddleware.middleware),
 	});

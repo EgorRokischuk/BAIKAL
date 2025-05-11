@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Dayjs } from 'dayjs';
 import { LatLngLiteral } from 'leaflet';
+import { tileOptionsForGroundData } from '../../config/constants';
 import { IMapState, ITileOptions } from '../../types';
 
 const initialState: IMapState = {
@@ -9,14 +10,15 @@ const initialState: IMapState = {
 		lat: 53.7,
 		lng: 107.7,
 	},
-	isTileVisible: false,
+	isPointsVisible: false,
 	tileLink: '',
 	tileOptions: {
-		type: 'Озеро Байкал',
-		parameter: 'LST',
-		device: 'LANDSAT',
+		productType: 'baikalRiver',
+		parameter: 'temperature',
+		source: 'viirs',
 		photoTime: null,
-		date: null,
+		startDate: null,
+		endDate: null,
 	},
 };
 
@@ -30,23 +32,51 @@ const mapSlice = createSlice({
 		setLocation: (state, action: PayloadAction<LatLngLiteral>) => {
 			state.location = action.payload;
 		},
-		setIsTileVisible: (state, action: PayloadAction<boolean>) => {
-			state.isTileVisible = action.payload;
+		setPointsVisibillity: (state, action: PayloadAction<boolean>) => {
+			state.isPointsVisible = action.payload;
 		},
 		setTileLink: (state, action: PayloadAction<string>) => {
 			state.tileLink = action.payload;
-			state.isTileVisible = !!action.payload;
 		},
-		setTileOptions: (
+		setMapDate: (
 			state,
-			action: PayloadAction<{ key: keyof Omit<ITileOptions, 'date'>; value: string }>,
+			action: PayloadAction<{
+				key: 'startDate' | 'endDate';
+				value: Dayjs | null;
+			}>,
 		) => {
 			state.tileOptions[action.payload.key] = action.payload.value;
 
-			if (action.payload.key !== 'photoTime') state.tileOptions.date = null;
+			if (state.tileOptions.productType === 'groundData')
+				state.tileOptions = {
+					...tileOptionsForGroundData,
+					startDate: state.tileOptions.startDate,
+					endDate: state.tileOptions.endDate,
+				};
 		},
-		setTileDate: (state, action: PayloadAction<Dayjs | null>) => {
-			state.tileOptions.date = action.payload;
+		setTileOptions: (
+			state,
+			action: PayloadAction<{
+				key: keyof Omit<ITileOptions, 'startDate' | 'endDate'>;
+				value: string;
+			}>,
+		) => {
+			state.tileOptions[action.payload.key] = action.payload.value;
+
+			if (state.tileOptions.productType === 'groundData') {
+				switch (action.payload.key) {
+					case 'productType':
+						state.tileOptions = { ...tileOptionsForGroundData };
+						break;
+					case 'parameter':
+						state.tileOptions.source = '';
+						break;
+				}
+
+				state.isPointsVisible = false;
+			} else {
+				if (action.payload.key !== 'photoTime') state.tileOptions.startDate = null;
+			}
 		},
 		resetState: () => initialState,
 	},
