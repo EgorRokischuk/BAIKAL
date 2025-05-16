@@ -6,7 +6,7 @@ const url = process.env.API_URL;
 
 const aboutRecordList = http.get(url + '/about-record', async () => {
 	await delay(3000);
-	return HttpResponse.json(mockAboutRecordListResponse, { status: 404 });
+	return HttpResponse.json(mockAboutRecordListResponse);
 });
 
 const aboutRecordById = http.get(url + '/about-record/:id', async () => {
