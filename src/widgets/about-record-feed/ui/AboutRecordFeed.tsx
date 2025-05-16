@@ -6,9 +6,11 @@ import * as s from './AboutRecordFeed.module.scss';
 import { AboutRecordFeedSkeleton } from './AboutRecordFeed.skeleton';
 
 export const AboutRecordFeed: React.FC = () => {
-	const { data, isFetching } = useGetAboutRecordsListQuery();
+	const { data, isFetching, isError } = useGetAboutRecordsListQuery();
 
 	if (isFetching) return <AboutRecordFeedSkeleton />;
+
+	if (isError) return <></>;
 
 	return data.map((ar) => (
 		<Box className={s.block} key={ar.id}>

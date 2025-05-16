@@ -8,6 +8,8 @@ import * as s from './About.module.scss';
 const About: React.FC = () => {
 	const userRights = useAppSelector(getUserRights);
 
+	console.log(userRights);
+
 	return (
 		<Box className={s.page}>
 			<Box>
