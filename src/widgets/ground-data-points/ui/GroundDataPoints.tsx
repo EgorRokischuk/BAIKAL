@@ -45,13 +45,13 @@ export const GroundDataPoints: React.FC = () => {
 			{data &&
 				data.map((point, idx) => {
 					return (
-						<Marker key={idx} position={point.coordinates} icon={GetIcon()}>
+						<Marker key={idx} position={[point.latitude, point.longitude]} icon={GetIcon()}>
 							<Popup closeButton={false} key={idx}>
-								{`Широта: ${convertLocation(point.coordinates[0], false)}`}
+								{`Широта: ${convertLocation(point.latitude, false)}`}
 								<br />
-								{`Долгота: ${convertLocation(point.coordinates[1], true)}`}
+								{`Долгота: ${convertLocation(point.longitude, true)}`}
 								<br />
-								{`Значение: ${point.value}${point.unit}`}
+								{`Значение: ${point.value}`}
 								<br />
 								{`Прибор: ${point.sensor}`}
 							</Popup>
