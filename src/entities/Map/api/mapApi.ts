@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import { LatLngTuple } from 'leaflet';
 import { globalActions } from '@/app/providers/store';
 import { baseApi } from '@/shared/config/api/baseApi';
 import {
@@ -35,6 +36,23 @@ const adaptTileOptionsDTO = (options: ITileOptions): ITileOptionsDTO => ({
 	years_id: initTileYear(options.photoType, options.startDate),
 	month_id: Number(dayjs(options.startDate).format('MM')),
 	day_id: initTileDay(options.source, options.startDate),
+});
+
+interface IGroundDataPointDTO {
+	coordinates: LatLngTuple;
+	value: number;
+	unit: string;
+	description_unit: string;
+	sensor: string;
+	date_time: string;
+}
+
+const adaptGroundDataPointDTO = (dto: IGroundDataPointDTO): IGroundDataPoint => ({
+	...dto,
+	date: new Date(dto.date_time),
+	latitude: dto.coordinates[0],
+	longitude: dto.coordinates[1],
+	value: `${dto.value.toFixed(2)}${dto.unit}`,
 });
 
 const mapApi = baseApi.injectEndpoints({
@@ -119,6 +137,11 @@ const mapApi = baseApi.injectEndpoints({
 				} catch (e) {
 					if (__IS_DEV__) console.error(e);
 				}
+			},
+			transformResponse: (baseQueryReturnValue) => {
+				const data = baseQueryReturnValue as Array<IGroundDataPointDTO>;
+
+				return data.map(adaptGroundDataPointDTO);
 			},
 		}),
 	}),

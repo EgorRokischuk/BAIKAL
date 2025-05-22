@@ -1,5 +1,5 @@
 import type { Dayjs } from 'dayjs';
-import { LatLngLiteral, LatLngTuple } from 'leaflet';
+import { LatLngLiteral } from 'leaflet';
 
 export interface ITileOptions {
 	productType: string;
@@ -44,9 +44,9 @@ export interface IGroundDataRequest extends IGroundDataSourcesRequest {
 }
 
 export interface IGroundDataPoint {
-	coordinates: LatLngTuple;
-	value: number;
-	unit: string;
-	description_unit: string;
+	date: Date;
+	latitude: number;
+	longitude: number;
+	value: string;
 	sensor: string;
 }

@@ -7,6 +7,7 @@ export default [
 		unit: '°С',
 		description_unit: 'градус Цельсия',
 		sensor: 'Elitech RC-51H',
+		date: '2024-12-31T00:00:00',
 	},
 	{
 		coordinates: [51.6476666666667, 104.22675],
@@ -14,6 +15,7 @@ export default [
 		unit: '°С',
 		description_unit: 'градус Цельсия',
 		sensor: 'Elitech RC-51H',
+		date: '2024-12-31T00:00:00',
 	},
 	{
 		coordinates: [51.69975, 105.016966666667],
@@ -21,6 +23,7 @@ export default [
 		unit: '°С',
 		description_unit: 'градус Цельсия',
 		sensor: 'Elitech RC-51H',
+		date: '2024-12-31T00:00:00',
 	},
 	{
 		coordinates: [51.7791666666667, 105.371366666667],
@@ -28,6 +31,7 @@ export default [
 		unit: '°С',
 		description_unit: 'градус Цельсия',
 		sensor: 'Elitech RC-51H',
+		date: '2024-12-31T00:00:00',
 	},
 	{
 		coordinates: [52.6674166666667, 106.854083333333],
@@ -35,6 +39,7 @@ export default [
 		unit: '°С',
 		description_unit: 'градус Цельсия',
 		sensor: 'Elitech RC-51H',
+		date: '2024-12-31T00:00:00',
 	},
 	{
 		coordinates: [52.8932666666667, 107.532666666667],
@@ -42,6 +47,7 @@ export default [
 		unit: '°С',
 		description_unit: 'градус Цельсия',
 		sensor: 'Elitech RC-51H',
+		date: '2024-12-31T00:00:00',
 	},
 	{
 		coordinates: [53.1921833333333, 107.817683333333],
@@ -49,6 +55,7 @@ export default [
 		unit: '°С',
 		description_unit: 'градус Цельсия',
 		sensor: 'Elitech RC-51H',
+		date: '2024-12-31T00:00:00',
 	},
 	{
 		coordinates: [53.9397666666667, 108.431466666667],
@@ -56,6 +63,7 @@ export default [
 		unit: '°С',
 		description_unit: 'градус Цельсия',
 		sensor: 'Elitech RC-51H',
+		date: '2024-12-31T00:00:00',
 	},
 	{
 		coordinates: [54.28185, 108.739066666667],
@@ -63,6 +71,7 @@ export default [
 		unit: '°С',
 		description_unit: 'градус Цельсия',
 		sensor: 'Elitech RC-51H',
+		date: '2024-12-31T00:00:00',
 	},
 	{
 		coordinates: [54.4513333333333, 109.071266666667],
@@ -70,6 +79,7 @@ export default [
 		unit: '°С',
 		description_unit: 'градус Цельсия',
 		sensor: 'Elitech RC-51H',
+		date: '2024-12-31T00:00:00',
 	},
 	{
 		coordinates: [55.5675666666667, 109.592483333333],
@@ -77,6 +87,7 @@ export default [
 		unit: '°С',
 		description_unit: 'градус Цельсия',
 		sensor: 'Elitech RC-51H',
+		date: '2024-12-31T00:00:00',
 	},
 	{
 		coordinates: [53.7581833333333, 109.124066666667],
@@ -84,6 +95,7 @@ export default [
 		unit: '°С',
 		description_unit: 'градус Цельсия',
 		sensor: 'Elitech RC-51H',
+		date: '2024-12-31T00:00:00',
 	},
 	{
 		coordinates: [53.24345, 107.25495],
@@ -91,6 +103,7 @@ export default [
 		unit: '°С',
 		description_unit: 'градус Цельсия',
 		sensor: 'Elitech RC-51H',
+		date: '2024-12-31T00:00:00',
 	},
 	{
 		coordinates: [51.6732833333333, 103.871083333333],
@@ -98,6 +111,7 @@ export default [
 		unit: '°С',
 		description_unit: 'градус Цельсия',
 		sensor: 'Elitech RC-51H',
+		date: '2024-12-31T00:00:00',
 	},
 	{
 		coordinates: [51.6460833333333, 104.223533333333],
@@ -105,6 +119,7 @@ export default [
 		unit: '°С',
 		description_unit: 'градус Цельсия',
 		sensor: 'Elitech RC-51H',
+		date: '2024-12-31T00:00:00',
 	},
 	{
 		coordinates: [51.7776833333333, 105.389283333333],
@@ -112,6 +127,7 @@ export default [
 		unit: '°С',
 		description_unit: 'градус Цельсия',
 		sensor: 'Elitech RC-51H',
+		date: '2024-12-31T00:00:00',
 	},
 	{
 		coordinates: [52.6644, 106.850716666667],
@@ -119,6 +135,7 @@ export default [
 		unit: '°С',
 		description_unit: 'градус Цельсия',
 		sensor: 'Elitech RC-51H',
+		date: '2024-12-31T00:00:00',
 	},
 	{
 		coordinates: [52.9043, 107.5471],
@@ -126,6 +143,7 @@ export default [
 		unit: '°С',
 		description_unit: 'градус Цельсия',
 		sensor: 'Elitech RC-51H',
+		date: '2024-12-31T00:00:00',
 	},
 	{
 		coordinates: [53.9421666666667, 108.43145],
@@ -133,6 +151,7 @@ export default [
 		unit: '°С',
 		description_unit: 'градус Цельсия',
 		sensor: 'Elitech RC-51H',
+		date: '2024-12-31T00:00:00',
 	},
 	{
 		coordinates: [54.4502666666667, 109.068716666667],
@@ -140,6 +159,7 @@ export default [
 		unit: '°С',
 		description_unit: 'градус Цельсия',
 		sensor: 'Elitech RC-51H',
+		date: '2024-12-31T00:00:00',
 	},
 	{
 		coordinates: [55.5664, 109.595466666667],
@@ -147,6 +167,7 @@ export default [
 		unit: '°С',
 		description_unit: 'градус Цельсия',
 		sensor: 'Elitech RC-51H',
+		date: '2024-12-31T00:00:00',
 	},
 	{
 		coordinates: [53.3579333333333, 108.217816666667],
@@ -154,6 +175,7 @@ export default [
 		unit: '°С',
 		description_unit: 'градус Цельсия',
 		sensor: 'Elitech RC-51H',
+		date: '2024-12-31T00:00:00',
 	},
 	{
 		coordinates: [53.2436333333333, 107.2564],
@@ -161,6 +183,7 @@ export default [
 		unit: '°С',
 		description_unit: 'градус Цельсия',
 		sensor: 'Elitech RC-51H',
+		date: '2024-12-31T00:00:00',
 	},
 	{
 		coordinates: [51.6785833333333, 103.873183333333],
@@ -168,6 +191,7 @@ export default [
 		unit: '°С',
 		description_unit: 'градус Цельсия',
 		sensor: 'Elitech RC-51H',
+		date: '2024-12-31T00:00:00',
 	},
 	{
 		coordinates: [51.6442833333333, 104.2265],
@@ -175,6 +199,7 @@ export default [
 		unit: '°С',
 		description_unit: 'градус Цельсия',
 		sensor: 'Elitech RC-51H',
+		date: '2024-12-31T00:00:00',
 	},
 	{
 		coordinates: [51.7180666666667, 104.982383333333],
@@ -182,6 +207,7 @@ export default [
 		unit: '°С',
 		description_unit: 'градус Цельсия',
 		sensor: 'Elitech RC-51H',
+		date: '2024-12-31T00:00:00',
 	},
 	{
 		coordinates: [51.78325, 105.370816666667],
@@ -189,6 +215,7 @@ export default [
 		unit: '°С',
 		description_unit: 'градус Цельсия',
 		sensor: 'Elitech RC-51H',
+		date: '2024-12-31T00:00:00',
 	},
 	{
 		coordinates: [52.6641166666667, 106.8516],
@@ -196,6 +223,7 @@ export default [
 		unit: '°С',
 		description_unit: 'градус Цельсия',
 		sensor: 'Elitech RC-51H',
+		date: '2024-12-31T00:00:00',
 	},
 	{
 		coordinates: [52.8933833333333, 107.531266666667],
@@ -203,6 +231,7 @@ export default [
 		unit: '°С',
 		description_unit: 'градус Цельсия',
 		sensor: 'Elitech RC-51H',
+		date: '2024-12-31T00:00:00',
 	},
 	{
 		coordinates: [53.1922666666667, 107.805316666667],
@@ -210,6 +239,7 @@ export default [
 		unit: '°С',
 		description_unit: 'градус Цельсия',
 		sensor: 'Elitech RC-51H',
+		date: '2024-12-31T00:00:00',
 	},
 	{
 		coordinates: [53.3570166666667, 108.21855],
@@ -217,6 +247,7 @@ export default [
 		unit: '°С',
 		description_unit: 'градус Цельсия',
 		sensor: 'Elitech RC-51H',
+		date: '2024-12-31T00:00:00',
 	},
 	{
 		coordinates: [53.3561666666667, 108.220916666667],
@@ -224,6 +255,7 @@ export default [
 		unit: '°С',
 		description_unit: 'градус Цельсия',
 		sensor: 'Elitech RC-51H',
+		date: '2024-12-31T00:00:00',
 	},
 	{
 		coordinates: [54.4524333333333, 109.071516666667],
@@ -231,6 +263,7 @@ export default [
 		unit: '°С',
 		description_unit: 'градус Цельсия',
 		sensor: 'Elitech RC-51H',
+		date: '2024-12-31T00:00:00',
 	},
 	{
 		coordinates: [54.2785333333333, 108.737583333333],
@@ -238,6 +271,7 @@ export default [
 		unit: '°С',
 		description_unit: 'градус Цельсия',
 		sensor: 'Elitech RC-51H',
+		date: '2024-12-31T00:00:00',
 	},
 	{
 		coordinates: [53.94385, 108.436233333333],
@@ -245,5 +279,6 @@ export default [
 		unit: '°С',
 		description_unit: 'градус Цельсия',
 		sensor: 'Elitech RC-51H',
+		date: '2024-12-31T00:00:00',
 	},
 ] satisfies Array<IGroundDataPoint>;

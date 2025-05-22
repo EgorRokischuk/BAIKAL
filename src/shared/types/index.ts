@@ -8,3 +8,13 @@ export interface IPaginationRequest {
 	page: number;
 	limit: number;
 }
+
+export interface IExportHeaderItem {
+	header: string;
+	key: string;
+	width?: number;
+	hyperlink?: {
+		value: string;
+		replacement?: string;
+	};
+}
