@@ -61,6 +61,7 @@ const mapSlice = createSlice({
 				value: string;
 			}>,
 		) => {
+			state.tileLink = '';
 			state.tileOptions[action.payload.key] = action.payload.value;
 
 			if (state.tileOptions.productType === 'groundData') {
