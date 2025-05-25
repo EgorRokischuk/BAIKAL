@@ -2,10 +2,37 @@ import { HttpResponse, delay, http } from 'msw';
 import mockGroundDataParametersResponse from './data/mockGroundDataParametersResponse';
 import mockGroundDataPointsResponse from './data/mockGroundDataPointsResponse';
 import mockGroundDataSourcesResponse from './data/mockGroundDataSourcesResponse';
+import mockLandsatAvailableDatesResponse from './data/mockLandsatAvailableDatesResponse';
+import mockMonthlyAvgAvailableDatesResponse from './data/mockMonthlyAvgAvailableDatesResponse';
+import mockMonthlyAvgManyYearsAvailableDatesResponse from './data/mockMonthlyAvgManyYearsAvailableDatesResponse';
 
 const url = process.env.API_URL;
 
-const mapGetTileLink = http.get(url + '/files/get_tiles', async () => {
+const mapGetLandsatAvailableDates = http.get(
+	url + '/files/satellite_data/get_available_dates_landsat',
+	async () => {
+		await delay(3000);
+		return HttpResponse.json(mockLandsatAvailableDatesResponse, { status: 200 });
+	},
+);
+
+const mapGetMonthlyAvgAvailableDates = http.get(
+	url + '/files/satellite_data/get_available_dates_landsat',
+	async () => {
+		await delay(3000);
+		return HttpResponse.json(mockMonthlyAvgAvailableDatesResponse, { status: 200 });
+	},
+);
+
+const mapGetMonthlyAvgManyYearsAvailableDates = http.get(
+	url + '/files/satellite_data/get_available_dates_landsat',
+	async () => {
+		await delay(3000);
+		return HttpResponse.json(mockMonthlyAvgManyYearsAvailableDatesResponse, { status: 200 });
+	},
+);
+
+const mapGetTileLink = http.get(url + '/files/satellite_data/get_.+_tiles', async () => {
 	await delay(3000);
 	return HttpResponse.json(
 		'/u/product/temperatura/landsat/8/Landsat_8_17_06_24/tiles/{z}/{x}/{-y}.png',
@@ -13,7 +40,7 @@ const mapGetTileLink = http.get(url + '/files/get_tiles', async () => {
 	);
 });
 
-const mapGetTifFileLink = http.get(url + '/files/get_link', async () => {
+const mapGetFileLink = http.get(url + '/files/satellite_data/get_.+_link', async () => {
 	await delay(3000);
 	return HttpResponse.json('/u/product/temperatura/landsat/8/Landsat_8_17_06_24.tif', {
 		status: 200,
@@ -48,8 +75,11 @@ const mapGetGroundDataPoints = http.get(url + '/files/ground_data/get_points', a
 });
 
 export const mapHandlers = [
+	mapGetLandsatAvailableDates,
+	mapGetMonthlyAvgAvailableDates,
+	mapGetMonthlyAvgManyYearsAvailableDates,
 	mapGetTileLink,
-	mapGetTifFileLink,
+	mapGetFileLink,
 	mapGetGroundDataParameters,
 	mapGetGroundDataSources,
 	mapGetGroundDataPoints,
