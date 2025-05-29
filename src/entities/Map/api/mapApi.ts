@@ -1,45 +1,32 @@
-import { LatLngTuple } from 'leaflet';
 import { globalActions } from '@/app/providers/store';
 import { baseApi } from '@/shared/config/api/baseApi';
+import {
+	adaptGetLandsatAvailableDates,
+	adaptGetLandsatData,
+	adaptGetMonthlyAvgAvailableDates,
+	adaptGetMonthlyAvgData,
+	adaptGetMonthlyAvgManyYearsAvailableDates,
+	adaptGetMonthlyAvgManyYearsData,
+	adaptGroundDataPointDTO,
+	IGroundDataPointDTO,
+} from '../lib/mappers';
 import { mapActions } from '../model/slices';
 import {
 	IGroundDataParametersRequest,
 	IGroundDataPoint,
 	IGroundDataRequest,
 	IGroundDataSourcesRequest,
-	ILandsatAvailableDatesRequest,
-	ILandsatRequest,
-	IMonthlyAvgAvailableDatesRequest,
-	IMonthlyAvgManyYearsAvailableDatesRequest,
-	IMonthlyAvgManyYearsRequest,
-	IMonthlyAvgRequest,
+	ITileOptions,
 } from '../types';
-
-interface IGroundDataPointDTO {
-	coordinates: LatLngTuple;
-	value: number;
-	unit: string;
-	description_unit: string;
-	sensor: string;
-	date_time: string;
-}
-
-const adaptGroundDataPointDTO = (dto: IGroundDataPointDTO): IGroundDataPoint => ({
-	...dto,
-	date: new Date(dto.date_time),
-	latitude: dto.coordinates[0],
-	longitude: dto.coordinates[1],
-	value: `${dto.value.toFixed(2)}${dto.unit}`,
-});
 
 const mapApi = baseApi.injectEndpoints({
 	endpoints: (build) => ({
 		/** LANDSAT */
-		getLandsatDates: build.query<Array<string>, ILandsatAvailableDatesRequest>({
+		getLandsatDates: build.query<Array<string>, ITileOptions>({
 			query: (options) => ({
 				url: 'files/satellite_data/get_available_dates_landsat',
 				method: 'GET',
-				params: { ...options },
+				params: { ...adaptGetLandsatAvailableDates(options) },
 			}),
 			async onQueryStarted(_, { queryFulfilled }) {
 				try {
@@ -49,11 +36,11 @@ const mapApi = baseApi.injectEndpoints({
 				}
 			},
 		}),
-		getLandsatTileLink: build.query<string, ILandsatRequest>({
+		getLandsatTileLink: build.query<string, ITileOptions>({
 			query: (options) => ({
 				url: 'files/satellite_data/get_landsat_tiles',
 				method: 'GET',
-				params: { ...options },
+				params: { ...adaptGetLandsatData(options) },
 			}),
 			async onQueryStarted(_, { queryFulfilled, dispatch }) {
 				try {
@@ -68,11 +55,11 @@ const mapApi = baseApi.injectEndpoints({
 				}
 			},
 		}),
-		getLandsatFile: build.query<string, ILandsatRequest>({
+		getLandsatFile: build.query<string, ITileOptions>({
 			query: (options) => ({
 				url: 'files/satellite_data/get_landsat_link',
 				method: 'GET',
-				params: { ...options },
+				params: { ...adaptGetLandsatData(options) },
 			}),
 			async onQueryStarted(_, { queryFulfilled }) {
 				try {
@@ -83,11 +70,11 @@ const mapApi = baseApi.injectEndpoints({
 			},
 		}),
 		/** MONTHLY AVG */
-		getMonthlyAvgDates: build.query<Array<string>, IMonthlyAvgAvailableDatesRequest>({
+		getMonthlyAvgDates: build.query<Array<string>, ITileOptions>({
 			query: (options) => ({
 				url: 'files/satellite_data/get_available_dates_monthly_avg',
 				method: 'GET',
-				params: { ...options },
+				params: { ...adaptGetMonthlyAvgAvailableDates(options) },
 			}),
 			async onQueryStarted(_, { queryFulfilled }) {
 				try {
@@ -97,11 +84,11 @@ const mapApi = baseApi.injectEndpoints({
 				}
 			},
 		}),
-		getMonthlyAvgTileLink: build.query<string, IMonthlyAvgRequest>({
+		getMonthlyAvgTileLink: build.query<string, ITileOptions>({
 			query: (options) => ({
 				url: 'files/satellite_data/get_landsat_tiles',
 				method: 'GET',
-				params: { ...options },
+				params: { ...adaptGetMonthlyAvgData(options) },
 			}),
 			async onQueryStarted(_, { queryFulfilled, dispatch }) {
 				try {
@@ -116,11 +103,11 @@ const mapApi = baseApi.injectEndpoints({
 				}
 			},
 		}),
-		getMonthlyAvgFile: build.query<string, IMonthlyAvgRequest>({
+		getMonthlyAvgFile: build.query<string, ITileOptions>({
 			query: (options) => ({
 				url: 'files/satellite_data/get_landsat_link',
 				method: 'GET',
-				params: { ...options },
+				params: { ...adaptGetMonthlyAvgData(options) },
 			}),
 			async onQueryStarted(_, { queryFulfilled }) {
 				try {
@@ -131,14 +118,11 @@ const mapApi = baseApi.injectEndpoints({
 			},
 		}),
 		/** MONTHLY AVG MANY YEARS */
-		getMonthlyAvgManyYearsDates: build.query<
-			Array<string>,
-			IMonthlyAvgManyYearsAvailableDatesRequest
-		>({
+		getMonthlyAvgManyYearsDates: build.query<Array<string>, ITileOptions>({
 			query: (options) => ({
 				url: 'files/satellite_data/get_available_dates_monthly_avg',
 				method: 'GET',
-				params: { ...options },
+				params: { ...adaptGetMonthlyAvgManyYearsAvailableDates(options) },
 			}),
 			async onQueryStarted(_, { queryFulfilled }) {
 				try {
@@ -148,11 +132,11 @@ const mapApi = baseApi.injectEndpoints({
 				}
 			},
 		}),
-		getMonthlyAvgManyYearsTileLink: build.query<string, IMonthlyAvgManyYearsRequest>({
+		getMonthlyAvgManyYearsTileLink: build.query<string, ITileOptions>({
 			query: (options) => ({
 				url: 'files/satellite_data/get_landsat_tiles',
 				method: 'GET',
-				params: { ...options },
+				params: { ...adaptGetMonthlyAvgManyYearsData(options) },
 			}),
 			async onQueryStarted(_, { queryFulfilled, dispatch }) {
 				try {
@@ -167,11 +151,11 @@ const mapApi = baseApi.injectEndpoints({
 				}
 			},
 		}),
-		getMonthlyAvgManyYearsFile: build.query<string, IMonthlyAvgManyYearsRequest>({
+		getMonthlyAvgManyYearsFile: build.query<string, ITileOptions>({
 			query: (options) => ({
 				url: 'files/satellite_data/get_landsat_link',
 				method: 'GET',
-				params: { ...options },
+				params: { ...adaptGetMonthlyAvgManyYearsData(options) },
 			}),
 			async onQueryStarted(_, { queryFulfilled }) {
 				try {

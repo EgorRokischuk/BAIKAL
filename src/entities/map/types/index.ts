@@ -67,7 +67,7 @@ interface IBaseMonthlyAvgRequestParams extends IBaseSatelliteRequestParams {
 export interface IMonthlyAvgAvailableDatesRequest extends IBaseMonthlyAvgRequestParams {}
 
 export interface IMonthlyAvgRequest extends IBaseMonthlyAvgRequestParams {
-	years_id: string;
+	years_id: number;
 	month_id: number;
 }
 
