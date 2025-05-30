@@ -17,7 +17,7 @@ const mapGetLandsatAvailableDates = http.get(
 );
 
 const mapGetMonthlyAvgAvailableDates = http.get(
-	url + '/files/satellite_data/get_available_dates_landsat',
+	url + '/files/satellite_data/get_available_dates_monthly_avg',
 	async () => {
 		await delay(3000);
 		return HttpResponse.json(mockMonthlyAvgAvailableDatesResponse, { status: 200 });
@@ -25,27 +25,33 @@ const mapGetMonthlyAvgAvailableDates = http.get(
 );
 
 const mapGetMonthlyAvgManyYearsAvailableDates = http.get(
-	url + '/files/satellite_data/get_available_dates_landsat',
+	url + '/files/satellite_data/get_available_dates_monthly_avg_many_years',
 	async () => {
 		await delay(3000);
 		return HttpResponse.json(mockMonthlyAvgManyYearsAvailableDatesResponse, { status: 200 });
 	},
 );
 
-const mapGetTileLink = http.get(url + '/files/satellite_data/get_.+_tiles', async () => {
-	await delay(3000);
-	return HttpResponse.json(
-		'/u/product/temperatura/landsat/8/Landsat_8_17_06_24/tiles/{z}/{x}/{-y}.png',
-		{ status: 200 },
-	);
-});
+const mapGetTileLink = http.get(
+	new RegExp(String.raw`${url}/files/satellite_data/get_.+_tiles`),
+	async () => {
+		await delay(3000);
+		return HttpResponse.json(
+			'/u/product/temperatura/landsat/8/Landsat_8_17_06_24/tiles/{z}/{x}/{-y}.png',
+			{ status: 200 },
+		);
+	},
+);
 
-const mapGetFileLink = http.get(url + '/files/satellite_data/get_.+_link', async () => {
-	await delay(3000);
-	return HttpResponse.json('/u/product/temperatura/landsat/8/Landsat_8_17_06_24.tif', {
-		status: 200,
-	});
-});
+const mapGetFileLink = http.get(
+	new RegExp(String.raw`${url}/files/satellite_data/get_.+_link`),
+	async () => {
+		await delay(3000);
+		return HttpResponse.json('/u/product/temperatura/landsat/8/Landsat_8_17_06_24.tif', {
+			status: 200,
+		});
+	},
+);
 
 const mapGetGroundDataParameters = http.get(
 	url + '/files/ground_data/get_available_parameters',

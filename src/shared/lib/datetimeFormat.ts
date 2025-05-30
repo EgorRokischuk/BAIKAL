@@ -1,7 +1,7 @@
 import { Dayjs } from 'dayjs';
 
 export const convertToDateInput = (date: Dayjs | null): string => {
-	if (!date) return undefined;
+	if (!date || !date.isValid()) return undefined;
 	return new Intl.DateTimeFormat('en-ca', {
 		year: 'numeric',
 		month: 'numeric',

@@ -5,10 +5,10 @@ import { LatLngLiteral } from 'leaflet';
  * MAP STORE TYPES
  */
 export interface ITileOptions {
+	type: string; // 'landsat' | 'monthlyAvg' | 'monthlyAvgManyYears'
 	productType: string;
 	parameter: string;
 	source: string;
-	photoType?: string;
 	photoTime: string | null;
 	startDate: Dayjs | null;
 	endDate: Dayjs | null;

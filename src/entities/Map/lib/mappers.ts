@@ -8,10 +8,7 @@ import {
 } from '../config/dictionaries';
 import {
 	IGroundDataPoint,
-	ILandsatAvailableDatesRequest,
 	ILandsatRequest,
-	IMonthlyAvgAvailableDatesRequest,
-	IMonthlyAvgManyYearsAvailableDatesRequest,
 	IMonthlyAvgManyYearsRequest,
 	IMonthlyAvgRequest,
 	ITileOptions,
@@ -37,15 +34,6 @@ export const adaptGroundDataPointDTO = (dto: IGroundDataPointDTO): IGroundDataPo
 });
 
 /** LANDSAT */
-
-export const adaptGetLandsatAvailableDates = (
-	obj: ITileOptions,
-): ILandsatAvailableDatesRequest => ({
-	data_type: typeDictionary[obj.productType],
-	device: deviceDictionary[obj.source],
-	parameter: parameterDictionary[obj.parameter],
-});
-
 export const adaptGetLandsatData = (obj: ITileOptions): ILandsatRequest => ({
 	data_type: typeDictionary[obj.productType],
 	device: deviceDictionary[obj.source],
@@ -56,16 +44,6 @@ export const adaptGetLandsatData = (obj: ITileOptions): ILandsatRequest => ({
 });
 
 /** MONTHLY AVG */
-
-export const adaptGetMonthlyAvgAvailableDates = (
-	obj: ITileOptions,
-): IMonthlyAvgAvailableDatesRequest => ({
-	data_type: typeDictionary[obj.productType],
-	device: deviceDictionary[obj.source],
-	parameter: parameterDictionary[obj.parameter],
-	time_of_day: photoTimeDictionary[obj.photoTime],
-});
-
 export const adaptGetMonthlyAvgData = (obj: ITileOptions): IMonthlyAvgRequest => ({
 	data_type: typeDictionary[obj.productType],
 	device: deviceDictionary[obj.source],
@@ -76,16 +54,6 @@ export const adaptGetMonthlyAvgData = (obj: ITileOptions): IMonthlyAvgRequest =>
 });
 
 /** MONTHLY AVG MANY YEARS */
-
-export const adaptGetMonthlyAvgManyYearsAvailableDates = (
-	obj: ITileOptions,
-): IMonthlyAvgManyYearsAvailableDatesRequest => ({
-	data_type: typeDictionary[obj.productType],
-	device: deviceDictionary[obj.source],
-	parameter: parameterDictionary[obj.parameter],
-	time_of_day: photoTimeDictionary[obj.photoTime],
-});
-
 export const adaptGetMonthlyAvgManyYearsData = (
 	obj: ITileOptions,
 ): IMonthlyAvgManyYearsRequest => ({

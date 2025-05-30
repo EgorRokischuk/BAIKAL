@@ -24,4 +24,5 @@ export const deviceDictionary: TDictinary = {
 export const photoTimeDictionary: TDictinary = {
 	daily: 'Дневные',
 	nightly: 'Ночные',
+	diurnal: 'Суточные',
 };

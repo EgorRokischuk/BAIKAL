@@ -3,23 +3,34 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs, { Dayjs } from 'dayjs';
 import { useAppDispatch } from '@/shared/hooks/useAppDispatch';
 import { useAppSelector } from '@/shared/hooks/useAppSelector';
+import { convertToDateInput } from '@/shared/lib/datetimeFormat';
 import { getMapDateByKey } from '../../../model/selectors';
 import { mapActions } from '../../../model/slices';
 import 'dayjs/locale/ru';
+import { useDateHelper, useGetAvailableDate } from '../lib/helpers';
 dayjs.locale('ru');
+import './TileDatePicker.css';
 
 interface ITileDatePickerProps extends DatePickerProps<Dayjs, false> {
+	type: string;
 	dateKey?: 'startDate' | 'endDate';
 }
 
-const TileDatePicker: React.FC<ITileDatePickerProps> = ({ dateKey = 'startDate', ...props }) => {
-	const date = useAppSelector(getMapDateByKey(dateKey));
+const TileDatePicker: React.FC<ITileDatePickerProps> = ({
+	type,
+	dateKey = 'startDate',
+	...props
+}) => {
 	const dispatch = useAppDispatch();
+	const date = useAppSelector(getMapDateByKey(dateKey));
+	const { isShouldDisableYear, isShouldDisableMonth, isShouldDisableDay } = useDateHelper(type);
+	const { data, isLoading } = useGetAvailableDate(type);
 
 	return (
 		<LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="ru">
 			<DatePicker
 				{...props}
+				disabled={isLoading}
 				value={date ? dayjs(date, 'DD.MM.YYYY') : null}
 				onChange={(date) => {
 					dispatch(mapActions.setMapDate({ key: dateKey, value: date }));
@@ -42,6 +53,18 @@ const TileDatePicker: React.FC<ITileDatePickerProps> = ({ dateKey = 'startDate',
 						},
 					},
 				}}
+				shouldDisableYear={(v) =>
+					isShouldDisableYear && !(data ?? []).map((v) => Number(v.slice(0, 4))).includes(v.year())
+				}
+				shouldDisableMonth={(v) =>
+					isShouldDisableMonth &&
+					!(data ?? []).map((v) => Number(v.length < 3 ? v : v.slice(5, 7))).includes(v.month() + 1)
+				}
+				shouldDisableDate={(v) =>
+					isShouldDisableDay && !(data ?? []).includes(convertToDateInput(v))
+				}
+				minDate={dayjs('1990-01-01')}
+				maxDate={dayjs(`${dayjs(Date.now()).year()}-12-31`)}
 			/>
 		</LocalizationProvider>
 	);

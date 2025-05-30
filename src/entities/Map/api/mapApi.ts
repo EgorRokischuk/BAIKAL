@@ -1,11 +1,8 @@
 import { globalActions } from '@/app/providers/store';
 import { baseApi } from '@/shared/config/api/baseApi';
 import {
-	adaptGetLandsatAvailableDates,
 	adaptGetLandsatData,
-	adaptGetMonthlyAvgAvailableDates,
 	adaptGetMonthlyAvgData,
-	adaptGetMonthlyAvgManyYearsAvailableDates,
 	adaptGetMonthlyAvgManyYearsData,
 	adaptGroundDataPointDTO,
 	IGroundDataPointDTO,
@@ -16,17 +13,19 @@ import {
 	IGroundDataPoint,
 	IGroundDataRequest,
 	IGroundDataSourcesRequest,
+	ILandsatAvailableDatesRequest,
+	IMonthlyAvgAvailableDatesRequest,
 	ITileOptions,
 } from '../types';
 
 const mapApi = baseApi.injectEndpoints({
 	endpoints: (build) => ({
 		/** LANDSAT */
-		getLandsatDates: build.query<Array<string>, ITileOptions>({
+		getLandsatDates: build.query<Array<string>, ILandsatAvailableDatesRequest>({
 			query: (options) => ({
 				url: 'files/satellite_data/get_available_dates_landsat',
 				method: 'GET',
-				params: { ...adaptGetLandsatAvailableDates(options) },
+				params: { ...options },
 			}),
 			async onQueryStarted(_, { queryFulfilled }) {
 				try {
@@ -36,7 +35,7 @@ const mapApi = baseApi.injectEndpoints({
 				}
 			},
 		}),
-		getLandsatTileLink: build.query<string, ITileOptions>({
+		getLandsatTileLink: build.mutation<string, ITileOptions>({
 			query: (options) => ({
 				url: 'files/satellite_data/get_landsat_tiles',
 				method: 'GET',
@@ -70,11 +69,11 @@ const mapApi = baseApi.injectEndpoints({
 			},
 		}),
 		/** MONTHLY AVG */
-		getMonthlyAvgDates: build.query<Array<string>, ITileOptions>({
+		getMonthlyAvgDates: build.query<Array<string>, IMonthlyAvgAvailableDatesRequest>({
 			query: (options) => ({
 				url: 'files/satellite_data/get_available_dates_monthly_avg',
 				method: 'GET',
-				params: { ...adaptGetMonthlyAvgAvailableDates(options) },
+				params: { ...options },
 			}),
 			async onQueryStarted(_, { queryFulfilled }) {
 				try {
@@ -84,7 +83,7 @@ const mapApi = baseApi.injectEndpoints({
 				}
 			},
 		}),
-		getMonthlyAvgTileLink: build.query<string, ITileOptions>({
+		getMonthlyAvgTileLink: build.mutation<string, ITileOptions>({
 			query: (options) => ({
 				url: 'files/satellite_data/get_landsat_tiles',
 				method: 'GET',
@@ -118,11 +117,11 @@ const mapApi = baseApi.injectEndpoints({
 			},
 		}),
 		/** MONTHLY AVG MANY YEARS */
-		getMonthlyAvgManyYearsDates: build.query<Array<string>, ITileOptions>({
+		getMonthlyAvgManyYearsDates: build.query<Array<string>, IMonthlyAvgAvailableDatesRequest>({
 			query: (options) => ({
-				url: 'files/satellite_data/get_available_dates_monthly_avg',
+				url: 'files/satellite_data/get_available_dates_monthly_avg_many_years',
 				method: 'GET',
-				params: { ...adaptGetMonthlyAvgManyYearsAvailableDates(options) },
+				params: { ...options },
 			}),
 			async onQueryStarted(_, { queryFulfilled }) {
 				try {
@@ -132,7 +131,7 @@ const mapApi = baseApi.injectEndpoints({
 				}
 			},
 		}),
-		getMonthlyAvgManyYearsTileLink: build.query<string, ITileOptions>({
+		getMonthlyAvgManyYearsTileLink: build.mutation<string, ITileOptions>({
 			query: (options) => ({
 				url: 'files/satellite_data/get_landsat_tiles',
 				method: 'GET',
@@ -225,13 +224,13 @@ const mapApi = baseApi.injectEndpoints({
 
 const {
 	useGetLandsatDatesQuery,
-	useGetLandsatTileLinkQuery,
+	useGetLandsatTileLinkMutation,
 	useGetLandsatFileQuery,
 	useGetMonthlyAvgDatesQuery,
-	useGetMonthlyAvgTileLinkQuery,
+	useGetMonthlyAvgTileLinkMutation,
 	useGetMonthlyAvgFileQuery,
 	useGetMonthlyAvgManyYearsDatesQuery,
-	useGetMonthlyAvgManyYearsTileLinkQuery,
+	useGetMonthlyAvgManyYearsTileLinkMutation,
 	useGetMonthlyAvgManyYearsFileQuery,
 	useGetGroundDataParametersQuery,
 	useGetGroundDataSourcesQuery,
@@ -241,13 +240,13 @@ const {
 export {
 	mapApi,
 	useGetLandsatDatesQuery,
-	useGetLandsatTileLinkQuery,
+	useGetLandsatTileLinkMutation,
 	useGetLandsatFileQuery,
 	useGetMonthlyAvgDatesQuery,
-	useGetMonthlyAvgTileLinkQuery,
+	useGetMonthlyAvgTileLinkMutation,
 	useGetMonthlyAvgFileQuery,
 	useGetMonthlyAvgManyYearsDatesQuery,
-	useGetMonthlyAvgManyYearsTileLinkQuery,
+	useGetMonthlyAvgManyYearsTileLinkMutation,
 	useGetMonthlyAvgManyYearsFileQuery,
 	useGetGroundDataParametersQuery,
 	useGetGroundDataSourcesQuery,

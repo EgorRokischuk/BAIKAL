@@ -9,7 +9,7 @@ const MapMenu: React.FC = () => {
 	const isLoading = useAppSelector(({ global }) => global.isLoading);
 
 	return (
-		<Panel header="Продукты">
+		<Panel header="Продукты" width="355px">
 			{isLoading && <LinearProgress color="primary" />}
 			<Panel.Content>
 				<TabMenu tabs={MENU_STRUCTURE} />

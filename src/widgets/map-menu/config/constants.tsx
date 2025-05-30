@@ -19,8 +19,8 @@ const groundDataContent: IMapMenuContent = () => {
 			<Accordion expanded={panel === 'date'} onChange={handleChange('date')}>
 				<AccordionSummary>{'Выбор даты'}</AccordionSummary>
 				<AccordionDetails>
-					<TileDatePicker />
-					<TileDatePicker dateKey="endDate" />
+					<TileDatePicker type="groundData" />
+					<TileDatePicker type="groundData" dateKey="endDate" />
 				</AccordionDetails>
 			</Accordion>
 			<SelectGroundDataParameter
@@ -38,31 +38,31 @@ const landsatTabs: IMapMenu = [
 		title: '4',
 		key: 'source',
 		value: 'landsat',
-		content: () => <TileDatePicker />,
+		content: () => <TileDatePicker type="landsat" />,
 	},
 	{
 		title: '5',
 		key: 'source',
 		value: 'landsat',
-		content: () => <TileDatePicker />,
+		content: () => <TileDatePicker type="landsat" />,
 	},
 	{
 		title: '6',
 		key: 'source',
 		value: 'landsat',
-		content: () => <TileDatePicker />,
+		content: () => <TileDatePicker type="landsat" />,
 	},
 	{
 		title: '7',
 		key: 'source',
 		value: 'landsat',
-		content: () => <TileDatePicker />,
+		content: () => <TileDatePicker type="landsat" />,
 	},
 	{
 		title: '8',
 		key: 'source',
 		value: 'landsat',
-		content: () => <TileDatePicker />,
+		content: () => <TileDatePicker type="landsat" />,
 	},
 ];
 
