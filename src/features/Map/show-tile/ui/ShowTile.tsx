@@ -5,12 +5,12 @@ import {
 } from '@/entities/Map';
 import { useAppDispatch } from '@/shared/hooks/useAppDispatch';
 import { useAppSelector } from '@/shared/hooks/useAppSelector';
+import { useGetTileLink } from '../lib/helpers';
 
 const ShowTile: React.FC = () => {
 	const dispatch = useAppDispatch();
 	const tileLink = useAppSelector(getTileLink);
-	//const tileOptions = useAppSelector(getTileOptions);
-	//const [getTileLinkMutation, { isLoading }] = useGetTileLinkMutation();
+	const { getTileLinkMutation, isLoading } = useGetTileLink();
 
 	const changeTileVisibility = async () => {
 		if (tileLink) {
@@ -18,11 +18,11 @@ const ShowTile: React.FC = () => {
 			return;
 		}
 
-		//await getTileLinkMutation(tileOptions);
+		await getTileLinkMutation();
 	};
 
 	return (
-		<Button variant="contained" /*disabled={isLoading}*/ onClick={changeTileVisibility}>
+		<Button variant="contained" disabled={isLoading()} onClick={changeTileVisibility}>
 			{tileLink ? 'Скрыть' : 'Подтвердить'}
 		</Button>
 	);

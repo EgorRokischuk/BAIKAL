@@ -54,7 +54,7 @@ const mapApi = baseApi.injectEndpoints({
 				}
 			},
 		}),
-		getLandsatFile: build.query<string, ITileOptions>({
+		getLandsatFile: build.mutation<string, ITileOptions>({
 			query: (options) => ({
 				url: 'files/satellite_data/get_landsat_link',
 				method: 'GET',
@@ -85,7 +85,7 @@ const mapApi = baseApi.injectEndpoints({
 		}),
 		getMonthlyAvgTileLink: build.mutation<string, ITileOptions>({
 			query: (options) => ({
-				url: 'files/satellite_data/get_landsat_tiles',
+				url: 'files/satellite_data/get_monthly_avg_tiles',
 				method: 'GET',
 				params: { ...adaptGetMonthlyAvgData(options) },
 			}),
@@ -102,9 +102,9 @@ const mapApi = baseApi.injectEndpoints({
 				}
 			},
 		}),
-		getMonthlyAvgFile: build.query<string, ITileOptions>({
+		getMonthlyAvgFile: build.mutation<string, ITileOptions>({
 			query: (options) => ({
-				url: 'files/satellite_data/get_landsat_link',
+				url: 'files/satellite_data/get_monthly_avg_file_link',
 				method: 'GET',
 				params: { ...adaptGetMonthlyAvgData(options) },
 			}),
@@ -133,7 +133,7 @@ const mapApi = baseApi.injectEndpoints({
 		}),
 		getMonthlyAvgManyYearsTileLink: build.mutation<string, ITileOptions>({
 			query: (options) => ({
-				url: 'files/satellite_data/get_landsat_tiles',
+				url: 'files/satellite_data/get_monthly_avg_many_years_tiles',
 				method: 'GET',
 				params: { ...adaptGetMonthlyAvgManyYearsData(options) },
 			}),
@@ -150,9 +150,9 @@ const mapApi = baseApi.injectEndpoints({
 				}
 			},
 		}),
-		getMonthlyAvgManyYearsFile: build.query<string, ITileOptions>({
+		getMonthlyAvgManyYearsFile: build.mutation<string, ITileOptions>({
 			query: (options) => ({
-				url: 'files/satellite_data/get_landsat_link',
+				url: 'files/satellite_data/get_monthly_avg_many_years_file_link',
 				method: 'GET',
 				params: { ...adaptGetMonthlyAvgManyYearsData(options) },
 			}),
@@ -225,13 +225,13 @@ const mapApi = baseApi.injectEndpoints({
 const {
 	useGetLandsatDatesQuery,
 	useGetLandsatTileLinkMutation,
-	useGetLandsatFileQuery,
+	useGetLandsatFileMutation,
 	useGetMonthlyAvgDatesQuery,
 	useGetMonthlyAvgTileLinkMutation,
-	useGetMonthlyAvgFileQuery,
+	useGetMonthlyAvgFileMutation,
 	useGetMonthlyAvgManyYearsDatesQuery,
 	useGetMonthlyAvgManyYearsTileLinkMutation,
-	useGetMonthlyAvgManyYearsFileQuery,
+	useGetMonthlyAvgManyYearsFileMutation,
 	useGetGroundDataParametersQuery,
 	useGetGroundDataSourcesQuery,
 	useGetGroundDataPointsQuery,
@@ -241,13 +241,13 @@ export {
 	mapApi,
 	useGetLandsatDatesQuery,
 	useGetLandsatTileLinkMutation,
-	useGetLandsatFileQuery,
+	useGetLandsatFileMutation,
 	useGetMonthlyAvgDatesQuery,
 	useGetMonthlyAvgTileLinkMutation,
-	useGetMonthlyAvgFileQuery,
+	useGetMonthlyAvgFileMutation,
 	useGetMonthlyAvgManyYearsDatesQuery,
 	useGetMonthlyAvgManyYearsTileLinkMutation,
-	useGetMonthlyAvgManyYearsFileQuery,
+	useGetMonthlyAvgManyYearsFileMutation,
 	useGetGroundDataParametersQuery,
 	useGetGroundDataSourcesQuery,
 	useGetGroundDataPointsQuery,
