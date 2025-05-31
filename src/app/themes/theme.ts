@@ -85,6 +85,7 @@ export const theme = createTheme({
 			fontSize: '0.875rem',
 			fontWeight: 400,
 			lineHeight: 1.43,
+			textTransform: 'none',
 		},
 		button: {
 			fontSize: '0.875rem',
@@ -137,13 +138,13 @@ export const theme = createTheme({
 		},
 		about_record_title: {
 			fontFamily: 'Roboto, sans-serif',
-			fontSize: '28px',
+			fontSize: '22px',
 			lineHeight: '36px',
 			color: '#FFF',
 		},
 		about_record_description: {
 			fontFamily: 'Roboto, sans-serif',
-			fontSize: '22px',
+			fontSize: '18px',
 			lineHeight: '28px',
 			color: '#000',
 		},

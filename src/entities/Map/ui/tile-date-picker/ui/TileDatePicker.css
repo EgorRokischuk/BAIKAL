@@ -1,0 +1,4 @@
+.MuiPickersYear-yearButton:not([disabled]), .MuiPickersMonth-monthButton:not([disabled]), .MuiPickersDay-root:not([disabled])  {
+    color: #FFF;
+    background-color: #4285F4;
+}

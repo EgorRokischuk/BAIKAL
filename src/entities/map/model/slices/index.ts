@@ -13,6 +13,7 @@ const initialState: IMapState = {
 	isPointsVisible: false,
 	tileLink: '',
 	tileOptions: {
+		type: '',
 		productType: 'baikalRiver',
 		parameter: 'temperature',
 		source: 'viirs',
@@ -45,6 +46,7 @@ const mapSlice = createSlice({
 				value: Dayjs | null;
 			}>,
 		) => {
+			state.tileLink = '';
 			state.tileOptions[action.payload.key] = action.payload.value;
 
 			if (state.tileOptions.productType === 'groundData')
@@ -76,7 +78,9 @@ const mapSlice = createSlice({
 
 				state.isPointsVisible = false;
 			} else {
-				if (action.payload.key !== 'photoTime') state.tileOptions.startDate = null;
+				if (action.payload.value === 'landsat') state.tileOptions.type = 'landsat';
+				if (['viirs', 'terra', 'aqua'].includes(action.payload.value)) state.tileOptions.type = '';
+				state.tileOptions.startDate = null;
 			}
 		},
 		resetState: () => initialState,

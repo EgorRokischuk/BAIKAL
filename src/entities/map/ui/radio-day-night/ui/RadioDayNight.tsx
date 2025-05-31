@@ -17,7 +17,8 @@ const RadioDayNight: React.FC = () => {
 		<div className={s.radio_group}>
 			<RadioGroup value={selectedRadio} onChange={onValueChange}>
 				<FormControlLabel value="daily" control={<Radio />} label="дневные" />
-				<FormControlLabel value="nigthly" control={<Radio />} label="ночные" />
+				<FormControlLabel value="nightly" control={<Radio />} label="ночные" />
+				<FormControlLabel value="diurnal" control={<Radio />} label="суточные" />
 			</RadioGroup>
 		</div>
 	);

@@ -29,7 +29,11 @@ const UserMenuButton: React.FC = () => {
 					</div>
 
 					<span className={s.menu_button__caption}>
-						<Typography variant="caption">{profile?.user?.fullname ?? 'Гость'}</Typography>
+						<Typography variant="body2">
+							{profile?.user?.fullname
+								? `${profile?.user?.fullname.split(' ')[0]} ${profile?.user?.fullname.split(' ')[1][0]}. ${profile?.user?.fullname.split(' ')[2][0]}.`
+								: 'Гость'}
+						</Typography>
 					</span>
 				</div>
 			</Button>

@@ -7,10 +7,9 @@ import { ApiTags } from './apiTags';
 
 const baseQuery = fetchBaseQuery({
 	baseUrl: process.env.API_URL,
-	credentials: 'include',
+	credentials: 'same-origin',
 	prepareHeaders: (headers) => {
 		const accessToken = getFromLS(LS_ACCESS_TOKEN);
-
 		if (accessToken) headers.set('Authorization', `Bearer ${accessToken}`);
 
 		return headers;

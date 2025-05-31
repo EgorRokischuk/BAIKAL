@@ -19,8 +19,8 @@ const groundDataContent: IMapMenuContent = () => {
 			<Accordion expanded={panel === 'date'} onChange={handleChange('date')}>
 				<AccordionSummary>{'Выбор даты'}</AccordionSummary>
 				<AccordionDetails>
-					<TileDatePicker />
-					<TileDatePicker dateKey="endDate" />
+					<TileDatePicker type="groundData" />
+					<TileDatePicker type="groundData" dateKey="endDate" />
 				</AccordionDetails>
 			</Accordion>
 			<SelectGroundDataParameter
@@ -38,38 +38,44 @@ const landsatTabs: IMapMenu = [
 		title: '4',
 		key: 'source',
 		value: 'landsat',
-		content: () => <TileDatePicker />,
+		content: () => <TileDatePicker type="landsat" />,
 	},
 	{
 		title: '5',
 		key: 'source',
 		value: 'landsat',
-		content: () => <TileDatePicker />,
+		content: () => <TileDatePicker type="landsat" />,
 	},
 	{
 		title: '6',
 		key: 'source',
 		value: 'landsat',
-		content: () => <TileDatePicker />,
+		content: () => <TileDatePicker type="landsat" />,
 	},
 	{
 		title: '7',
 		key: 'source',
 		value: 'landsat',
-		content: () => <TileDatePicker />,
+		content: () => <TileDatePicker type="landsat" />,
 	},
 	{
 		title: '8',
 		key: 'source',
 		value: 'landsat',
-		content: () => <TileDatePicker />,
+		content: () => <TileDatePicker type="landsat" />,
+	},
+	{
+		title: '9',
+		key: 'source',
+		value: 'landsat',
+		content: () => <TileDatePicker type="landsat" />,
 	},
 ];
 
 // Содержимое таба "Озеро Байкал - LST"
 const lstSatellites: IMapMenu = [
 	{
-		title: 'VIIRS',
+		title: 'VIIRS/NPP',
 		key: 'source',
 		value: 'viirs',
 		content: () => (
@@ -80,7 +86,7 @@ const lstSatellites: IMapMenu = [
 		),
 	},
 	{
-		title: 'MODIS Terra',
+		title: 'MODIS/Terra',
 		key: 'source',
 		value: 'terra',
 		content: () => (
@@ -91,7 +97,7 @@ const lstSatellites: IMapMenu = [
 		),
 	},
 	{
-		title: 'MODIS Aqua',
+		title: 'MODIS/Aqua',
 		key: 'source',
 		value: 'aqua',
 		content: () => (
@@ -102,7 +108,7 @@ const lstSatellites: IMapMenu = [
 		),
 	},
 	{
-		title: 'LANDSAT',
+		title: 'Landsat',
 		key: 'source',
 		value: 'landsat',
 		content: () => <TabMenu tabs={landsatTabs} />,
@@ -134,15 +140,15 @@ const baikalRiverTabs: IMapMenu = [
 // Структура меню карты
 export const MENU_STRUCTURE: IMapMenu = [
 	{
-		title: 'Озеро Байкал',
+		title: 'Готовые продукты',
 		key: 'productType',
 		value: 'baikalRiver',
 		content: () => <TabMenu tabs={baikalRiverTabs} />,
 	},
 	{
-		title: 'Байкальская природная территория',
+		title: 'Онлайн продукты',
 		key: 'productType',
-		value: 'baikalNature',
+		value: 'groundData',
 		content: () => <></>,
 	},
 	{

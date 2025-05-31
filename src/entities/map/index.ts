@@ -1,8 +1,15 @@
 export { mapHandlers } from './api/__mocks__';
 export {
 	mapApi,
-	useGetTileLinkMutation,
-	useGetTifFileLinkMutation,
+	useGetLandsatDatesQuery,
+	useGetLandsatTileLinkMutation,
+	useGetLandsatFileMutation,
+	useGetMonthlyAvgDatesQuery,
+	useGetMonthlyAvgTileLinkMutation,
+	useGetMonthlyAvgFileMutation,
+	useGetMonthlyAvgManyYearsDatesQuery,
+	useGetMonthlyAvgManyYearsTileLinkMutation,
+	useGetMonthlyAvgManyYearsFileMutation,
 	useGetGroundDataParametersQuery,
 	useGetGroundDataSourcesQuery,
 	useGetGroundDataPointsQuery,
