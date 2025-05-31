@@ -64,12 +64,18 @@ const landsatTabs: IMapMenu = [
 		value: 'landsat',
 		content: () => <TileDatePicker type="landsat" />,
 	},
+	{
+		title: '9',
+		key: 'source',
+		value: 'landsat',
+		content: () => <TileDatePicker type="landsat" />,
+	},
 ];
 
 // Содержимое таба "Озеро Байкал - LST"
 const lstSatellites: IMapMenu = [
 	{
-		title: 'VIIRS',
+		title: 'VIIRS/NPP',
 		key: 'source',
 		value: 'viirs',
 		content: () => (
@@ -80,7 +86,7 @@ const lstSatellites: IMapMenu = [
 		),
 	},
 	{
-		title: 'MODIS Terra',
+		title: 'MODIS/Terra',
 		key: 'source',
 		value: 'terra',
 		content: () => (
@@ -91,7 +97,7 @@ const lstSatellites: IMapMenu = [
 		),
 	},
 	{
-		title: 'MODIS Aqua',
+		title: 'MODIS/Aqua',
 		key: 'source',
 		value: 'aqua',
 		content: () => (
@@ -102,7 +108,7 @@ const lstSatellites: IMapMenu = [
 		),
 	},
 	{
-		title: 'LANDSAT',
+		title: 'Landsat',
 		key: 'source',
 		value: 'landsat',
 		content: () => <TabMenu tabs={landsatTabs} />,
@@ -134,15 +140,15 @@ const baikalRiverTabs: IMapMenu = [
 // Структура меню карты
 export const MENU_STRUCTURE: IMapMenu = [
 	{
-		title: 'Озеро Байкал',
+		title: 'Готовые продукты',
 		key: 'productType',
 		value: 'baikalRiver',
 		content: () => <TabMenu tabs={baikalRiverTabs} />,
 	},
 	{
-		title: 'Байкальская природная территория',
+		title: 'Онлайн продукты',
 		key: 'productType',
-		value: 'baikalNature',
+		value: 'groundData',
 		content: () => <></>,
 	},
 	{

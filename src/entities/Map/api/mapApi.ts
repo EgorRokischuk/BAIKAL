@@ -27,9 +27,10 @@ const mapApi = baseApi.injectEndpoints({
 				method: 'GET',
 				params: { ...options },
 			}),
-			async onQueryStarted(_, { queryFulfilled }) {
+			async onQueryStarted(_, { queryFulfilled, dispatch }) {
 				try {
-					await queryFulfilled;
+					const response = await queryFulfilled;
+					if (!response.data.length) dispatch(globalActions.setErrorMessage('Данные отсутствуют'));
 				} catch (e) {
 					if (__IS_DEV__) console.error(e);
 				}
@@ -75,9 +76,10 @@ const mapApi = baseApi.injectEndpoints({
 				method: 'GET',
 				params: { ...options },
 			}),
-			async onQueryStarted(_, { queryFulfilled }) {
+			async onQueryStarted(_, { queryFulfilled, dispatch }) {
 				try {
-					await queryFulfilled;
+					const response = await queryFulfilled;
+					if (!response.data.length) dispatch(globalActions.setErrorMessage('Данные отсутствуют'));
 				} catch (e) {
 					if (__IS_DEV__) console.error(e);
 				}
@@ -123,9 +125,10 @@ const mapApi = baseApi.injectEndpoints({
 				method: 'GET',
 				params: { ...options },
 			}),
-			async onQueryStarted(_, { queryFulfilled }) {
+			async onQueryStarted(_, { queryFulfilled, dispatch }) {
 				try {
-					await queryFulfilled;
+					const response = await queryFulfilled;
+					if (!response.data.length) dispatch(globalActions.setErrorMessage('Данные отсутствуют'));
 				} catch (e) {
 					if (__IS_DEV__) console.error(e);
 				}

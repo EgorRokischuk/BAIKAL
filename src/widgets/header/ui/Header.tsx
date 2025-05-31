@@ -7,6 +7,7 @@ interface IHeaderProps {
 	isUserMenuVisible: boolean;
 }
 
+// TODO: Добавить шейп Байкала в хедер
 const MemoHeader: React.FC<IHeaderProps> = ({ isUserMenuVisible }) => {
 	return (
 		<div>
@@ -14,11 +15,7 @@ const MemoHeader: React.FC<IHeaderProps> = ({ isUserMenuVisible }) => {
 				<div className={s.header__profile} />
 
 				<div className={s.header__title}>
-					<Typography variant="h5">
-						{'ИС анализа Байкальской природной'}
-						<br />
-						{' зоны с помощью спутниковых снимков'}
-					</Typography>
+					<Typography variant="h1">{'Информационная система «Байкал»'}</Typography>
 				</div>
 
 				<div className={s.header__profile}>{isUserMenuVisible && <UserMenuButton />}</div>

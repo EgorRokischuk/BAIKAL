@@ -27,7 +27,7 @@ const MenuItem: React.FC<IMenuItemProps> = ({ menuItem }) => {
 					})}
 					onClick={handleClick}
 				>
-					<Typography variant="body1">{menuItem.name}</Typography>
+					<Typography variant="h5">{menuItem.name}</Typography>
 				</button>
 			</NavLink>
 		</div>

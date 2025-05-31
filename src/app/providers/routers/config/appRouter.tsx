@@ -14,7 +14,7 @@ import { ROUTES } from '@/shared/config/router/routes';
 import { UnAuthRoute } from '../ui/UnAuthRoute';
 
 const navBarItems = [
-	{ name: 'Карта', route: '/' },
+	{ name: 'Продукты и данные', route: '/' },
 	{ name: 'О проекте', route: '/about' },
 	{
 		name: 'Публикации',
@@ -29,7 +29,7 @@ const navBarItems = [
 		route: '/guide',
 	},
 	{
-		name: 'Служба поддержки',
+		name: 'Обратная связь',
 		route: '/support',
 	},
 ];

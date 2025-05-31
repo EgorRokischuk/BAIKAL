@@ -30,7 +30,7 @@ const TileDatePicker: React.FC<ITileDatePickerProps> = ({
 		<LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="ru">
 			<DatePicker
 				{...props}
-				disabled={isLoading}
+				disabled={isLoading || (type !== 'groundData' && !(data || []).length)}
 				value={date ? dayjs(date, 'DD.MM.YYYY') : null}
 				onChange={(date) => {
 					dispatch(mapActions.setMapDate({ key: dateKey, value: date }));

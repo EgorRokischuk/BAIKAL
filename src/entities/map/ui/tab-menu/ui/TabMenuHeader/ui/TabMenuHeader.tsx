@@ -30,7 +30,7 @@ const TabMenuHeader: React.FC<IProps> = ({ tabIndex, tabs, setTabIndex }) => {
 			value={tabIndex}
 			onChange={(_, index) => setTabIndex(index)}
 			variant={
-				tabs.every((tab: IMapMenuItem) => '45678'.includes(tab.title)) ? 'scrollable' : 'fullWidth'
+				tabs.every((tab: IMapMenuItem) => '456789'.includes(tab.title)) ? 'scrollable' : 'fullWidth'
 			}
 		>
 			{tabs.map((tab: IMapMenuItem, index: number) => (

@@ -46,6 +46,7 @@ const mapSlice = createSlice({
 				value: Dayjs | null;
 			}>,
 		) => {
+			state.tileLink = '';
 			state.tileOptions[action.payload.key] = action.payload.value;
 
 			if (state.tileOptions.productType === 'groundData')
