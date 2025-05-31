@@ -16,6 +16,15 @@
         align-self: center;
     }
 
+    &__image {
+        position: relative;
+        left: -5vw;
+    }
+
+    &__rotated {
+        transform: rotate(-45deg);
+    }
+
     &__profile {
         width: 150px;
     }

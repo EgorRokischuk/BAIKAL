@@ -14,9 +14,13 @@ const MemoHeader: React.FC<IHeaderProps> = ({ isUserMenuVisible }) => {
 			<div className={s.header}>
 				<div className={s.header__profile} />
 
+				<img className={s.header__rotated} src="/satellite.png" />
+
 				<div className={s.header__title}>
 					<Typography variant="h1">{'Информационная система «Байкал»'}</Typography>
 				</div>
+
+				<img className={s.header__image} src="/river.png" />
 
 				<div className={s.header__profile}>{isUserMenuVisible && <UserMenuButton />}</div>
 			</div>
