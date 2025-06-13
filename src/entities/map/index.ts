@@ -18,6 +18,11 @@ export {
 	useGetGroundDataPointsQuery,
 } from './api/mapApi';
 export {
+	adaptGetLandsatData,
+	adaptGetMonthlyAvgData,
+	adaptGetMonthlyAvgManyYearsData,
+} from './lib/mappers';
+export {
 	getMapZoom,
 	getMapLocation,
 	getIsPointsVisible,

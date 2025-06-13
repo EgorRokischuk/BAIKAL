@@ -3,6 +3,7 @@ import { GroundDataPoints } from '@/widgets/ground-data-points';
 import { MapMenu } from '@/widgets/map-menu';
 import { MapTiles } from '@/widgets/map-tiles';
 import { ChangeZoom } from '@/features/Map/change-zoom';
+import { GetPointValue } from '@/features/Map/get-point-value';
 import { ShowCoordinates } from '@/features/Map/show-coordinates';
 import { getMapZoom } from '@/entities/Map';
 import { useAppSelector } from '@/shared/hooks/useAppSelector';
@@ -20,6 +21,8 @@ const Map: React.FC = () => {
 
 				<ChangeZoom />
 				<ShowCoordinates />
+
+				<GetPointValue />
 			</MapContainer>
 			<div className={s.menu_container}>
 				<MapMenu />
