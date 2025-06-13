@@ -43,6 +43,11 @@ interface IBaseSatelliteRequestParams {
 	parameter: string;
 }
 
+interface IBaseSatellitePointRequestParams {
+	lon: number;
+	lat: number;
+}
+
 /**
  * LANDSAT REQUEST TYPES
  */
@@ -56,6 +61,8 @@ export interface ILandsatRequest extends ILandsatAvailableDatesRequest {
 	day_id: number;
 	time_of_day?: string;
 }
+
+export interface ILandsatPointRequest extends ILandsatRequest, IBaseSatellitePointRequestParams {}
 
 /**
  * MONTHLY AVG REQUEST TYPES
@@ -71,6 +78,10 @@ export interface IMonthlyAvgRequest extends IBaseMonthlyAvgRequestParams {
 	month_id: number;
 }
 
+export interface IMonthlyAvgPointRequest
+	extends IMonthlyAvgRequest,
+		IBaseSatellitePointRequestParams {}
+
 /**
  * MONTHLY AVG MANY YEARS REQUEST TYPES
  */
@@ -84,6 +95,10 @@ export interface IMonthlyAvgManyYearsAvailableDatesRequest
 export interface IMonthlyAvgManyYearsRequest extends IBaseMonthlyAvgManyYearsRequestParams {
 	month_id: number;
 }
+
+export interface IMonthlyAvgManyYearsPointRequest
+	extends IMonthlyAvgManyYearsRequest,
+		IBaseSatellitePointRequestParams {}
 
 /**
  * GROUND DATA REQUEST TYPES

@@ -14,7 +14,10 @@ import {
 	IGroundDataRequest,
 	IGroundDataSourcesRequest,
 	ILandsatAvailableDatesRequest,
+	ILandsatPointRequest,
 	IMonthlyAvgAvailableDatesRequest,
+	IMonthlyAvgManyYearsPointRequest,
+	IMonthlyAvgPointRequest,
 	ITileOptions,
 } from '../types';
 
@@ -69,6 +72,25 @@ const mapApi = baseApi.injectEndpoints({
 				}
 			},
 		}),
+		getLandsatPoint: build.mutation<string, ILandsatPointRequest>({
+			query: (options) => ({
+				url: 'files/satellite_data/get_temperature_at_point_landsat',
+				method: 'GET',
+				params: { ...options },
+			}),
+			async onQueryStarted(_, { queryFulfilled }) {
+				try {
+					await queryFulfilled;
+				} catch (e) {
+					if (__IS_DEV__) console.error(e);
+				}
+			},
+			transformResponse: (baseQueryReturnValue) => {
+				const data = baseQueryReturnValue as number;
+
+				return data.toFixed(2);
+			},
+		}),
 		/** MONTHLY AVG */
 		getMonthlyAvgDates: build.query<Array<string>, IMonthlyAvgAvailableDatesRequest>({
 			query: (options) => ({
@@ -118,6 +140,25 @@ const mapApi = baseApi.injectEndpoints({
 				}
 			},
 		}),
+		getMonthlyAvgPoint: build.mutation<string, IMonthlyAvgPointRequest>({
+			query: (options) => ({
+				url: 'files/satellite_data/get_temperature_at_point_monthly_avg',
+				method: 'GET',
+				params: { ...options },
+			}),
+			async onQueryStarted(_, { queryFulfilled }) {
+				try {
+					await queryFulfilled;
+				} catch (e) {
+					if (__IS_DEV__) console.error(e);
+				}
+			},
+			transformResponse: (baseQueryReturnValue) => {
+				const data = baseQueryReturnValue as number;
+
+				return data.toFixed(2);
+			},
+		}),
 		/** MONTHLY AVG MANY YEARS */
 		getMonthlyAvgManyYearsDates: build.query<Array<string>, IMonthlyAvgAvailableDatesRequest>({
 			query: (options) => ({
@@ -165,6 +206,25 @@ const mapApi = baseApi.injectEndpoints({
 				} catch (e) {
 					if (__IS_DEV__) console.error(e);
 				}
+			},
+		}),
+		getMonthlyAvgManyYearsPoint: build.mutation<string, IMonthlyAvgManyYearsPointRequest>({
+			query: (options) => ({
+				url: 'files/satellite_data/get_temperature_at_point_monthly_avg_many_years',
+				method: 'GET',
+				params: { ...options },
+			}),
+			async onQueryStarted(_, { queryFulfilled }) {
+				try {
+					await queryFulfilled;
+				} catch (e) {
+					if (__IS_DEV__) console.error(e);
+				}
+			},
+			transformResponse: (baseQueryReturnValue) => {
+				const data = baseQueryReturnValue as number;
+
+				return data.toFixed(2);
 			},
 		}),
 		/** GROUND DATA */
@@ -229,12 +289,15 @@ const {
 	useGetLandsatDatesQuery,
 	useGetLandsatTileLinkMutation,
 	useGetLandsatFileMutation,
+	useGetLandsatPointMutation,
 	useGetMonthlyAvgDatesQuery,
 	useGetMonthlyAvgTileLinkMutation,
 	useGetMonthlyAvgFileMutation,
+	useGetMonthlyAvgPointMutation,
 	useGetMonthlyAvgManyYearsDatesQuery,
 	useGetMonthlyAvgManyYearsTileLinkMutation,
 	useGetMonthlyAvgManyYearsFileMutation,
+	useGetMonthlyAvgManyYearsPointMutation,
 	useGetGroundDataParametersQuery,
 	useGetGroundDataSourcesQuery,
 	useGetGroundDataPointsQuery,
@@ -245,12 +308,15 @@ export {
 	useGetLandsatDatesQuery,
 	useGetLandsatTileLinkMutation,
 	useGetLandsatFileMutation,
+	useGetLandsatPointMutation,
 	useGetMonthlyAvgDatesQuery,
 	useGetMonthlyAvgTileLinkMutation,
 	useGetMonthlyAvgFileMutation,
+	useGetMonthlyAvgPointMutation,
 	useGetMonthlyAvgManyYearsDatesQuery,
 	useGetMonthlyAvgManyYearsTileLinkMutation,
 	useGetMonthlyAvgManyYearsFileMutation,
+	useGetMonthlyAvgManyYearsPointMutation,
 	useGetGroundDataParametersQuery,
 	useGetGroundDataSourcesQuery,
 	useGetGroundDataPointsQuery,

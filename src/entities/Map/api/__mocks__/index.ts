@@ -53,6 +53,14 @@ const mapGetFileLink = http.get(
 	},
 );
 
+const mapGetPoint = http.get(
+	new RegExp(String.raw`${url}/files/satellite_data/get_temperature_at_point_.+`),
+	async () => {
+		await delay(3000);
+		return HttpResponse.json(-4.432432, { status: 200 });
+	},
+);
+
 const mapGetGroundDataParameters = http.get(
 	url + '/files/ground_data/get_available_parameters',
 	async () => {
@@ -86,6 +94,7 @@ export const mapHandlers = [
 	mapGetMonthlyAvgManyYearsAvailableDates,
 	mapGetTileLink,
 	mapGetFileLink,
+	mapGetPoint,
 	mapGetGroundDataParameters,
 	mapGetGroundDataSources,
 	mapGetGroundDataPoints,
