@@ -10,7 +10,7 @@ import * as s from './MainLayout.module.scss';
 import { MainLayoutSkeleton } from './MainLayout.skeleton';
 
 interface IMainLayoutProps {
-	navbarItems?: IMenuItem[];
+	navbarItems?: Array<IMenuItem>;
 }
 
 const MainLayout = ({ navbarItems }: IMainLayoutProps) => {

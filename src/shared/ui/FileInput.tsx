@@ -9,13 +9,5 @@ export const FileInput: React.FC<IFileInputProps> = ({ name, ...props }) => {
 	const { control } = useFormContext();
 	const { field } = useController({ control, name });
 
-	return (
-		<input
-			type="file"
-			{...props}
-			onChange={(e) => {
-				field.onChange(e.target.files[0]);
-			}}
-		/>
-	);
+	return <input type="file" {...props} onChange={(e) => field.onChange(e.target.files[0])} />;
 };

@@ -10,6 +10,7 @@ import { Map } from '@/pages/map';
 import { NotFound } from '@/pages/not-found';
 import { Publications } from '@/pages/publications';
 import { SignUp } from '@/pages/sign-up';
+import { Support } from '@/pages/support';
 import { ROUTES } from '@/shared/config/router/routes';
 import { UnAuthRoute } from '../ui/UnAuthRoute';
 
@@ -64,12 +65,8 @@ const router = createBrowserRouter([
 						element: <Navigate to={ROUTES.exceptions.accessDenied.page} />,
 					},
 					{
-						path: ROUTES.support.route,
-						element: <Navigate to={ROUTES.exceptions.accessDenied.page} />,
-					},
-					{
 						path: '*',
-						element: <Navigate to={ROUTES.exceptions.notFound.page} />,
+						element: <Navigate to={ROUTES.exceptions.accessDenied.page} />,
 					},
 					{
 						path: ROUTES.exceptions.notFound.route,
@@ -78,6 +75,16 @@ const router = createBrowserRouter([
 					{
 						path: ROUTES.exceptions.accessDenied.route,
 						element: <AccessDenied />,
+					},
+				],
+			},
+			{
+				path: ROUTES.support.route,
+				element: <AuthLayout showUserMenu navbarItems={navBarItems} />,
+				children: [
+					{
+						index: true,
+						element: <Support />,
 					},
 				],
 			},
