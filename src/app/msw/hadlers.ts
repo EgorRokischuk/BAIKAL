@@ -1,6 +1,13 @@
 import { aboutRecordHandlers } from '@/entities/AboutRecord';
-import { mapHandlers } from '@/entities/Map';
 import { externalResourceHandlers } from '@/entities/ExternalResource';
+import { mapHandlers } from '@/entities/Map';
+import { publicationHandlers } from '@/entities/Publication';
 import { authHandlers } from '@/entities/User';
 
-export const handlers = [...authHandlers, ...externalResourceHandlers, ...mapHandlers, ...aboutRecordHandlers];
+export const handlers = [
+	...publicationHandlers,
+	...authHandlers,
+	...externalResourceHandlers,
+	...mapHandlers,
+	...aboutRecordHandlers,
+];
