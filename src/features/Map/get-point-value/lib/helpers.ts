@@ -22,20 +22,20 @@ export const useGetPoint = () => {
 			case 'landsat':
 				return await getLandsatPoint({
 					...adaptGetLandsatData(tileOptions),
-					lat: Number(location[0].toFixed(4)),
-					lon: Number(location[1].toFixed(4)),
+					lat: Number(location[0]),
+					lon: Number(location[1]),
 				});
 			case 'monthlyAvg':
 				return await getMonthlyAvgPoint({
 					...adaptGetMonthlyAvgData(tileOptions),
-					lat: Number(location[0].toFixed(4)),
-					lon: Number(location[1].toFixed(4)),
+					lat: Number(location[0]),
+					lon: Number(location[1]),
 				});
 			case 'monthlyAvgManyYears':
 				return await getMonthlyAvgManyYearsPoint({
 					...adaptGetMonthlyAvgManyYearsData(tileOptions),
-					lat: Number(location[0].toFixed(4)),
-					lon: Number(location[1].toFixed(4)),
+					lat: Number(location[0]),
+					lon: Number(location[1]),
 				});
 		}
 	};
