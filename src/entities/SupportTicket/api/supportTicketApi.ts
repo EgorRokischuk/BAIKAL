@@ -6,7 +6,15 @@ const supportTicketApi = baseApi.injectEndpoints({
 	endpoints: (build) => ({
 		sendSupportTicket: build.mutation<string, ISupportTicketRequest>({
 			query: (body) => {
-				return { url: '/support-ticket', method: 'POST', body };
+				const formData = new FormData();
+				formData.append('subject', body.subject);
+				formData.append('description', body.description);
+				formData.append('email', body.email);
+				formData.append('file', body.file);
+
+				console.log(body, formData);
+
+				return { url: '/support-ticket', method: 'POST', body: formData };
 			},
 			async onQueryStarted(_, { queryFulfilled, dispatch }) {
 				try {
