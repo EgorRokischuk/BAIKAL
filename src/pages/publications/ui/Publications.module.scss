@@ -1,0 +1,22 @@
+.page {
+    display: flex;
+
+    &__block {
+        width: 90px;
+    }
+
+    &__gallery {
+        width: 100%;
+        background-color: #CECECEEC;
+
+        &__search {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        &__content {
+            margin: 0px 10px;
+            background-color: #FFF;
+        }
+    }
+}
