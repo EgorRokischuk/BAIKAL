@@ -4,6 +4,7 @@ import MarkerClusterGroup from 'react-leaflet-cluster';
 import {
 	getGroundDataOptions,
 	getIsPointsVisible,
+	getTileOptionByKey,
 	useGetGroundDataPointsQuery,
 } from '@/entities/Map';
 import { useAppSelector } from '@/shared/hooks/useAppSelector';
@@ -20,6 +21,7 @@ const GetIcon = () => {
 
 export const GroundDataPoints: React.FC = () => {
 	const isPointsVisible = useAppSelector(getIsPointsVisible);
+	const type = useAppSelector(getTileOptionByKey('type'));
 	const groundDataParams = useAppSelector(getGroundDataOptions);
 
 	const { data, isFetching } = useGetGroundDataPointsQuery(
@@ -42,7 +44,8 @@ export const GroundDataPoints: React.FC = () => {
 			singleMarkerMode={false}
 			animated={false}
 		>
-			{data &&
+			{type === 'groundData' &&
+				data &&
 				data.map((point, idx) => {
 					return (
 						<Marker key={idx} position={[point.latitude, point.longitude]} icon={GetIcon()}>
