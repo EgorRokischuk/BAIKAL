@@ -1,4 +1,5 @@
 import { HttpResponse, delay, http } from 'msw';
+import mockGroundDataAvaialbleDatesResponse from './data/mockGroundDataAvaialbleDatesResponse';
 import mockGroundDataParametersResponse from './data/mockGroundDataParametersResponse';
 import mockGroundDataPointsResponse from './data/mockGroundDataPointsResponse';
 import mockGroundDataSourcesResponse from './data/mockGroundDataSourcesResponse';
@@ -61,6 +62,14 @@ const mapGetPoint = http.get(
 	},
 );
 
+const mapGetGroundDataAvailableDates = http.get(
+	url + '/files/ground_data/get_available_dates',
+	async () => {
+		await delay(3000);
+		return HttpResponse.json(mockGroundDataAvaialbleDatesResponse, { status: 200 });
+	},
+);
+
 const mapGetGroundDataParameters = http.get(
 	url + '/files/ground_data/get_available_parameters',
 	async () => {
@@ -98,4 +107,5 @@ export const mapHandlers = [
 	mapGetGroundDataParameters,
 	mapGetGroundDataSources,
 	mapGetGroundDataPoints,
+	mapGetGroundDataAvailableDates,
 ];

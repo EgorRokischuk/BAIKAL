@@ -1,4 +1,5 @@
 import {
+	useGetGroundDataAvailableDatesQuery,
 	useGetLandsatDatesQuery,
 	useGetMonthlyAvgDatesQuery,
 	useGetMonthlyAvgManyYearsDatesQuery,
@@ -12,9 +13,14 @@ import {
 } from './mappers';
 
 export const useDateHelper = (type: string) => {
-	const isShouldDisableYear = ['landsat', 'monthlyAvg'].includes(type);
-	const isShouldDisableMonth = ['landsat', 'monthlyAvg', 'monthlyAvgManyYears'].includes(type);
-	const isShouldDisableDay = type === 'landsat';
+	const isShouldDisableYear = ['landsat', 'monthlyAvg', 'groundData'].includes(type);
+	const isShouldDisableMonth = [
+		'landsat',
+		'monthlyAvg',
+		'monthlyAvgManyYears',
+		'groundData',
+	].includes(type);
+	const isShouldDisableDay = ['landsat', 'groundData'].includes(type);
 
 	return { isShouldDisableYear, isShouldDisableMonth, isShouldDisableDay };
 };
@@ -39,6 +45,13 @@ export const useGetAvailableDate = (type: string) => {
 			skip: tileOptions.type !== 'monthlyAvgManyYears' || !tileOptions.photoTime,
 		});
 
+	const { data: groundData, isFetching: isGroundDataLoading } = useGetGroundDataAvailableDatesQuery(
+		undefined,
+		{
+			skip: tileOptions.type !== 'groundData',
+		},
+	);
+
 	switch (type) {
 		case 'landsat':
 			return { data: landsat, isLoading: isLandsatLoading };
@@ -46,6 +59,8 @@ export const useGetAvailableDate = (type: string) => {
 			return { data: monthlyAvg, isLoading: isMonthlyAvgLoading };
 		case 'monthlyAvgManyYears':
 			return { data: monthlyAvgManyYears, isLoading: isMonthlyAvgManyYearsLoading };
+		case 'groundData':
+			return { data: groundData, isLoading: isGroundDataLoading };
 		default:
 			return { data: [], isLoading: false };
 	}

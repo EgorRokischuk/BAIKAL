@@ -4,7 +4,7 @@ import dayjs, { Dayjs } from 'dayjs';
 import { useAppDispatch } from '@/shared/hooks/useAppDispatch';
 import { useAppSelector } from '@/shared/hooks/useAppSelector';
 import { convertToDateInput } from '@/shared/lib/datetimeFormat';
-import { getMapDateByKey } from '../../../model/selectors';
+import { getGroundDataOptions, getMapDateByKey } from '../../../model/selectors';
 import { mapActions } from '../../../model/slices';
 import 'dayjs/locale/ru';
 import { useDateHelper, useGetAvailableDate } from '../lib/helpers';
@@ -23,6 +23,8 @@ const TileDatePicker: React.FC<ITileDatePickerProps> = ({
 }) => {
 	const dispatch = useAppDispatch();
 	const date = useAppSelector(getMapDateByKey(dateKey));
+	const groundDataOptions = useAppSelector(getGroundDataOptions);
+
 	const { isShouldDisableYear, isShouldDisableMonth, isShouldDisableDay } = useDateHelper(type);
 	const { data, isLoading } = useGetAvailableDate(type);
 
@@ -63,7 +65,7 @@ const TileDatePicker: React.FC<ITileDatePickerProps> = ({
 				shouldDisableDate={(v) =>
 					isShouldDisableDay && !(data ?? []).includes(convertToDateInput(v))
 				}
-				minDate={dayjs('1990-01-01')}
+				minDate={type === 'groundData' ? dayjs(groundDataOptions.startDate) : dayjs('1990-01-01')}
 				maxDate={dayjs(`${dayjs(Date.now()).year()}-12-31`)}
 			/>
 		</LocalizationProvider>

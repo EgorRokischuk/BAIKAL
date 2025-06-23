@@ -228,6 +228,26 @@ const mapApi = baseApi.injectEndpoints({
 			},
 		}),
 		/** GROUND DATA */
+		getGroundDataAvailableDates: build.query<Array<string>, void>({
+			query: () => ({
+				url: 'files/ground_data/get_available_dates',
+				method: 'GET',
+			}),
+			async onQueryStarted(_, { queryFulfilled, dispatch }) {
+				try {
+					const response = await queryFulfilled;
+
+					if (!response.data) dispatch(globalActions.setErrorMessage('Даты отсутствуют!'));
+				} catch (e) {
+					if (__IS_DEV__) console.error(e);
+				}
+			},
+			transformResponse: (baseQueryReturnValue) => {
+				const data = baseQueryReturnValue as Array<string>;
+
+				return !data.length ? [] : data;
+			},
+		}),
 		getGroundDataParameters: build.query<Array<string>, IGroundDataParametersRequest>({
 			query: (params) => ({
 				url: 'files/ground_data/get_available_parameters',
@@ -298,6 +318,7 @@ const {
 	useGetMonthlyAvgManyYearsTileLinkMutation,
 	useGetMonthlyAvgManyYearsFileMutation,
 	useGetMonthlyAvgManyYearsPointMutation,
+	useGetGroundDataAvailableDatesQuery,
 	useGetGroundDataParametersQuery,
 	useGetGroundDataSourcesQuery,
 	useGetGroundDataPointsQuery,
@@ -317,6 +338,7 @@ export {
 	useGetMonthlyAvgManyYearsTileLinkMutation,
 	useGetMonthlyAvgManyYearsFileMutation,
 	useGetMonthlyAvgManyYearsPointMutation,
+	useGetGroundDataAvailableDatesQuery,
 	useGetGroundDataParametersQuery,
 	useGetGroundDataSourcesQuery,
 	useGetGroundDataPointsQuery,

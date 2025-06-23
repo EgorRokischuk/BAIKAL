@@ -13,6 +13,7 @@ export {
 	useGetMonthlyAvgManyYearsTileLinkMutation,
 	useGetMonthlyAvgManyYearsFileMutation,
 	useGetMonthlyAvgManyYearsPointMutation,
+	useGetGroundDataAvailableDatesQuery,
 	useGetGroundDataParametersQuery,
 	useGetGroundDataSourcesQuery,
 	useGetGroundDataPointsQuery,
