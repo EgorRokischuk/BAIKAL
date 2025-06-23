@@ -39,6 +39,10 @@ export const publicationSchema = z
 			.string()
 			.min(1, { message: 'Обязательное поле' })
 			.regex(/^((, )?([А-ЯA-Z]\. ){2}[А-яA-z]+){1,5}$/, { message: 'Неверный формат' }),
+		url: z
+			.string()
+			.min(1, { message: 'Обязательное поле' })
+			.url({ message: 'Некорректная ссылка' }),
 	})
 	.required();
 

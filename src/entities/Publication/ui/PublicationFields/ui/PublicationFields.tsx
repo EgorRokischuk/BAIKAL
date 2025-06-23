@@ -46,8 +46,6 @@ export const PublicationFields: React.FC = () => {
 				render={({ field: { ref, ...field } }) => (
 					<InputField
 						label="Авторы"
-						multiline
-						rows={5}
 						error={Boolean(errors.authors)}
 						helperText={errors.authors?.message as string}
 						inputRef={ref}
@@ -62,8 +60,6 @@ export const PublicationFields: React.FC = () => {
 				render={({ field: { ref, ...field } }) => (
 					<InputField
 						label="Внешний ресурс"
-						multiline
-						rows={5}
 						error={Boolean(errors.url)}
 						helperText={errors.url?.message as string}
 						inputRef={ref}

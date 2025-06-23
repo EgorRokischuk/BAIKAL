@@ -3,8 +3,11 @@ import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import { Button } from '@mui/material';
 import { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-import { AboutRecordFields } from '@/entities/AboutRecord';
-import { IPublicationResponse, useUpdatePublicationMutation } from '@/entities/Publication';
+import {
+	IPublicationResponse,
+	PublicationFields,
+	useUpdatePublicationMutation,
+} from '@/entities/Publication';
 import { EntityForm } from '@/shared/ui/EntityForm';
 import { btnStyle } from '../config/sxStyles';
 import { publicationEditSchema } from '../model';
@@ -48,7 +51,7 @@ export const PublicationUpdate: React.FC<IRecordUpdateProps> = ({ publication })
 					onSubmit={handleSubmit(onUpdate)}
 					onCancel={handleModal}
 				>
-					<AboutRecordFields />
+					<PublicationFields />
 				</EntityForm>
 			</FormProvider>
 		</>

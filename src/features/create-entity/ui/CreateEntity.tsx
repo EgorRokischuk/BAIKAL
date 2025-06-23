@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { AboutRecordFields } from '@/entities/AboutRecord';
 import { ExternalResourceFields } from '@/entities/ExternalResource';
+import { PublicationFields } from '@/entities/Publication';
 import { Button } from '@/shared/ui/Button';
 import { EntityForm } from '@/shared/ui/EntityForm';
 import { initDefaultValues, initEntitySchema, useEntityService } from '../lib';
@@ -19,7 +20,7 @@ const EntityFields = ({ type }: ICreateEntityBaseProps) => {
 		case 'external-resource':
 			return <ExternalResourceFields />;
 		case 'publication':
-			return null; // not released
+			return <PublicationFields />;
 		case 'about-record':
 			return <AboutRecordFields />;
 		default:
