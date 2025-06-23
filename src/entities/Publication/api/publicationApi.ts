@@ -11,9 +11,12 @@ import { IPublicationRequest, IPublicationResponse } from '../types';
 
 const publicationApi = baseApi.injectEndpoints({
 	endpoints: (build) => ({
-		getPublicationsList: build.query<Array<IPublicationResponse>, void>({
-			query: () => ({
+		getPublicationsList: build.query<Array<IPublicationResponse>, string | void>({
+			query: (body) => ({
 				url: '/publications',
+				params: {
+					search: typeof body === 'string' ? body : undefined,
+				},
 			}),
 			providesTags: [ApiTags.PUBLICATION],
 			async onQueryStarted(_, { queryFulfilled, dispatch }) {
@@ -65,7 +68,7 @@ const publicationApi = baseApi.injectEndpoints({
 				}
 			},
 		}),
-		updateAboutRecord: build.mutation<void, IPublicationResponse>({
+		updatePublication: build.mutation<void, IPublicationResponse>({
 			query: (body) => ({
 				url: `/publications/${body.id}`,
 				method: 'PUT',
@@ -109,17 +112,19 @@ const publicationApi = baseApi.injectEndpoints({
 
 const {
 	useGetPublicationsListQuery,
+	useLazyGetPublicationsListQuery,
 	useGetPublicationByIdQuery,
 	useCreatePublicationMutation,
-	useUpdateAboutRecordMutation,
+	useUpdatePublicationMutation,
 	useDeletePublicationMutation,
 } = publicationApi;
 
 export {
 	publicationApi,
 	useGetPublicationsListQuery,
+	useLazyGetPublicationsListQuery,
 	useGetPublicationByIdQuery,
 	useCreatePublicationMutation,
-	useUpdateAboutRecordMutation,
+	useUpdatePublicationMutation,
 	useDeletePublicationMutation,
 };

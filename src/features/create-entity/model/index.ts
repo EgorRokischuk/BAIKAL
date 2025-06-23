@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import type { IAboutRecordRequest } from '@/entities/AboutRecord';
 import type { IExternalResourceRequest } from '@/entities/ExternalResource';
+import { IPublicationRequest } from '@/entities/Publication';
 
 export const externalResourceSchema = z
 	.object({
@@ -28,4 +29,22 @@ export const aboutRecordSchema = z
 export const aboutRecordDefaultValue: IAboutRecordRequest = {
 	title: '',
 	description: '',
+};
+
+export const publicationSchema = z
+	.object({
+		title: z.string().min(1, { message: 'Обязательное поле' }),
+		description: z.string().min(1, { message: 'Обязательное поле' }),
+		authors: z
+			.string()
+			.min(1, { message: 'Обязательное поле' })
+			.regex(/^((, )?([А-ЯA-Z]\. ){2}[А-яA-z]+){1,5}$/, { message: 'Неверный формат' }),
+	})
+	.required();
+
+export const publicationDefaultValue: IPublicationRequest = {
+	title: '',
+	description: '',
+	authors: '',
+	url: '',
 };

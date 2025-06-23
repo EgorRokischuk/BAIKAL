@@ -1,5 +1,7 @@
 import { Box } from '@mui/material';
 import { CreateEntity } from '@/features/create-entity';
+import { SearchPublication } from '@/features/Publication/search-publication';
+import { useLazyGetPublicationsListQuery } from '@/entities/Publication';
 import { getUserRights } from '@/entities/User';
 import { useAppSelector } from '@/shared/hooks/useAppSelector';
 import * as s from './Publications.module.scss';
@@ -7,7 +9,7 @@ import * as s from './Publications.module.scss';
 const Publications: React.FC = () => {
 	const userRights = useAppSelector(getUserRights);
 
-	console.log(userRights);
+	const [trigger, { data: _data }] = useLazyGetPublicationsListQuery();
 
 	return (
 		<Box className={s.page}>
@@ -16,7 +18,9 @@ const Publications: React.FC = () => {
 			</Box>
 
 			<Box className={s.page__gallery}>
-				<Box>{/** TODO: Search Publication By Name Feature */}</Box>
+				<Box className={s.page__search}>
+					<SearchPublication onClick={trigger} />
+				</Box>
 				<Box>{/** TODO: Publications Feed */}</Box>
 			</Box>
 

@@ -9,4 +9,9 @@
         width: 100%;
         background-color: #CECECEEC;
     }
+
+    &__search {
+        display: flex;
+        justify-content: flex-end;
+    }
 }
