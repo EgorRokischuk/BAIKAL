@@ -16,9 +16,11 @@ export const GetPointValue: React.FC = () => {
 	useMapEvent('click', async () => {
 		if (!tileLink) return;
 
+		const location = tileLocation;
+
 		setLocation([tileLocation.lat, tileLocation.lng]);
 
-		const response = await getPointMutation([tileLocation.lat, tileLocation.lng]);
+		const response = await getPointMutation([location.lng, location.lat]);
 		setValue(response.data);
 	});
 
