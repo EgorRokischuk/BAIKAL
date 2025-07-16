@@ -4,12 +4,12 @@ import mockGeePointValueResponse from './data/mockGeePointValueResponse';
 
 const url = process.env.API_URL;
 
-const geeGetPointValue = http.get(url + '/api/v1/gee/lst/point/date/', async () => {
+const geeGetPointValue = http.get(url + '/gee/lst/point/date/', async () => {
 	await delay(3000);
 	return HttpResponse.json(mockGeePointValueResponse, { status: 200 });
 });
 
-const geeGetPointPeriodValue = http.get(url + '/api/v1/gee/lst/period/', async () => {
+const geeGetPointPeriodValue = http.get(url + '/gee/lst/period/', async () => {
 	await delay(3000);
 	return HttpResponse.json(mockGeePointPeriodValueResponse, { status: 200 });
 });
