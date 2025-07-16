@@ -2,6 +2,7 @@ import { MapContainer } from 'react-leaflet';
 import { GroundDataPoints } from '@/widgets/ground-data-points';
 import { MapMenu } from '@/widgets/map-menu';
 import { MapTiles } from '@/widgets/map-tiles';
+import { SetPointLocation } from '@/features/GEE/point-location-set';
 import { ChangeZoom } from '@/features/Map/change-zoom';
 import { GetPointValue } from '@/features/Map/get-point-value';
 import { ShowCoordinates } from '@/features/Map/show-coordinates';
@@ -23,6 +24,7 @@ const Map: React.FC = () => {
 				<ShowCoordinates />
 
 				<GetPointValue />
+				<SetPointLocation />
 			</MapContainer>
 			<div className={s.menu_container}>
 				<MapMenu />

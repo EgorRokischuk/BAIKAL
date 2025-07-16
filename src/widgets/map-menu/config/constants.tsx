@@ -175,7 +175,7 @@ export const MENU_STRUCTURE: IMapMenu = [
 	{
 		title: 'Онлайн продукты',
 		key: 'productType',
-		value: 'groundData',
+		value: 'gee',
 		content: onlineProductsContent,
 	},
 	{
