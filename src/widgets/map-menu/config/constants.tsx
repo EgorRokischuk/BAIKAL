@@ -1,4 +1,12 @@
-import { Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
+import {
+	Accordion,
+	AccordionSummary,
+	AccordionDetails,
+	RadioGroup,
+	FormControlLabel,
+	Radio,
+	Box,
+} from '@mui/material';
 import { useState } from 'react';
 import { SelectGroundDataParameter } from '@/features/Map/ground-data-select-parameter';
 import { SelectGroundDataSource } from '@/features/Map/ground-data-select-source';
@@ -28,6 +36,25 @@ const groundDataContent: IMapMenuContent = () => {
 				onChange={handleChange('parameter')}
 			/>
 			<SelectGroundDataSource expanded={panel === 'source'} onChange={handleChange('source')} />
+		</>
+	);
+};
+
+// Содержимое таба "Онлайн продукты"
+const onlineProductsContent: React.FC = () => {
+	return (
+		<>
+			<Box padding={1}>
+				<RadioGroup>
+					<FormControlLabel value="polygon" control={<Radio />} label="Полигон" />
+					<FormControlLabel value="point" control={<Radio />} label="Точка" />
+				</RadioGroup>
+			</Box>
+
+			<Box padding={1}>
+				<TileDatePicker type="" />
+				<TileDatePicker type="" dateKey="endDate" />
+			</Box>
 		</>
 	);
 };
@@ -149,7 +176,7 @@ export const MENU_STRUCTURE: IMapMenu = [
 		title: 'Онлайн продукты',
 		key: 'productType',
 		value: 'groundData',
-		content: () => <></>,
+		content: onlineProductsContent,
 	},
 	{
 		title: 'Наземные данные',
