@@ -7,12 +7,11 @@ interface IHeaderProps {
 	isUserMenuVisible: boolean;
 }
 
-// TODO: Добавить шейп Байкала в хедер
 const MemoHeader: React.FC<IHeaderProps> = ({ isUserMenuVisible }) => {
 	return (
 		<div>
 			<div className={s.header}>
-				<div className={s.header__profile} />
+				<img src="/logo.png" />
 
 				<img className={s.header__rotated} src="/satellite.png" />
 
