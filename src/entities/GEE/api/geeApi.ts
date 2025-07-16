@@ -1,5 +1,6 @@
 import { globalActions } from '@/app/providers/store';
 import { baseApi } from '@/shared/config/api/baseApi';
+import { geeActions } from '../model/slices';
 import { IGetGEEPointRequest, IGetGEEPointResponse } from '../types';
 import {
 	adaptGEEPointPeriodRequest,
@@ -20,7 +21,9 @@ const geeApi = baseApi.injectEndpoints({
 			}),
 			async onQueryStarted(_, { queryFulfilled, dispatch }) {
 				try {
-					await queryFulfilled;
+					const response = await queryFulfilled;
+
+					dispatch(geeActions.setPointValue(response.data.value));
 				} catch (e) {
 					if (__IS_DEV__) console.error(e);
 
@@ -41,7 +44,9 @@ const geeApi = baseApi.injectEndpoints({
 			}),
 			async onQueryStarted(_, { queryFulfilled, dispatch }) {
 				try {
-					await queryFulfilled;
+					const response = await queryFulfilled;
+
+					dispatch(geeActions.setPointValue(response.data.value));
 				} catch (e) {
 					if (__IS_DEV__) console.error(e);
 
@@ -57,6 +62,6 @@ const geeApi = baseApi.injectEndpoints({
 	}),
 });
 
-const { useGetPointValueQuery, useGetPointValuePeriodQuery } = geeApi;
+const { useLazyGetPointValueQuery, useLazyGetPointValuePeriodQuery } = geeApi;
 
-export { geeApi, useGetPointValueQuery, useGetPointValuePeriodQuery };
+export { geeApi, useLazyGetPointValueQuery, useLazyGetPointValuePeriodQuery };

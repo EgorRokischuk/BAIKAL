@@ -5,11 +5,12 @@ export interface IGEEState {
 	dateStart: Dayjs | null;
 	dateEnd?: Dayjs | null;
 	point: Array<number>;
+	value?: number;
 }
 
 export interface IGetGEEPointRequest {
-	dateStart: string;
-	dateEnd?: string;
+	dateStart: Dayjs | null;
+	dateEnd?: Dayjs | null;
 	point: Array<number>;
 }
 

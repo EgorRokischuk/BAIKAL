@@ -6,6 +6,7 @@ import { SetPointLocation } from '@/features/GEE/point-location-set';
 import { ChangeZoom } from '@/features/Map/change-zoom';
 import { GetPointValue } from '@/features/Map/get-point-value';
 import { ShowCoordinates } from '@/features/Map/show-coordinates';
+import { PointInfo } from '@/entities/GEE';
 import { getMapZoom } from '@/entities/Map';
 import { useAppSelector } from '@/shared/hooks/useAppSelector';
 import { MAP_PROPS } from '../config/constants';
@@ -24,7 +25,10 @@ const Map: React.FC = () => {
 				<ShowCoordinates />
 
 				<GetPointValue />
+
+				{/** GEE */}
 				<SetPointLocation />
+				<PointInfo />
 			</MapContainer>
 			<div className={s.menu_container}>
 				<MapMenu />

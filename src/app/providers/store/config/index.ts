@@ -22,10 +22,7 @@ const createReduxStore = () => {
 						navigate: (to: string) => router.navigate(to),
 					},
 				},
-				serializableCheck: {
-					ignoredActions: ['map/setMapDate'],
-					ignoredPaths: ['map.tileOptions.startDate', 'map.tileOptions.endDate'],
-				},
+				serializableCheck: false,
 			}).concat(baseApi.middleware, refreshMiddleware.middleware),
 	});
 };

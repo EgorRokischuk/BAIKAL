@@ -19,7 +19,10 @@ const geeSlice = createSlice({
 		setPoint: (state, action: PayloadAction<LatLngLiteral>) => {
 			state.point = [action.payload.lat, action.payload.lng];
 		},
-		setMapDate: (
+		setPointValue: (state, action: PayloadAction<number>) => {
+			state.value = action.payload;
+		},
+		setDate: (
 			state,
 			action: PayloadAction<{
 				key: 'dateStart' | 'dateEnd';
@@ -27,6 +30,10 @@ const geeSlice = createSlice({
 			}>,
 		) => {
 			state[action.payload.key] = action.payload.value;
+		},
+		clearPoint: (state, _action: PayloadAction) => {
+			state.point = [];
+			state.value = undefined;
 		},
 		resetState: () => initialState,
 	},

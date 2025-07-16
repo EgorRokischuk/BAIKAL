@@ -10,9 +10,12 @@ import {
 import { useState } from 'react';
 import { SelectGroundDataParameter } from '@/features/Map/ground-data-select-parameter';
 import { SelectGroundDataSource } from '@/features/Map/ground-data-select-source';
+import { geeActions, GeeDatePicker, getGeeType } from '@/entities/GEE';
 import type { IMapMenu, IMapMenuContent } from '@/entities/Map';
 import { TabMenu, Accordions, RadioDayNight } from '@/entities/Map';
 import { TileDatePicker } from '@/entities/Map';
+import { useAppDispatch } from '@/shared/hooks/useAppDispatch';
+import { useAppSelector } from '@/shared/hooks/useAppSelector';
 
 // Содержимое таба "Наземные данные"
 const groundDataContent: IMapMenuContent = () => {
@@ -42,18 +45,25 @@ const groundDataContent: IMapMenuContent = () => {
 
 // Содержимое таба "Онлайн продукты"
 const onlineProductsContent: React.FC = () => {
+	const dispatch = useAppDispatch();
+	const selectedRadio = useAppSelector(getGeeType);
+
+	const onValueChange = (_: unknown, value: string) => {
+		dispatch(geeActions.setGeeType(value));
+	};
+
 	return (
 		<>
 			<Box padding={1}>
-				<RadioGroup>
+				<RadioGroup value={selectedRadio} onChange={onValueChange}>
 					<FormControlLabel value="polygon" control={<Radio />} label="Полигон" />
 					<FormControlLabel value="point" control={<Radio />} label="Точка" />
 				</RadioGroup>
 			</Box>
 
 			<Box padding={1}>
-				<TileDatePicker type="" />
-				<TileDatePicker type="" dateKey="endDate" />
+				<GeeDatePicker />
+				<GeeDatePicker dateKey="dateEnd" />
 			</Box>
 		</>
 	);

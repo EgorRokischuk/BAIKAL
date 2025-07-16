@@ -1,3 +1,4 @@
+import { convertToDateInput } from '@/shared/lib/datetimeFormat';
 import { IGetGEEPointRequest, IGetGEEPointResponse } from '../types';
 
 export interface IGetGEEPointRequestDTO {
@@ -9,7 +10,7 @@ export interface IGetGEEPointRequestDTO {
 export const adaptGEEPointRequest = (request: IGetGEEPointRequest): IGetGEEPointRequestDTO => ({
 	lat: request.point[0],
 	lon: request.point[1],
-	date: request.dateStart,
+	date: convertToDateInput(request.dateStart),
 });
 
 export interface IGetGEEPointPeriodRequestDTO {
@@ -24,8 +25,8 @@ export const adaptGEEPointPeriodRequest = (
 ): IGetGEEPointPeriodRequestDTO => ({
 	lat: request.point[0],
 	lon: request.point[1],
-	start: request.dateStart,
-	end: request.dateEnd!,
+	start: convertToDateInput(request.dateStart),
+	end: convertToDateInput(request.dateEnd!),
 });
 
 export interface IGetGEEPointResponseDTO {
