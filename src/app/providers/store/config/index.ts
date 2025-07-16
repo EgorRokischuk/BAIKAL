@@ -1,4 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
+import { geeReducer } from '@/entities/GEE';
 import { mapReducer } from '@/entities/Map';
 import { refreshMiddleware, userReducer } from '@/entities/User';
 import { baseApi } from '@/shared/config/api/baseApi';
@@ -12,6 +13,7 @@ const createReduxStore = () => {
 			global: globalReducer,
 			user: userReducer,
 			map: mapReducer,
+			gee: geeReducer,
 		},
 		middleware: (getDefaultMiddleware) =>
 			getDefaultMiddleware({
