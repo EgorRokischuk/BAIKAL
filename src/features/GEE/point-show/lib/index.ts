@@ -17,6 +17,8 @@ export const useGetPointValue = () => {
 				if (!options.dateEnd) await getPointValue(options);
 				else await getPointValuePeriod(options);
 				break;
+			case 'polygon':
+				break;
 		}
 	};
 
@@ -24,6 +26,8 @@ export const useGetPointValue = () => {
 		switch (options.type) {
 			case 'point':
 				return !options.dateStart || options.point.length !== 2;
+			case 'polygon':
+				return !options.dateStart || options.shape.length !== 5;
 		}
 	};
 

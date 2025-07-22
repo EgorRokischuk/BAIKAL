@@ -1,10 +1,12 @@
 import { Dayjs } from 'dayjs';
+import { LatLng } from 'leaflet';
 
 export interface IGEEState {
 	type: string;
 	dateStart: Dayjs | null;
 	dateEnd?: Dayjs | null;
 	point: Array<number>;
+	shape: Array<LatLng>;
 	value?: number;
 }
 

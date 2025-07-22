@@ -12,9 +12,10 @@ export const PointLocationSet: React.FC = () => {
 	const menuType = useAppSelector(getTileOptionByKey('productType'));
 
 	useMapEvent('click', async () => {
-		if (menuType !== 'gee' || isLoading || geeType !== 'point') return;
+		if (menuType !== 'gee' || isLoading) return;
 
-		dispatch(geeActions.setPoint(tileLocation));
+		if (geeType == 'point') dispatch(geeActions.setPoint(tileLocation));
+		else dispatch(geeActions.setShapePoint(tileLocation));
 	});
 
 	return <></>;
