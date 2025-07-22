@@ -2,6 +2,8 @@ import {
 	getGeeState,
 	useLazyGetPointValuePeriodQuery,
 	useLazyGetPointValueQuery,
+	useLazyGetPolygonValuePeriodQuery,
+	useLazyGetPolygonValueQuery,
 } from '@/entities/GEE';
 import { useAppSelector } from '@/shared/hooks/useAppSelector';
 
@@ -10,15 +12,17 @@ export const useGetPointValue = () => {
 
 	const [getPointValue] = useLazyGetPointValueQuery();
 	const [getPointValuePeriod] = useLazyGetPointValuePeriodQuery();
+	const [getPolygonValue] = useLazyGetPolygonValueQuery();
+	const [getPolygonValuePeriod] = useLazyGetPolygonValuePeriodQuery();
 
 	const getValue = async () => {
 		switch (options.type) {
 			case 'point':
-				if (!options.dateEnd) await getPointValue(options);
-				else await getPointValuePeriod(options);
-				break;
+				if (!options.dateEnd) return await getPointValue(options);
+				else return await getPointValuePeriod(options);
 			case 'polygon':
-				break;
+				if (!options.dateEnd) return await getPolygonValue(options);
+				else return await getPolygonValuePeriod(options);
 		}
 	};
 
@@ -27,7 +31,7 @@ export const useGetPointValue = () => {
 			case 'point':
 				return !options.dateStart || options.point.length !== 2;
 			case 'polygon':
-				return !options.dateStart || options.shape.length !== 5;
+				return !options.dateStart || options.shape.length !== 4;
 		}
 	};
 

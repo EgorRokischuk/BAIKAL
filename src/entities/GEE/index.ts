@@ -1,5 +1,11 @@
 export { geeHandlers } from './api/__mocks__';
-export { geeApi, useLazyGetPointValueQuery, useLazyGetPointValuePeriodQuery } from './api/geeApi';
+export {
+	geeApi,
+	useLazyGetPointValueQuery,
+	useLazyGetPointValuePeriodQuery,
+	useLazyGetPolygonValueQuery,
+	useLazyGetPolygonValuePeriodQuery,
+} from './api/geeApi';
 export {
 	getGeeState,
 	getPoint,
@@ -8,7 +14,13 @@ export {
 	getGeeDateByKey,
 } from './model/selectors';
 export { geeReducer, geeActions } from './model/slices';
-export type { IGetGEEPointRequest, IGEEState } from './types';
+export type {
+	IGetGEEPointRequest,
+	IGetGEEPointResponse,
+	IGetGEEPolygonRequest,
+	IGetGEEPolygonResponse,
+	IGEEState,
+} from './types';
 export { GeeDatePicker } from './ui/gee-date-picker';
 export { PointInfo } from './ui/point-info';
 export { GeeShape } from './ui/gee-shape';

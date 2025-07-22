@@ -5,9 +5,11 @@ export interface IGEEState {
 	type: string;
 	dateStart: Dayjs | null;
 	dateEnd?: Dayjs | null;
+
 	point: Array<number>;
-	shape: Array<LatLng>;
 	value?: number;
+
+	shape: Array<LatLng>;
 }
 
 export interface IGetGEEPointRequest {
@@ -22,4 +24,18 @@ export interface IGetGEEPointResponse {
 	dateStart: string;
 	dateEnd?: string;
 	value: number;
+}
+
+export interface IGetGEEPolygonRequest {
+	dateStart: Dayjs | null;
+	dateEnd?: Dayjs | null;
+	shape: Array<LatLng>;
+}
+
+export interface IGetGEEPolygonResponse {
+	dateStart: string;
+	dateEnd?: string;
+	shape: Array<Array<number>>;
+	url: string;
+	note: string;
 }

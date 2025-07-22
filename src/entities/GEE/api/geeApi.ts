@@ -1,14 +1,25 @@
 import { globalActions } from '@/app/providers/store';
 import { baseApi } from '@/shared/config/api/baseApi';
 import { geeActions } from '../model/slices';
-import { IGetGEEPointRequest, IGetGEEPointResponse } from '../types';
+import {
+	IGetGEEPointRequest,
+	IGetGEEPointResponse,
+	IGetGEEPolygonRequest,
+	IGetGEEPolygonResponse,
+} from '../types';
 import {
 	adaptGEEPointPeriodRequest,
 	adaptGEEPointPeriodResponse,
 	adaptGEEPointRequest,
 	adaptGEEPointResponse,
+	adaptGEEPolygonPeriodRequest,
+	adaptGEEPolygonPeriodResponse,
+	adaptGEEPolygonRequest,
+	adaptGEEPolygonResponse,
 	IGetGEEPointPeriodResponseDTO,
 	IGetGEEPointResponseDTO,
+	IGetGEEPolygonPeriodResponseDTO,
+	IGetGEEPolygonResponseDTO,
 } from './dto';
 
 const geeApi = baseApi.injectEndpoints({
@@ -59,9 +70,62 @@ const geeApi = baseApi.injectEndpoints({
 				return adaptGEEPointPeriodResponse(data);
 			},
 		}),
+		getPolygonValue: build.query<IGetGEEPolygonResponse, IGetGEEPolygonRequest>({
+			query: (params) => ({
+				url: 'gee/lst/geotiff/',
+				method: 'GET',
+				params: { ...adaptGEEPolygonRequest(params) },
+			}),
+			async onQueryStarted(_, { queryFulfilled, dispatch }) {
+				try {
+					await queryFulfilled;
+				} catch (e) {
+					if (__IS_DEV__) console.error(e);
+
+					dispatch(globalActions.setErrorMessage('Ошибка получения данных с GEE!'));
+				}
+			},
+			transformResponse: (baseQueryReturnValue) => {
+				const data = baseQueryReturnValue as IGetGEEPolygonResponseDTO;
+
+				return adaptGEEPolygonResponse(data);
+			},
+		}),
+		getPolygonValuePeriod: build.query<IGetGEEPolygonResponse, IGetGEEPolygonRequest>({
+			query: (params) => ({
+				url: 'gee/lst/geotiff/period/',
+				method: 'GET',
+				params: { ...adaptGEEPolygonPeriodRequest(params) },
+			}),
+			async onQueryStarted(_, { queryFulfilled, dispatch }) {
+				try {
+					await queryFulfilled;
+				} catch (e) {
+					if (__IS_DEV__) console.error(e);
+
+					dispatch(globalActions.setErrorMessage('Ошибка получения данных с GEE!'));
+				}
+			},
+			transformResponse: (baseQueryReturnValue) => {
+				const data = baseQueryReturnValue as IGetGEEPolygonPeriodResponseDTO;
+
+				return adaptGEEPolygonPeriodResponse(data);
+			},
+		}),
 	}),
 });
 
-const { useLazyGetPointValueQuery, useLazyGetPointValuePeriodQuery } = geeApi;
+const {
+	useLazyGetPointValueQuery,
+	useLazyGetPointValuePeriodQuery,
+	useLazyGetPolygonValueQuery,
+	useLazyGetPolygonValuePeriodQuery,
+} = geeApi;
 
-export { geeApi, useLazyGetPointValueQuery, useLazyGetPointValuePeriodQuery };
+export {
+	geeApi,
+	useLazyGetPointValueQuery,
+	useLazyGetPointValuePeriodQuery,
+	useLazyGetPolygonValueQuery,
+	useLazyGetPolygonValuePeriodQuery,
+};
