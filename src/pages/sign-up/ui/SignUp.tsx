@@ -49,6 +49,19 @@ const SignUp: React.FC = () => {
 					)}
 				/>
 				<Controller
+					name="login"
+					control={control}
+					render={({ field: { ref, ...field } }) => (
+						<InputField
+							label="Логин"
+							error={Boolean(errors.login)}
+							helperText={errors.login?.message}
+							inputRef={ref}
+							{...field}
+						/>
+					)}
+				/>
+				<Controller
 					name="email"
 					control={control}
 					render={({ field: { ref, ...field } }) => (
@@ -63,26 +76,13 @@ const SignUp: React.FC = () => {
 					)}
 				/>
 				<Controller
-					name="workplace"
+					name="phoneNumber"
 					control={control}
 					render={({ field: { ref, ...field } }) => (
 						<InputField
-							label="Место работы"
-							error={Boolean(errors.workplace)}
-							helperText={errors.workplace?.message}
-							inputRef={ref}
-							{...field}
-						/>
-					)}
-				/>
-				<Controller
-					name="login"
-					control={control}
-					render={({ field: { ref, ...field } }) => (
-						<InputField
-							label="Логин"
-							error={Boolean(errors.login)}
-							helperText={errors.login?.message}
+							label="Номер телефона"
+							error={Boolean(errors.phoneNumber)}
+							helperText={errors.phoneNumber?.message}
 							inputRef={ref}
 							{...field}
 						/>

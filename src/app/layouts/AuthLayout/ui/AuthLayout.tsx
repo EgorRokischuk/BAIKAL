@@ -17,7 +17,7 @@ const AuthLayout: React.FC<IAuthLayoutProps> = ({ showUserMenu = false, navbarIt
 		<Suspense fallback={<AuthLayoutSkeleton />}>
 			<section>
 				<Header isUserMenuVisible={showUserMenu} />
-				{navbarItems.length && <Navbar menuItems={navbarItems} />}
+				{!!navbarItems.length && <Navbar menuItems={navbarItems} />}
 
 				<main className={s.auth}>
 					<div className={s.container}>

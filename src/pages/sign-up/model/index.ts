@@ -8,8 +8,8 @@ export const registerSchema = z
 			.string()
 			.min(1, { message: 'Обязательное поле' })
 			.email({ message: 'Некорректный email' }),
-		workplace: z.string().min(1, { message: 'Обязательное поле' }),
 		login: z.string().min(1, { message: 'Обязательное поле' }),
+		phoneNumber: z.string().min(1, { message: 'Обязательное поле' }),
 		password: z
 			.string()
 			.min(8, { message: 'Длина пароля не должна составлять менее 8 символов' })
@@ -23,8 +23,8 @@ export const registerSchema = z
 export const defaultValues: IRegister = {
 	fullname: '',
 	email: '',
-	workplace: '',
 	login: '',
+	phoneNumber: '',
 	password: '',
 	passwordAgain: '',
 };
