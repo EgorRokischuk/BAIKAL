@@ -1,25 +1,27 @@
 import { globalActions } from '@/app/providers/store';
 import { ApiTags } from '@/shared/config/api/apiTags';
 import { baseApi } from '@/shared/config/api/baseApi';
-import { LS_ACCESS_TOKEN } from '@/shared/config/constants/authConstants';
+import { LS_ACCESS_TOKEN, LS_REFRESH_TOKEN } from '@/shared/config/constants/authConstants';
 import { removeFromLS, setToLS } from '@/shared/lib/manageLocalStorage';
 import { userActions } from '../model/slices';
 import { IExtraArgument, ILogin, ILoginResponse, IProfileResponse, IRegister } from '../types';
+import { adaptLogin, adaptRegister } from './dto';
 
 const authApi = baseApi.injectEndpoints({
 	endpoints: (build) => ({
 		login: build.mutation<ILoginResponse, ILogin>({
 			query: (auth) => ({
-				url: 'auth/login',
+				url: 'users/token',
 				method: 'POST',
-				body: auth,
+				body: adaptLogin(auth),
 			}),
 			async onQueryStarted(_, { queryFulfilled, dispatch, extra }) {
 				try {
 					const response = await queryFulfilled;
 
-					dispatch(globalActions.setAccessToken(response.data.accessToken));
-					setToLS(LS_ACCESS_TOKEN, response.data.accessToken);
+					dispatch(globalActions.setAccessToken(response.data.access_token));
+					setToLS(LS_ACCESS_TOKEN, response.data.refresh_token);
+					setToLS(LS_REFRESH_TOKEN, response.data);
 
 					const typedExtra = extra as IExtraArgument;
 					typedExtra.navigate('/');
@@ -31,9 +33,9 @@ const authApi = baseApi.injectEndpoints({
 		}),
 		register: build.mutation<ILoginResponse, IRegister>({
 			query: (auth) => ({
-				url: 'auth/register',
+				url: 'users/register',
 				method: 'POST',
-				body: auth,
+				body: adaptRegister(auth),
 			}),
 			async onQueryStarted(_, { queryFulfilled, dispatch, extra }) {
 				try {
@@ -55,7 +57,7 @@ const authApi = baseApi.injectEndpoints({
 		}),
 		profile: build.query<IProfileResponse, void>({
 			query: () => ({
-				url: 'auth/profile',
+				url: 'users/me',
 				method: 'GET',
 			}),
 			async onQueryStarted(_, { queryFulfilled, dispatch }) {
@@ -91,16 +93,18 @@ const authApi = baseApi.injectEndpoints({
 		}),
 		refresh: build.query<ILoginResponse, void>({
 			query: () => ({
-				url: 'auth/refresh',
+				url: 'users/refresh',
 				method: 'GET',
 			}),
 			async onQueryStarted(_, { queryFulfilled, extra }) {
 				try {
 					const response = await queryFulfilled;
-					setToLS(LS_ACCESS_TOKEN, response.data.accessToken);
+					setToLS(LS_REFRESH_TOKEN, response.data.access_token);
+					setToLS(LS_REFRESH_TOKEN, response.data.refresh_token);
 				} catch (e) {
 					if (__IS_DEV__) console.error(e);
 					removeFromLS(LS_ACCESS_TOKEN);
+					removeFromLS(LS_REFRESH_TOKEN);
 
 					const typedExtra = extra as IExtraArgument;
 					typedExtra.navigate('/');

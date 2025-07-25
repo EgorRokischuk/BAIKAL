@@ -20,14 +20,15 @@ export interface ILogin {
 }
 
 export interface ILoginResponse {
-	accessToken: string;
-	user: IUser;
+	access_token: string;
+	refresh_token: string;
+	token_type: 'bearer';
 }
 
 export interface IRegister extends ILogin {
 	fullname: string;
 	email: string;
-	workplace: string;
+	phoneNumber: string;
 	passwordAgain: string;
 }
 
