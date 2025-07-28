@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import L from 'leaflet';
 import { Marker, Popup } from 'react-leaflet';
 import MarkerClusterGroup from 'react-leaflet-cluster';
@@ -8,7 +9,7 @@ import {
 	useGetGroundDataPointsQuery,
 } from '@/entities/Map';
 import { useAppSelector } from '@/shared/hooks/useAppSelector';
-import { convertToDateInput } from '@/shared/lib/datetimeFormat';
+import { convertToDateInput, convertToFullDateTime } from '@/shared/lib/datetimeFormat';
 import { convertLocation } from '@/shared/lib/locationConverter';
 import MarkIcon from '../assets/Redpoint.png';
 
@@ -37,9 +38,9 @@ export const GroundDataPoints: React.FC = () => {
 
 	return (
 		<MarkerClusterGroup
-			spiderfyDistanceMultiplier={3}
+			spiderfyDistanceMultiplier={5}
 			zoomToBoundsOnClick
-			disableClusteringAtZoom={20}
+			disableClusteringAtZoom={19}
 			maxClusterRadius={95}
 			singleMarkerMode={false}
 			animated={false}
@@ -50,6 +51,8 @@ export const GroundDataPoints: React.FC = () => {
 					return (
 						<Marker key={idx} position={[point.latitude, point.longitude]} icon={GetIcon()}>
 							<Popup closeButton={false} key={idx}>
+								{`Дата: ${convertToFullDateTime(dayjs(point.date)) ?? ''}`}
+								<br />
 								{`Широта: ${convertLocation(point.latitude, false)}`}
 								<br />
 								{`Долгота: ${convertLocation(point.longitude, true)}`}

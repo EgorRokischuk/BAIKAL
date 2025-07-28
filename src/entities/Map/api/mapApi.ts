@@ -9,6 +9,7 @@ import {
 } from '../lib/mappers';
 import { mapActions } from '../model/slices';
 import {
+	IGetTileLinkResponse,
 	IGroundDataParametersRequest,
 	IGroundDataPoint,
 	IGroundDataRequest,
@@ -39,7 +40,7 @@ const mapApi = baseApi.injectEndpoints({
 				}
 			},
 		}),
-		getLandsatTileLink: build.mutation<string, ITileOptions>({
+		getLandsatTileLink: build.mutation<IGetTileLinkResponse, ITileOptions>({
 			query: (options) => ({
 				url: 'files/satellite_data/get_landsat_tiles',
 				method: 'GET',
@@ -48,7 +49,7 @@ const mapApi = baseApi.injectEndpoints({
 			async onQueryStarted(_, { queryFulfilled, dispatch }) {
 				try {
 					const response = await queryFulfilled;
-					dispatch(mapActions.setTileLink(response.data));
+					dispatch(mapActions.setTileLink(response.data.link));
 				} catch (e) {
 					if (__IS_DEV__) console.error(e);
 
@@ -107,7 +108,7 @@ const mapApi = baseApi.injectEndpoints({
 				}
 			},
 		}),
-		getMonthlyAvgTileLink: build.mutation<string, ITileOptions>({
+		getMonthlyAvgTileLink: build.mutation<IGetTileLinkResponse, ITileOptions>({
 			query: (options) => ({
 				url: 'files/satellite_data/get_monthly_avg_tiles',
 				method: 'GET',
@@ -116,7 +117,7 @@ const mapApi = baseApi.injectEndpoints({
 			async onQueryStarted(_, { queryFulfilled, dispatch }) {
 				try {
 					const response = await queryFulfilled;
-					dispatch(mapActions.setTileLink(response.data));
+					dispatch(mapActions.setTileLink(response.data.link));
 				} catch (e) {
 					if (__IS_DEV__) console.error(e);
 
@@ -175,7 +176,7 @@ const mapApi = baseApi.injectEndpoints({
 				}
 			},
 		}),
-		getMonthlyAvgManyYearsTileLink: build.mutation<string, ITileOptions>({
+		getMonthlyAvgManyYearsTileLink: build.mutation<IGetTileLinkResponse, ITileOptions>({
 			query: (options) => ({
 				url: 'files/satellite_data/get_monthly_avg_many_years_tiles',
 				method: 'GET',
@@ -184,7 +185,7 @@ const mapApi = baseApi.injectEndpoints({
 			async onQueryStarted(_, { queryFulfilled, dispatch }) {
 				try {
 					const response = await queryFulfilled;
-					dispatch(mapActions.setTileLink(response.data));
+					dispatch(mapActions.setTileLink(response.data.link));
 				} catch (e) {
 					if (__IS_DEV__) console.error(e);
 

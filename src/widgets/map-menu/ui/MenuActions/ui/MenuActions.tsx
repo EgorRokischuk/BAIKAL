@@ -10,7 +10,7 @@ const ShowButton: React.FC<{ type: string }> = ({ type }) => {
 	switch (type) {
 		case 'baikalRiver':
 			return <ShowTile />;
-		case 'groundDate':
+		case 'groundData':
 			return <ShowGroundData />;
 		case 'gee':
 			return <ShowPoint />;

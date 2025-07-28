@@ -20,7 +20,7 @@ export const GetPointValue: React.FC = () => {
 
 		setLocation([tileLocation.lat, tileLocation.lng]);
 
-		const response = await getPointMutation([location.lng, location.lat]);
+		const response = await getPointMutation([location.lat, location.lng]);
 		setValue(response.data);
 	});
 

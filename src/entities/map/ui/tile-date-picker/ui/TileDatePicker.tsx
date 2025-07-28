@@ -65,7 +65,11 @@ const TileDatePicker: React.FC<ITileDatePickerProps> = ({
 				shouldDisableDate={(v) =>
 					isShouldDisableDay && !(data ?? []).includes(convertToDateInput(v))
 				}
-				minDate={type === 'groundData' ? dayjs(groundDataOptions.startDate) : dayjs('1990-01-01')}
+				minDate={
+					type === 'groundData' && dateKey === 'endDate'
+						? dayjs(groundDataOptions.startDate)
+						: dayjs('1990-01-01')
+				}
 				maxDate={dayjs(`${dayjs(Date.now()).year()}-12-31`)}
 			/>
 		</LocalizationProvider>

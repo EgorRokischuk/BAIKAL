@@ -48,6 +48,12 @@ interface IBaseSatellitePointRequestParams {
 	lat: number;
 }
 
+export interface IGetTileLinkResponse {
+	link: string;
+	max_temp: number;
+	min_temp: number;
+}
+
 /**
  * LANDSAT REQUEST TYPES
  */

@@ -24,7 +24,9 @@ const geeSlice = createSlice({
 			state.point = [action.payload.lat, action.payload.lng];
 		},
 		setShapePoint: (state, action: PayloadAction<LatLngLiteral>) => {
-			if (state.shape.length === 4) return;
+			if (state.shape.length === 4) {
+				state.shape = [];
+			}
 
 			state.shape.push(new LatLng(action.payload.lat, action.payload.lng));
 		},

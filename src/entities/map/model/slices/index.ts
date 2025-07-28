@@ -49,12 +49,14 @@ const mapSlice = createSlice({
 			state.tileLink = '';
 			state.tileOptions[action.payload.key] = action.payload.value;
 
-			if (state.tileOptions.productType === 'groundData')
+			if (state.tileOptions.productType === 'groundData') {
+				state.isPointsVisible = false;
 				state.tileOptions = {
 					...tileOptionsForGroundData,
 					startDate: state.tileOptions.startDate,
 					endDate: state.tileOptions.endDate,
 				};
+			}
 		},
 		setTileOptions: (
 			state,
@@ -64,6 +66,7 @@ const mapSlice = createSlice({
 			}>,
 		) => {
 			state.tileLink = '';
+			state.isPointsVisible = false;
 			state.tileOptions[action.payload.key] = action.payload.value;
 
 			if (state.tileOptions.productType === 'groundData') {
