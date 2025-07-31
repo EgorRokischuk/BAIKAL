@@ -10,7 +10,7 @@ export const MapTiles: React.FC = () => {
 		<>
 			<TileLayer url={LAYER_LINK} />
 			{tileLink && (
-				<TileLayer opacity={0.8} minZoom={8} maxZoom={12} url={`${API.TILE_DOMAIN}${tileLink}`} />
+				<TileLayer opacity={0.8} minZoom={5} maxZoom={12} url={`${API.TILE_DOMAIN}${tileLink}`} />
 			)}
 		</>
 	);
