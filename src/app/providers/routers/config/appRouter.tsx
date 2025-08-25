@@ -9,7 +9,7 @@ import { Login } from '@/pages/login';
 import { Map } from '@/pages/map';
 import { NotFound } from '@/pages/not-found';
 import { Publications } from '@/pages/publications';
-import { SignUp } from '@/pages/sign-up';
+import { Register } from '@/pages/register';
 import { Support } from '@/pages/support';
 import { ROUTES } from '@/shared/config/router/routes';
 import { UnAuthRoute } from '../ui/UnAuthRoute';
@@ -102,7 +102,7 @@ const router = createBrowserRouter([
 					},
 					{
 						path: ROUTES.auth.register.route,
-						element: <SignUp />,
+						element: <Register />,
 					},
 				],
 			},

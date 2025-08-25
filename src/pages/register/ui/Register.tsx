@@ -9,7 +9,7 @@ import { useAppDispatch } from '@/shared/hooks/useAppDispatch';
 import { InputField } from '@/shared/ui/InputField';
 import { registerSchema, defaultValues } from '../model';
 
-const SignUp: React.FC = () => {
+const Register: React.FC = () => {
 	const {
 		control,
 		handleSubmit,
@@ -142,4 +142,4 @@ const SignUp: React.FC = () => {
 	);
 };
 
-export { SignUp };
+export { Register };
