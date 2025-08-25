@@ -33,10 +33,10 @@ const AuthOverlay: React.FC<MenuProps> = (props) => {
 		>
 			<div className={s.menu_block}>
 				<div className={s.menu_block__header}>
-					<Avatar alt={profile.user.email} src={profile.user.avatarUrl} sizes="100px" />
+					<Avatar alt={profile.email} src={'' /** avatarUrl */} sizes="100px" />
 
-					<Typography variant="subtitle1">{profile.user.fullname}</Typography>
-					<Typography variant="subtitle2">{profile.user.email}</Typography>
+					<Typography variant="subtitle1">{profile.fullname}</Typography>
+					<Typography variant="subtitle2">{profile.email}</Typography>
 				</div>
 
 				<div className={s.menu_block__links}>

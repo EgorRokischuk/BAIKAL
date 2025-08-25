@@ -25,13 +25,13 @@ const UserMenuButton: React.FC = () => {
 			>
 				<div className={s.menu_button}>
 					<div className={s.menu_button__avatar}>
-						<Avatar alt={profile?.user?.email} src={profile?.user?.avatarUrl} sizes="40px" />
+						<Avatar alt={profile?.email} src={'' /** profile?.avatarUrl */} sizes="40px" />
 					</div>
 
 					<span className={s.menu_button__caption}>
 						<Typography variant="body2">
-							{profile?.user?.fullname
-								? `${profile?.user?.fullname.split(' ')[0]} ${profile?.user?.fullname.split(' ')[1][0]}. ${profile?.user?.fullname.split(' ')[2][0]}.`
+							{profile?.fullname
+								? `${profile?.fullname.split(' ')[0]} ${profile?.fullname.split(' ')[1][0]}. ${profile?.fullname.split(' ')[2][0]}.`
 								: 'Гость'}
 						</Typography>
 					</span>

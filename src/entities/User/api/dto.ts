@@ -1,4 +1,4 @@
-import { ILogin, IRegister } from '../types';
+import { ILogin, IRegister, IUser } from '../types';
 
 export interface IRegisterDTO {
 	fio: string;
@@ -26,4 +26,22 @@ export const adaptLogin = (login: ILogin): ILoginDTO => ({
 	grant_type: 'password',
 	username: login.login,
 	password: login.password,
+});
+
+export interface IProfileDTO {
+	fio: string;
+	login: string;
+	mail: string;
+	phone_number: string;
+	date_created: string;
+	roles: Array<string>;
+	locked: boolean;
+}
+
+export const adaptProfile = (profile: IProfileDTO): IUser => ({
+	fullname: profile.fio,
+	username: profile.login,
+	email: profile.mail,
+	phoneNumber: profile.phone_number,
+	userRights: profile.roles,
 });

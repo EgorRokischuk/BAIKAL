@@ -1,17 +1,9 @@
-export type TRole = 'admin' | 'user';
-
-export interface IRole {
-	id: string;
-	name: TRole;
-}
-
 export interface IUser {
-	id: string;
 	fullname: string;
+	username: string;
 	email: string;
-	workplace: string;
-	avatarUrl: string;
-	userRights: Array<IRole>;
+	phoneNumber: string;
+	userRights: Array<string>;
 }
 
 export interface ILogin {
@@ -30,10 +22,6 @@ export interface IRegister extends ILogin {
 	email: string;
 	phoneNumber: string;
 	passwordAgain: string;
-}
-
-export interface IProfileResponse {
-	user: IUser;
 }
 
 export interface IExtraArgument {

@@ -4,8 +4,8 @@ import { baseApi } from '@/shared/config/api/baseApi';
 import { LS_ACCESS_TOKEN, LS_REFRESH_TOKEN } from '@/shared/config/constants/authConstants';
 import { removeFromLS, setToLS } from '@/shared/lib/manageLocalStorage';
 import { userActions } from '../model/slices';
-import { IExtraArgument, ILogin, ILoginResponse, IProfileResponse, IRegister } from '../types';
-import { adaptLogin, adaptRegister } from './dto';
+import { IExtraArgument, ILogin, ILoginResponse, IRegister, IUser } from '../types';
+import { adaptLogin, adaptProfile, adaptRegister, IProfileDTO } from './dto';
 
 const authApi = baseApi.injectEndpoints({
 	endpoints: (build) => ({
@@ -20,8 +20,8 @@ const authApi = baseApi.injectEndpoints({
 					const response = await queryFulfilled;
 
 					dispatch(globalActions.setAccessToken(response.data.access_token));
-					setToLS(LS_ACCESS_TOKEN, response.data.refresh_token);
-					setToLS(LS_REFRESH_TOKEN, response.data);
+					setToLS(LS_ACCESS_TOKEN, response.data.access_token);
+					setToLS(LS_REFRESH_TOKEN, response.data.refresh_token);
 
 					const typedExtra = extra as IExtraArgument;
 					typedExtra.navigate('/');
@@ -55,7 +55,7 @@ const authApi = baseApi.injectEndpoints({
 				}
 			},
 		}),
-		profile: build.query<IProfileResponse, void>({
+		profile: build.query<IUser, void>({
 			query: () => ({
 				url: 'users/me',
 				method: 'GET',
@@ -64,10 +64,15 @@ const authApi = baseApi.injectEndpoints({
 				try {
 					const response = await queryFulfilled;
 
-					dispatch(userActions.setProfile(response.data.user));
+					dispatch(userActions.setProfile(response.data));
 				} catch (e) {
 					if (__IS_DEV__) console.error(e);
 				}
+			},
+			transformResponse: (baseQueryReturnValue) => {
+				const data = baseQueryReturnValue as IProfileDTO;
+
+				return adaptProfile(data);
 			},
 			providesTags: [ApiTags.PROFILE],
 		}),
