@@ -5,7 +5,7 @@ import Dotenv from 'dotenv-webpack';
 import { DefinePlugin } from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import CircularDependencyPlugin from 'circular-dependency-plugin';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
 
@@ -22,13 +22,6 @@ export function buildPlugins({ paths, isDev, envs }: IBuildOptions): Configurati
 	if (isDev) {
 		plugins.push(new ForkTsCheckerWebpackPlugin());
 		plugins.push(new ReactRefreshWebpackPlugin());
-		/*
-		plugins.push(
-			new CircularDependencyPlugin({
-			  failOnError: true,
-			}),
-		);
-		*/
 	}
 
 	if (!isDev) {
@@ -38,6 +31,17 @@ export function buildPlugins({ paths, isDev, envs }: IBuildOptions): Configurati
 				chunkFilename: 'css/[name].[contenthash:8].css',
 			}),
 		);
+		plugins.push(
+			new CopyWebpackPlugin({
+				patterns: [{
+					from: paths.public,
+					to: paths.output,
+					globOptions: {
+						ignore: ['**/index.html', '**/mockServiceWorker.js']
+					}
+				}]
+			})
+		)
 	}
 
 	return plugins;

@@ -20,6 +20,7 @@ export default (env: IEnvVariables) => {
 		html: path.resolve(__dirname, 'public', 'index.html'),
 		output: path.resolve(__dirname, 'build'),
 		src: path.resolve(__dirname, 'src'),
+		public: path.resolve(__dirname, 'public'),
 		env: path.resolve(__dirname, modes[env.mode]),
 	};
 
