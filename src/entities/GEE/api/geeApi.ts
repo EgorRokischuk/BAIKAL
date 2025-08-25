@@ -72,7 +72,7 @@ const geeApi = baseApi.injectEndpoints({
 		}),
 		getPolygonValue: build.query<IGetGEEPolygonResponse, IGetGEEPolygonRequest>({
 			query: (params) => ({
-				url: 'gee/lst/geotiff/',
+				url: 'gee/lst/geotiff/temp/',
 				method: 'GET',
 				params: { ...adaptGEEPolygonRequest(params) },
 			}),
@@ -93,7 +93,7 @@ const geeApi = baseApi.injectEndpoints({
 		}),
 		getPolygonValuePeriod: build.query<IGetGEEPolygonResponse, IGetGEEPolygonRequest>({
 			query: (params) => ({
-				url: 'gee/lst/geotiff/period/',
+				url: 'gee/lst/geotiff/period/temp/',
 				method: 'GET',
 				params: { ...adaptGEEPolygonPeriodRequest(params) },
 			}),
