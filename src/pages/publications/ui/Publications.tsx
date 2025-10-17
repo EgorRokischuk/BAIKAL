@@ -33,7 +33,7 @@ const Publications: React.FC = () => {
 			</Box>
 
 			<Box>
-				{userRights.some((role) => role.name === 'admin') && <CreateEntity type="publication" />}
+				{userRights.some((role) => true) && <CreateEntity type="publication" />}
 				<Box className={s.page__block} />
 			</Box>
 		</Box>

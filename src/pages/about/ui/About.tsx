@@ -21,7 +21,7 @@ const About: React.FC = () => {
 			</Box>
 
 			<Box>
-				{userRights.some((role) => role.name === 'admin') && <CreateEntity type="about-record" />}
+				{userRights.some((role) => true) && <CreateEntity type="about-record" />}
 				<Box className={s.page__block} />
 			</Box>
 		</Box>

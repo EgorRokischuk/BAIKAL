@@ -27,7 +27,8 @@ export const PublicationFeed: React.FC<IPublicationFeedProps> = ({ isLoading, da
 
 						<Box className={s.block__actions}>
 							<RedirectPublication url={p.url} />
-							{userRights.some((role) => role.name === 'admin') && (
+							{userRights.some((role) => true) && ( 
+							//{userRights.some((role) => role.name === 'admin') &&
 								<>
 									<UpdatePublication publication={p} />
 									<DeletePublication id={`${p.id}`} />

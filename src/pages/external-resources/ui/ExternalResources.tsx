@@ -15,7 +15,7 @@ const ExternalResources: React.FC = () => {
 			<Box className={s.page__gallery}>{'External Resources'}</Box>
 
 			<Box>
-				{userRights.some((role) => role.name === 'admin') && (
+				{userRights.some((role) => true) && (
 					<CreateEntity type="external-resource" />
 				)}
 				<Box className={s.page__block} />

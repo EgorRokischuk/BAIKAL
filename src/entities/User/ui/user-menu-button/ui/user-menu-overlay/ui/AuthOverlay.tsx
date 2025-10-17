@@ -1,6 +1,6 @@
 import { MenuProps, Typography } from '@mui/material';
 import { globalActions } from '@/app/providers/store';
-import { useLazyLogoutQuery, useProfileQuery } from '@/entities/User/api/authApi';
+import { useLogoutMutation, useProfileQuery } from '@/entities/User/api/authApi'; // ← ИЗМЕНИТЬ ИМПОРТ
 import { ROUTES } from '@/shared/config/router/routes';
 import { useAppDispatch } from '@/shared/hooks/useAppDispatch';
 import { Avatar } from '@/shared/ui/Avatar';
@@ -11,9 +11,9 @@ const AuthOverlay: React.FC<MenuProps> = (props) => {
 	const dispatch = useAppDispatch();
 
 	const { data: profile } = useProfileQuery();
-	const [logout] = useLazyLogoutQuery();
+	const [logoutMutation] = useLogoutMutation();
 
-	const onLogout = () => logout();
+	const onLogout = () => logoutMutation();
 
 	return (
 		<CustomMenu
@@ -33,10 +33,10 @@ const AuthOverlay: React.FC<MenuProps> = (props) => {
 		>
 			<div className={s.menu_block}>
 				<div className={s.menu_block__header}>
-					<Avatar alt={profile.email} src={'' /** avatarUrl */} sizes="100px" />
+					<Avatar alt={profile?.email} src={'' /** avatarUrl */} sizes="100px" />
 
-					<Typography variant="subtitle1">{profile.fullname}</Typography>
-					<Typography variant="subtitle2">{profile.email}</Typography>
+					<Typography variant="subtitle1">{profile?.fullname}</Typography>
+					<Typography variant="subtitle2">{profile?.email}</Typography>
 				</div>
 
 				<div className={s.menu_block__links}>

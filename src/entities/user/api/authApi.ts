@@ -39,13 +39,15 @@ const authApi = baseApi.injectEndpoints({
 			}),
 			async onQueryStarted(_, { queryFulfilled, dispatch, extra }) {
 				try {
-					await queryFulfilled;
+					const result = await queryFulfilled;
+					console.log('Registration success:', result);
 
 					const typedExtra = extra as IExtraArgument;
 					typedExtra.navigate('/');
 
 					dispatch(globalActions.setSuccessMessage('Заявка на регистрацию отправлена'));
-				} catch (e) {
+				} catch (e: any) {
+					console.log('Registration error details:', e);
 					if (__IS_DEV__) console.error(e);
 					dispatch(
 						globalActions.setErrorMessage(
@@ -76,23 +78,22 @@ const authApi = baseApi.injectEndpoints({
 			},
 			providesTags: [ApiTags.PROFILE],
 		}),
-		logout: build.query<void, void>({
+		logout: build.mutation<void, void>({
 			query: () => ({
 				url: 'auth/logout',
 				method: 'POST',
 			}),
-			async onQueryStarted(_, { queryFulfilled, extra, dispatch }) {
+			async onQueryStarted(_, { queryFulfilled, dispatch }) {
 				try {
 					await queryFulfilled;
+				} catch (e) {
+					
+				} finally {
 					removeFromLS(LS_ACCESS_TOKEN);
-
-					const typedExtra = extra as IExtraArgument;
-					typedExtra.navigate('/');
-
+					removeFromLS(LS_REFRESH_TOKEN);
 					dispatch(globalActions.setAccessToken(''));
 					dispatch(baseApi.util.resetApiState());
-				} catch (e) {
-					if (__IS_DEV__) console.error(e);
+					window.location.href = '/';
 				}
 			},
 		}),
@@ -101,18 +102,18 @@ const authApi = baseApi.injectEndpoints({
 				url: 'users/refresh',
 				method: 'GET',
 			}),
-			async onQueryStarted(_, { queryFulfilled, extra }) {
+			async onQueryStarted(_, { queryFulfilled, dispatch }) {
 				try {
 					const response = await queryFulfilled;
-					setToLS(LS_REFRESH_TOKEN, response.data.access_token);
+					setToLS(LS_ACCESS_TOKEN, response.data.access_token);
+					//setToLS(LS_REFRESH_TOKEN, response.data.access_token);
 					setToLS(LS_REFRESH_TOKEN, response.data.refresh_token);
+					dispatch(globalActions.setAccessToken(response.data.access_token));
 				} catch (e) {
 					if (__IS_DEV__) console.error(e);
 					removeFromLS(LS_ACCESS_TOKEN);
 					removeFromLS(LS_REFRESH_TOKEN);
-
-					const typedExtra = extra as IExtraArgument;
-					typedExtra.navigate('/');
+					dispatch(globalActions.setAccessToken(''));
 				}
 			},
 		}),
@@ -123,7 +124,7 @@ const {
 	useLoginMutation,
 	useRegisterMutation,
 	useProfileQuery,
-	useLazyLogoutQuery,
+	useLogoutMutation,
 	useRefreshQuery,
 } = authApi;
 
@@ -132,6 +133,6 @@ export {
 	useLoginMutation,
 	useRegisterMutation,
 	useProfileQuery,
-	useLazyLogoutQuery,
+	useLogoutMutation,
 	useRefreshQuery,
 };
