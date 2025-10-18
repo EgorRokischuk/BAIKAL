@@ -101,8 +101,8 @@ export interface IGetGEEPolygonPeriodRequestDTO {
 	lon3: number;
 	lat4: number;
 	lon4: number;
-	start: string;
-	end: string;
+	start_date: string;
+	end_date: string;
 }
 
 export const adaptGEEPolygonPeriodRequest = (
@@ -116,8 +116,8 @@ export const adaptGEEPolygonPeriodRequest = (
 	lon3: request.shape[2].lng,
 	lat4: request.shape[3].lat,
 	lon4: request.shape[3].lng,
-	start: convertToDateInput(request.dateStart),
-	end: convertToDateInput(request.dateEnd!),
+	start_date: convertToDateInput(request.dateStart),
+	end_date: convertToDateInput(request.dateEnd!),
 });
 
 export interface IGetGEEPolygonResponseDTO {
