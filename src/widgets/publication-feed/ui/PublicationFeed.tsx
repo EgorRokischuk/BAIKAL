@@ -5,6 +5,7 @@ import { UpdatePublication } from '@/features/Publication/publication-update';
 import { IPublicationResponse } from '@/entities/Publication';
 import { getUserRights } from '@/entities/User';
 import { useAppSelector } from '@/shared/hooks/useAppSelector';
+import { EAppRole } from '@/shared/types';
 import * as s from './PublicationFeed.module.scss';
 import { PublicationFeedSkeleton } from './PublicationFeed.skeleton';
 
@@ -27,7 +28,7 @@ export const PublicationFeed: React.FC<IPublicationFeedProps> = ({ isLoading, da
 
 						<Box className={s.block__actions}>
 							<RedirectPublication url={p.url} />
-							{userRights.some((role) => role.name === 'admin') && (
+							{userRights.some((role) => role === EAppRole.ADMIN) && (
 								<>
 									<UpdatePublication publication={p} />
 									<DeletePublication id={`${p.id}`} />

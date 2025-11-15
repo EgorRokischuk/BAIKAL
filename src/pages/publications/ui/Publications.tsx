@@ -6,6 +6,7 @@ import { SearchPublication } from '@/features/Publication/search-publication';
 import { useLazyGetPublicationsListQuery } from '@/entities/Publication';
 import { getUserRights } from '@/entities/User';
 import { useAppSelector } from '@/shared/hooks/useAppSelector';
+import { EAppRole } from '@/shared/types';
 import * as s from './Publications.module.scss';
 
 const Publications: React.FC = () => {
@@ -33,7 +34,7 @@ const Publications: React.FC = () => {
 			</Box>
 
 			<Box>
-				{userRights.some((role) => role.name === 'admin') && <CreateEntity type="publication" />}
+				{userRights.some((role) => role === EAppRole.ADMIN) && <CreateEntity type="publication" />}
 				<Box className={s.page__block} />
 			</Box>
 		</Box>

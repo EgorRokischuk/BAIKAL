@@ -1,14 +1,15 @@
 import { Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import { useState } from 'react';
+import { useAppSelector } from '@/shared/hooks/useAppSelector';
 import { Avatar } from '@/shared/ui/Avatar';
-import { useProfileQuery } from '../../../api/authApi';
+import { getFullProfile } from '../../../model/selector';
 import { AuthOverlay, UnAuthOverlay } from './user-menu-overlay';
 import * as s from './UserMenuButton.module.scss';
 
 const UserMenuButton: React.FC = () => {
 	const [anchorEl, setAnchorEl] = useState<Element | null>(null);
-	const { data: profile } = useProfileQuery();
+	const profile = useAppSelector(getFullProfile);
 
 	const handleClick = (event?: React.MouseEvent) => {
 		setAnchorEl(event?.currentTarget ?? null);

@@ -3,6 +3,7 @@ import { AboutRecordFeed } from '@/widgets/about-record-feed';
 import { CreateEntity } from '@/features/create-entity';
 import { getUserRights } from '@/entities/User';
 import { useAppSelector } from '@/shared/hooks/useAppSelector';
+import { EAppRole } from '@/shared/types';
 import * as s from './About.module.scss';
 
 const About: React.FC = () => {
@@ -21,7 +22,7 @@ const About: React.FC = () => {
 			</Box>
 
 			<Box>
-				{userRights.some((role) => role.name === 'admin') && <CreateEntity type="about-record" />}
+				{userRights.some((role) => role === EAppRole.ADMIN) && <CreateEntity type="about-record" />}
 				<Box className={s.page__block} />
 			</Box>
 		</Box>

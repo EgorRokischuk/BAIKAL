@@ -76,62 +76,32 @@ const authApi = baseApi.injectEndpoints({
 			},
 			providesTags: [ApiTags.PROFILE],
 		}),
-		logout: build.query<void, void>({
-			query: () => ({
-				url: 'auth/logout',
-				method: 'POST',
-			}),
-			async onQueryStarted(_, { queryFulfilled, extra, dispatch }) {
-				try {
-					await queryFulfilled;
-					removeFromLS(LS_ACCESS_TOKEN);
-
-					const typedExtra = extra as IExtraArgument;
-					typedExtra.navigate('/');
-
-					dispatch(globalActions.setAccessToken(''));
-					dispatch(baseApi.util.resetApiState());
-				} catch (e) {
-					if (__IS_DEV__) console.error(e);
-				}
-			},
-		}),
 		refresh: build.query<ILoginResponse, void>({
 			query: () => ({
 				url: 'users/refresh',
 				method: 'GET',
 			}),
-			async onQueryStarted(_, { queryFulfilled, extra }) {
+			async onQueryStarted(_, { queryFulfilled, dispatch }) {
 				try {
 					const response = await queryFulfilled;
-					setToLS(LS_REFRESH_TOKEN, response.data.access_token);
+
+					setToLS(LS_ACCESS_TOKEN, response.data.access_token);
 					setToLS(LS_REFRESH_TOKEN, response.data.refresh_token);
+
+					dispatch(globalActions.setAccessToken(response.data.access_token));
 				} catch (e) {
 					if (__IS_DEV__) console.error(e);
+
 					removeFromLS(LS_ACCESS_TOKEN);
 					removeFromLS(LS_REFRESH_TOKEN);
 
-					const typedExtra = extra as IExtraArgument;
-					typedExtra.navigate('/');
+					dispatch(globalActions.setAccessToken(''));
 				}
 			},
 		}),
 	}),
 });
 
-const {
-	useLoginMutation,
-	useRegisterMutation,
-	useProfileQuery,
-	useLazyLogoutQuery,
-	useRefreshQuery,
-} = authApi;
+const { useLoginMutation, useRegisterMutation, useProfileQuery, useRefreshQuery } = authApi;
 
-export {
-	authApi,
-	useLoginMutation,
-	useRegisterMutation,
-	useProfileQuery,
-	useLazyLogoutQuery,
-	useRefreshQuery,
-};
+export { authApi, useLoginMutation, useRegisterMutation, useProfileQuery, useRefreshQuery };
