@@ -39,15 +39,13 @@ const authApi = baseApi.injectEndpoints({
 			}),
 			async onQueryStarted(_, { queryFulfilled, dispatch, extra }) {
 				try {
-					const result = await queryFulfilled;
-					console.log('Registration success:', result);
+					await queryFulfilled;
 
 					const typedExtra = extra as IExtraArgument;
 					typedExtra.navigate('/');
 
 					dispatch(globalActions.setSuccessMessage('Заявка на регистрацию отправлена'));
-				} catch (e: any) {
-					console.log('Registration error details:', e);
+				} catch (e) {
 					if (__IS_DEV__) console.error(e);
 					dispatch(
 						globalActions.setErrorMessage(
@@ -78,25 +76,6 @@ const authApi = baseApi.injectEndpoints({
 			},
 			providesTags: [ApiTags.PROFILE],
 		}),
-		logout: build.mutation<void, void>({
-			query: () => ({
-				url: 'auth/logout',
-				method: 'POST',
-			}),
-			async onQueryStarted(_, { queryFulfilled, dispatch }) {
-				try {
-					await queryFulfilled;
-				} catch (e) {
-					
-				} finally {
-					removeFromLS(LS_ACCESS_TOKEN);
-					removeFromLS(LS_REFRESH_TOKEN);
-					dispatch(globalActions.setAccessToken(''));
-					dispatch(baseApi.util.resetApiState());
-					window.location.href = '/';
-				}
-			},
-		}),
 		refresh: build.query<ILoginResponse, void>({
 			query: () => ({
 				url: 'users/refresh',
@@ -105,14 +84,17 @@ const authApi = baseApi.injectEndpoints({
 			async onQueryStarted(_, { queryFulfilled, dispatch }) {
 				try {
 					const response = await queryFulfilled;
+
 					setToLS(LS_ACCESS_TOKEN, response.data.access_token);
-					//setToLS(LS_REFRESH_TOKEN, response.data.access_token);
 					setToLS(LS_REFRESH_TOKEN, response.data.refresh_token);
+
 					dispatch(globalActions.setAccessToken(response.data.access_token));
 				} catch (e) {
 					if (__IS_DEV__) console.error(e);
+
 					removeFromLS(LS_ACCESS_TOKEN);
 					removeFromLS(LS_REFRESH_TOKEN);
+
 					dispatch(globalActions.setAccessToken(''));
 				}
 			},
@@ -120,19 +102,6 @@ const authApi = baseApi.injectEndpoints({
 	}),
 });
 
-const {
-	useLoginMutation,
-	useRegisterMutation,
-	useProfileQuery,
-	useLogoutMutation,
-	useRefreshQuery,
-} = authApi;
+const { useLoginMutation, useRegisterMutation, useProfileQuery, useRefreshQuery } = authApi;
 
-export {
-	authApi,
-	useLoginMutation,
-	useRegisterMutation,
-	useProfileQuery,
-	useLogoutMutation,
-	useRefreshQuery,
-};
+export { authApi, useLoginMutation, useRegisterMutation, useProfileQuery, useRefreshQuery };

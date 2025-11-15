@@ -7,7 +7,6 @@ import { ApiTags } from './apiTags';
 
 const baseQuery = fetchBaseQuery({
 	baseUrl: process.env.API_URL,
-	//baseUrl: "https://baikal.ict.nsc.ru/api/v1",
 	credentials: 'same-origin',
 	prepareHeaders: (headers) => {
 		const accessToken = getFromLS(LS_ACCESS_TOKEN);

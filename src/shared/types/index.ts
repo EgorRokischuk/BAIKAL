@@ -18,3 +18,9 @@ export interface IExportHeaderItem {
 		replacement?: string;
 	};
 }
+
+export enum EAppRole {
+	ADMIN = 'Администратор',
+	AUTHORIZED_USER = 'Авторизованный пользователь',
+	UNUTHORIZED_USER = 'Неавторизованный пользователь',
+}

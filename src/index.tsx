@@ -11,37 +11,26 @@ const root = document.getElementById('root');
 
 if (!root) throw new Error('Root element not found');
 
-// закоменчены моки для взаимодействия с сервером
-// async function enableMocking() {
-// 	if (!__IS_DEV__) {
-// 		return;
-// 	}
+async function enableMocking() {
+	if (!__IS_DEV__) {
+		return;
+	}
 
-// 	const { worker } = await import('@/app/msw/browser');
+	const { worker } = await import('@/app/msw/browser');
 
-// 	return worker.start({
-// 		onUnhandledRequest: 'bypass',
-// 	});
-// }
+	return worker.start({
+		onUnhandledRequest: 'bypass',
+	});
+}
 
-// enableMocking().then(() =>
-// 	createRoot(root).render(
-// 		<StoreProvider>
-// 			<ThemeProvider theme={theme}>
-// 				<LocalizationProvider dateAdapter={AdapterDayjs}>
-// 					<RouterProvider router={router} />
-// 				</LocalizationProvider>
-// 			</ThemeProvider>
-// 		</StoreProvider>,
-// 	),
-// );
-
-createRoot(root).render(
-	<StoreProvider>
-		<ThemeProvider theme={theme}>
-			<LocalizationProvider dateAdapter={AdapterDayjs}>
-				<RouterProvider router={router} />
-			</LocalizationProvider>
-		</ThemeProvider>
-	</StoreProvider>,
+enableMocking().then(() =>
+	createRoot(root).render(
+		<StoreProvider>
+			<ThemeProvider theme={theme}>
+				<LocalizationProvider dateAdapter={AdapterDayjs}>
+					<RouterProvider router={router} />
+				</LocalizationProvider>
+			</ThemeProvider>
+		</StoreProvider>,
+	),
 );
