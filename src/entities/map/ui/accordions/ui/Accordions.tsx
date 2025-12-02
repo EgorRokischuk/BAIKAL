@@ -23,7 +23,7 @@ const Accordions: React.FC = () => {
 				onChange={makeChangeHandler('monthlyAvg')}
 			>
 				<AccordionSummary>
-					<Typography>{'Средние за год'}</Typography>
+					<Typography>{'Среднемесячные'}</Typography>
 				</AccordionSummary>
 				<AccordionDetails>
 					<TileDatePicker type="monthlyAvg" views={['year', 'month']} label="Месяц и год" />
@@ -35,7 +35,7 @@ const Accordions: React.FC = () => {
 				onChange={makeChangeHandler('monthlyAvgManyYears')}
 			>
 				<AccordionSummary>
-					<Typography>{'Среднемесячные'}</Typography>
+					<Typography>{'Многолетние'}</Typography>
 				</AccordionSummary>
 				<AccordionDetails>
 					<TileDatePicker type="monthlyAvgManyYears" views={['month']} label="Месяц" />
