@@ -33,23 +33,44 @@ const PanelActions: React.FC<PropsWithChildren> = ({ children }) => {
 
 const Panel: IPanel = ({ children, dir = 'right', header = 'Panel', width = '320px' }) => {
 	const boxRef = useRef<HTMLElement>(null);
-	const [collapsed, setCollapsed] = useState(false);
+        const [collapsed, setCollapsed] = useState(false);
+        const [openButtonVisible, setOpenButtonVisible] = useState(true);
 
-	return (
-		<Box ref={boxRef}>
-                        <IconButton
-                                className={classNames({
-                                        [s.btn]: true,
-                                        [s.btn__right]: dir === 'right',
-                                        [s.btn__left]: dir === 'left',
-                                        [s.control_button]: true,
-                                        [s.control_button_round]: true,
-                                })}
-                                onClick={() => setCollapsed(true)}                        >
-                                {dir === 'right' ? <ArrowForwardIos /> : <ArrowBackIos />}
-                        </IconButton>
+        const handleOpen = () => {
+                setOpenButtonVisible(false);
+                setCollapsed(true);
+        };
 
-                        <Slide in={collapsed} container={boxRef.current} direction={dir} mountOnEnter unmountOnExit>
+        const handleClose = () => {
+                setCollapsed(false);
+                setOpenButtonVisible(false);
+        };
+
+        return (
+                <Box ref={boxRef}>
+                        {openButtonVisible && !collapsed && (
+                                <IconButton
+                                        className={classNames({
+                                                [s.btn]: true,
+                                                [s.btn__right]: dir === 'right',
+                                                [s.btn__left]: dir === 'left',
+                                                [s.control_button]: true,
+                                                [s.control_button_round]: true,
+                                        })}
+                                        onClick={handleOpen}
+                                >
+                                        {dir === 'right' ? <ArrowForwardIos /> : <ArrowBackIos />}
+                                </IconButton>
+                        )}
+
+                        <Slide
+                                in={collapsed}
+                                container={boxRef.current}
+                                direction={dir}
+                                mountOnEnter
+                                unmountOnExit
+                                onExited={() => setOpenButtonVisible(true)}
+                        >
                                 <Box className={s.panel} sx={{ width }}>
                                         <Box className={s.panel__header}>
                                                 {dir === 'right' ? (
