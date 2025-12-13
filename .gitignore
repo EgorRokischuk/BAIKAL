@@ -3,3 +3,4 @@
 .env.development
 .env.production
 /build
+project_structure.md

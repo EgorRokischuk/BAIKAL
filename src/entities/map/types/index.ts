@@ -19,8 +19,15 @@ export interface IMapState {
 	location: LatLngLiteral;
 	isPointsVisible: boolean;
 	tileLink: string;
+	legend: {
+		min: number | null;
+		max: number | null;
+		visible: boolean;
+	};
+
 	tileOptions: ITileOptions;
 }
+
 
 export interface IMapMenuContent extends React.FC {}
 

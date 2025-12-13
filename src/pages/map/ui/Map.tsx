@@ -10,6 +10,7 @@ import { GeeShape, PointInfo } from '@/entities/GEE';
 import { getMapZoom } from '@/entities/Map';
 import { useAppSelector } from '@/shared/hooks/useAppSelector';
 import { MAP_PROPS } from '../config/constants';
+import { MapLegend } from '@/widgets/map-legend/ui/MapLegend';
 import * as s from './Map.module.scss';
 
 const Map: React.FC = () => {
@@ -18,6 +19,7 @@ const Map: React.FC = () => {
 	return (
 		<>
 			<MapContainer zoom={zoom} zoomControl={false} doubleClickZoom={false} {...MAP_PROPS}>
+				<MapLegend />
 				<MapTiles />
 				<GroundDataPoints />
 
