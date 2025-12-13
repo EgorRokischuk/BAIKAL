@@ -37,38 +37,45 @@ const Panel: IPanel = ({ children, dir = 'right', header = 'Panel', width = '320
 
 	return (
 		<Box ref={boxRef}>
-			<IconButton
-				className={classNames({
-					[s.btn]: true,
-					[s.btn__right]: dir === 'right',
-					[s.btn__left]: dir === 'left',
-				})}
-				onClick={() => setCollapsed(true)}
-			>
-				{dir === 'right' ? <ArrowForwardIos /> : <ArrowBackIos />}
-			</IconButton>
+                        <IconButton
+                                className={classNames({
+                                        [s.btn]: true,
+                                        [s.btn__right]: dir === 'right',
+                                        [s.btn__left]: dir === 'left',
+                                        [s.control_button]: true,
+                                        [s.control_button_round]: true,
+                                })}
+                                onClick={() => setCollapsed(true)}                        >
+                                {dir === 'right' ? <ArrowForwardIos /> : <ArrowBackIos />}
+                        </IconButton>
 
-			<Slide in={collapsed} container={boxRef.current} direction={dir} mountOnEnter unmountOnExit>
-				<Box className={s.panel} sx={{ width }}>
-					<Box className={s.panel__header}>
-						{dir === 'right' ? (
-							<IconButton onClick={() => setCollapsed(false)}>
-								<ArrowBackIos />
-							</IconButton>
-						) : (
-							<div style={{ width: '40px' }} />
-						)}
-						<Typography variant="map_menu_label" align="center">
-							{header}
-						</Typography>
-						{dir === 'left' ? (
-							<IconButton onClick={() => setCollapsed(false)}>
-								<ArrowForwardIos />
-							</IconButton>
-						) : (
-							<div style={{ width: '40px' }} />
-						)}
-					</Box>
+                        <Slide in={collapsed} container={boxRef.current} direction={dir} mountOnEnter unmountOnExit>
+                                <Box className={s.panel} sx={{ width }}>
+                                        <Box className={s.panel__header}>
+                                                {dir === 'right' ? (
+                                                        <IconButton
+                                                                className={s.control_button}
+                                                                onClick={() => setCollapsed(false)}
+                                                        >
+                                                                <ArrowBackIos className={s.control_icon} />
+                                                        </IconButton>
+                                                ) : (
+                                                        <div style={{ width: '40px' }} />
+                                                )}
+                                                <Typography variant="map_menu_label" align="center">
+                                                        {header}
+                                                </Typography>
+                                                {dir === 'left' ? (
+                                                        <IconButton
+                                                                className={s.control_button}
+                                                                onClick={() => setCollapsed(false)}
+                                                        >
+                                                                <ArrowForwardIos className={s.control_icon} />
+                                                        </IconButton>
+                                                ) : (
+                                                        <div style={{ width: '40px' }} />
+                                                )}
+                                        </Box>
 
 					{children}
 				</Box>

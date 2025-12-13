@@ -16,28 +16,28 @@ import * as s from './Map.module.scss';
 const Map: React.FC = () => {
 	const zoom = useAppSelector(getMapZoom);
 
-	return (
-		<>
-			<MapContainer zoom={zoom} zoomControl={false} doubleClickZoom={false} {...MAP_PROPS}>
-				<MapLegend />
-				<MapTiles />
-				<GroundDataPoints />
+        return (
+                <div className={s.map_wrapper}>
+                        <MapContainer zoom={zoom} zoomControl={false} doubleClickZoom={false} {...MAP_PROPS}>
+                                <MapLegend />
+                                <MapTiles />
+                                <GroundDataPoints />
 
-				<ChangeZoom />
-				<ShowCoordinates />
+                                <ChangeZoom />
+                                <ShowCoordinates />
 
-				<GetPointValue />
+                                <GetPointValue />
 
-				{/** GEE */}
-				<SetPointLocation />
-				<PointInfo />
-				<GeeShape />
-			</MapContainer>
-			<div className={s.menu_container}>
-				<MapMenu />
-			</div>
-		</>
-	);
+                                {/** GEE */}
+                                <SetPointLocation />
+                                <PointInfo />
+                                <GeeShape />
+                        </MapContainer>
+                        <div className={s.menu_container}>
+                                <MapMenu />
+                        </div>
+                </div>
+        );
 };
 
 export { Map };
