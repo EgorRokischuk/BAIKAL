@@ -19,6 +19,7 @@ export const deviceDictionary: TDictinary = {
 	terra: 'MODIS Terra',
 	aqua: 'MODIS Aqua',
 	landsat: 'LANDSAT',
+	sentinel: 'Sentinel',
 };
 
 export const photoTimeDictionary: TDictinary = {

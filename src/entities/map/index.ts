@@ -13,6 +13,8 @@ export {
 	useGetMonthlyAvgManyYearsTileLinkMutation,
 	useGetMonthlyAvgManyYearsFileMutation,
 	useGetMonthlyAvgManyYearsPointMutation,
+	useGetChlorophyllTileLinkMutation,
+	useGetChlorophyllFileMutation,
 	useGetGroundDataAvailableDatesQuery,
 	useGetGroundDataParametersQuery,
 	useGetGroundDataSourcesQuery,
@@ -22,6 +24,7 @@ export {
 	adaptGetLandsatData,
 	adaptGetMonthlyAvgData,
 	adaptGetMonthlyAvgManyYearsData,
+	adaptGetChlorophyllData,
 } from './lib/mappers';
 export {
 	getMapZoom,

@@ -25,14 +25,16 @@ const TileDatePicker: React.FC<ITileDatePickerProps> = ({
 	const date = useAppSelector(getMapDateByKey(dateKey));
 	const groundDataOptions = useAppSelector(getGroundDataOptions);
 
-	const { isShouldDisableYear, isShouldDisableMonth, isShouldDisableDay } = useDateHelper(type);
-	const { data, isLoading } = useGetAvailableDate(type);
+        const { isShouldDisableYear, isShouldDisableMonth, isShouldDisableDay } = useDateHelper(type);
+        const { data, isLoading } = useGetAvailableDate(type);
 
-	return (
-		<LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="ru">
-			<DatePicker
-				{...props}
-				disabled={isLoading || (type !== 'groundData' && !(data || []).length)}
+        const isDisabled = isLoading || (type !== 'groundData' && !(data || []).length);
+
+        return (
+                <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="ru">
+                        <DatePicker
+                                {...props}
+                                disabled={isDisabled}
 				value={date ? dayjs(date, 'DD.MM.YYYY') : null}
 				onChange={(date) => {
 					dispatch(mapActions.setMapDate({ key: dateKey, value: date }));
@@ -66,10 +68,10 @@ const TileDatePicker: React.FC<ITileDatePickerProps> = ({
 					isShouldDisableDay && !(data ?? []).includes(convertToDateInput(v))
 				}
 				minDate={
-					type === 'groundData' && dateKey === 'endDate'
-						? dayjs(groundDataOptions.startDate)
-						: dayjs('1990-01-01')
-				}
+							type === 'groundData' && dateKey === 'endDate'
+									? dayjs(groundDataOptions.startDate)
+									: dayjs((data ?? [])[0] ?? '1990-01-01')
+						}
 				maxDate={dayjs(`${dayjs(Date.now()).year()}-12-31`)}
 			/>
 		</LocalizationProvider>

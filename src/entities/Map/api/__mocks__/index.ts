@@ -91,21 +91,34 @@ const mapGetGroundDataSources = http.get(
 );
 
 const mapGetGroundDataPoints = http.get(url + '/files/ground_data/get_points', async () => {
-	await delay(3000);
-	return HttpResponse.json(mockGroundDataPointsResponse, {
-		status: 200,
-	});
+        await delay(3000);
+        return HttpResponse.json(mockGroundDataPointsResponse, {
+                status: 200,
+        });
+});
+
+const mapGetChlorophyllLink = http.get(url + '/files/ground_data/get_chlorofill_link', async () => {
+        await delay(3000);
+        return HttpResponse.json(
+                {
+                        link: '/u/product/chlorophyll/tiles/{z}/{x}/{-y}.png',
+                        min_temp: 0,
+                        max_temp: 30,
+                },
+                { status: 200 },
+        );
 });
 
 export const mapHandlers = [
-	mapGetLandsatAvailableDates,
-	mapGetMonthlyAvgAvailableDates,
-	mapGetMonthlyAvgManyYearsAvailableDates,
-	mapGetTileLink,
-	mapGetFileLink,
-	mapGetPoint,
-	mapGetGroundDataParameters,
-	mapGetGroundDataSources,
-	mapGetGroundDataPoints,
-	mapGetGroundDataAvailableDates,
+        mapGetLandsatAvailableDates,
+        mapGetMonthlyAvgAvailableDates,
+        mapGetMonthlyAvgManyYearsAvailableDates,
+        mapGetTileLink,
+        mapGetFileLink,
+        mapGetPoint,
+        mapGetGroundDataParameters,
+        mapGetGroundDataSources,
+        mapGetGroundDataPoints,
+        mapGetGroundDataAvailableDates,
+        mapGetChlorophyllLink,
 ];

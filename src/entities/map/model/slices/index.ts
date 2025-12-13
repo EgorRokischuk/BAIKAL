@@ -50,7 +50,6 @@ const mapSlice = createSlice({
 			state.tileLink = action.payload;
 		},
 
-		// 👇 НОВОЕ: обновление легенды
 		setLegend: (
 			state,
 			action: PayloadAction<{ min: number; max: number }>,
@@ -95,28 +94,46 @@ const mapSlice = createSlice({
 				value: string;
 			}>,
 		) => {
-			state.tileLink = '';
-			state.legend.visible = false;
-			state.isPointsVisible = false;
+                                    state.tileLink = '';
+                        state.legend.visible = false;
+                        state.isPointsVisible = false;
 
-			state.tileOptions[action.payload.key] = action.payload.value;
+                        state.tileOptions[action.payload.key] = action.payload.value;
 
-			if (state.tileOptions.productType === 'groundData') {
-				switch (action.payload.key) {
-					case 'productType':
-						state.tileOptions = { ...tileOptionsForGroundData };
-						break;
-					case 'parameter':
-						state.tileOptions.source = '';
-						break;
-				}
-			} else {
-				if (action.payload.value === 'landsat') state.tileOptions.type = 'landsat';
-				if (['viirs', 'terra', 'aqua'].includes(action.payload.value))
-					state.tileOptions.type = '';
-				state.tileOptions.startDate = null;
-			}
-		},
+                        if (state.tileOptions.productType === 'groundData') {
+                                switch (action.payload.key) {
+                                        case 'productType':
+                                                state.tileOptions = { ...tileOptionsForGroundData };
+                                                break;
+                                        case 'parameter':
+                                                state.tileOptions.source = '';
+                                                break;
+                                }
+                        } else {
+                                if (action.payload.value === 'landsat') state.tileOptions.type = 'landsat';
+                                if (
+                                        ['viirs', 'terra', 'aqua', 'sentinel'].includes(action.payload.value) &&
+                                        state.tileOptions.parameter !== 'chlorophyll'
+                                )
+                                        state.tileOptions.type = '';
+                                if (
+                                        action.payload.key === 'parameter' &&
+                                        action.payload.value === 'chlorophyll'
+                                )
+                                        state.tileOptions = {
+                                                ...state.tileOptions,
+                                                source: 'sentinel',
+                                                type: 'chlorophyll',
+                                        };
+                                if (
+                                        action.payload.key === 'parameter' &&
+                                        action.payload.value !== 'chlorophyll' &&
+                                        state.tileOptions.type === 'chlorophyll'
+                                )
+                                        state.tileOptions.type = '';
+                                state.tileOptions.startDate = null;
+                        }
+                },
 
 		resetState: () => initialState,
 	},
