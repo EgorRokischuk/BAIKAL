@@ -4,6 +4,7 @@ import {
 	adaptGetLandsatData,
 	adaptGetMonthlyAvgData,
 	adaptGetMonthlyAvgManyYearsData,
+	adaptGetChlorophyllData,
 	adaptGroundDataPointDTO,
 	IGroundDataPointDTO,
 } from '../lib/mappers';
@@ -232,19 +233,76 @@ const mapApi = baseApi.injectEndpoints({
 		}),
 
 		getMonthlyAvgManyYearsPoint: build.mutation<
-			string,
-			IMonthlyAvgManyYearsPointRequest
-		>({
-			query: (options) => ({
-				url: 'files/satellite_data/get_temperature_at_point_monthly_avg_many_years',
-				method: 'GET',
-				params: { ...options },
-			}),
-			transformResponse: (baseQueryReturnValue) => {
-				const data = baseQueryReturnValue as number;
-				return data.toFixed(2);
-			},
-		}),
+                        string,
+                        IMonthlyAvgManyYearsPointRequest
+                >({
+                        query: (options) => ({
+                                url: 'files/satellite_data/get_temperature_at_point_monthly_avg_many_years',
+                                method: 'GET',
+                                params: { ...options },
+                        }),
+                        transformResponse: (baseQueryReturnValue) => {
+                                const data = baseQueryReturnValue as number;
+                                return data.toFixed(2);
+                        },
+                }),
+
+                /** CHLOROPHYLL */
+                getChlorophyllTileLink: build.mutation<IGetTileLinkResponse, ITileOptions>({
+                        query: (options) => ({
+                                url: 'files/ground_data/get_chlorofill_link',
+                                method: 'GET',
+                                params: { ...adaptGetChlorophyllData(options) },
+                        }),
+                        async onQueryStarted(_, { queryFulfilled, dispatch }) {
+                                try {
+                                        const response = await queryFulfilled;
+
+                                        dispatch(mapActions.setTileLink(response.data.link));
+
+                                        const min =
+                                                (response.data as Partial<IGetTileLinkResponse>).min_temp ??
+                                                (response.data as { min?: number }).min;
+
+                                        const max =
+                                                (response.data as Partial<IGetTileLinkResponse>).max_temp ??
+                                                (response.data as { max?: number }).max;
+
+                                        if (typeof min === 'number' && typeof max === 'number') {
+                                                dispatch(
+                                                        mapActions.setLegend({
+                                                                min,
+                                                                max,
+                                                        }),
+                                                );
+                                        } else {
+                                                dispatch(mapActions.hideLegend());
+                                        }
+                                } catch (e: any) {
+                                        if (__IS_DEV__) console.error(e);
+
+                                        if (e?.error?.status === 404) {
+                                                dispatch(globalActions.setErrorMessage('Данные отсутствуют'));
+                                        }
+                                }
+                        },
+                }),
+
+                getChlorophyllFile: build.mutation<string, ITileOptions>({
+                        query: (options) => ({
+                                url: 'files/ground_data/get_chlorofill_link',
+                                method: 'GET',
+                                params: { ...adaptGetChlorophyllData(options) },
+                        }),
+                        async onQueryStarted(_, { queryFulfilled }) {
+                                try {
+                                        await queryFulfilled;
+                                } catch (e) {
+                                        if (__IS_DEV__) console.error(e);
+                                }
+                        },
+                }),
+
 
 		/** GROUND DATA */
 		getGroundDataAvailableDates: build.query<Array<string>, void>({
@@ -308,6 +366,8 @@ const {
 	useGetMonthlyAvgManyYearsTileLinkMutation,
 	useGetMonthlyAvgManyYearsFileMutation,
 	useGetMonthlyAvgManyYearsPointMutation,
+	useGetChlorophyllTileLinkMutation,
+	useGetChlorophyllFileMutation,
 	useGetGroundDataAvailableDatesQuery,
 	useGetGroundDataParametersQuery,
 	useGetGroundDataSourcesQuery,
@@ -328,6 +388,8 @@ export {
 	useGetMonthlyAvgManyYearsTileLinkMutation,
 	useGetMonthlyAvgManyYearsFileMutation,
 	useGetMonthlyAvgManyYearsPointMutation,
+	useGetChlorophyllTileLinkMutation,
+	useGetChlorophyllFileMutation,
 	useGetGroundDataAvailableDatesQuery,
 	useGetGroundDataParametersQuery,
 	useGetGroundDataSourcesQuery,

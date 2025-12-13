@@ -56,10 +56,15 @@ interface IBaseSatellitePointRequestParams {
 }
 
 export interface IGetTileLinkResponse {
-	link: string;
-	max_temp: number;
-	min_temp: number;
+        link: string;
+        max_temp: number;
+        min_temp: number;
 }
+
+export type IChlorophyllRequest = Partial<IBaseSatelliteRequestParams> & {
+        years_id?: number;
+        month_id?: number;
+};
 
 /**
  * LANDSAT REQUEST TYPES

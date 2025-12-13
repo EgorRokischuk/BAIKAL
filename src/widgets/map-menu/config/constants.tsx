@@ -7,12 +7,12 @@ import {
 	Radio,
 	Box,
 } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { SelectGroundDataParameter } from '@/features/Map/ground-data-select-parameter';
 import { SelectGroundDataSource } from '@/features/Map/ground-data-select-source';
 import { geeActions, GeeDatePicker, getGeeType } from '@/entities/GEE';
+import { mapActions, TabMenu, Accordions, RadioDayNight } from '@/entities/Map';
 import type { IMapMenu, IMapMenuContent } from '@/entities/Map';
-import { TabMenu, Accordions, RadioDayNight } from '@/entities/Map';
 import { TileDatePicker } from '@/entities/Map';
 import { useAppDispatch } from '@/shared/hooks/useAppDispatch';
 import { useAppSelector } from '@/shared/hooks/useAppSelector';
@@ -111,10 +111,10 @@ const landsatTabs: IMapMenu = [
 
 // Содержимое таба "Озеро Байкал - LST"
 const lstSatellites: IMapMenu = [
-	{
-		title: 'VIIRS/NPP',
-		key: 'source',
-		value: 'viirs',
+        {
+			title: 'VIIRS/NPP',
+			key: 'source',
+			value: 'viirs',
 		content: () => (
 			<>
 				<RadioDayNight />
@@ -149,28 +149,51 @@ const lstSatellites: IMapMenu = [
 		key: 'source',
 		value: 'landsat',
 		content: () => <TabMenu tabs={landsatTabs} />,
-	},
+        },
+];
+
+const ChlorophyllContent: React.FC = () => {
+        const dispatch = useAppDispatch();
+
+        useEffect(() => {
+                dispatch(mapActions.setTileOptions({ key: 'type', value: 'chlorophyll' }));
+        }, [dispatch]);
+
+        return (
+                <Box padding={1}>
+                        <TileDatePicker type="chlorophyll" label="Дата" />
+                </Box>
+        );
+};
+
+const chlorophyllSatellites: IMapMenu = [
+        {
+                title: 'Sentinel-2',
+                key: 'source',
+                value: 'sentinel',
+                content: ChlorophyllContent,
+        },
 ];
 
 // Содержимое таба "Озеро Байкал"
 const baikalRiverTabs: IMapMenu = [
-	{
-		title: 'LST',
-		key: 'parameter',
-		value: 'temperature',
-		content: () => <TabMenu tabs={lstSatellites} />,
-	},
-	{
-		title: 'Хлорофилл',
-		key: 'parameter',
-		value: 'chlorophyll',
-		content: () => <></>,
-	},
-	{
-		title: 'Прозрачность',
-		key: 'parameter',
-		value: 'transparency',
-		content: () => <></>,
+        {
+			title: 'LST',
+			key: 'parameter',
+			value: 'temperature',
+			content: () => <TabMenu tabs={lstSatellites} />,
+        },
+        {
+			title: 'Хлорофилл',
+			key: 'parameter',
+			value: 'chlorophyll',
+			content: () => <TabMenu tabs={chlorophyllSatellites} />,
+        },
+        {
+			title: 'Прозрачность',
+			key: 'parameter',
+			value: 'transparency',
+			content: () => <></>,
 	},
 ];
 

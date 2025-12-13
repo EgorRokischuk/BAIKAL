@@ -8,6 +8,7 @@ import {
 } from '../config/dictionaries';
 import {
 	IGroundDataPoint,
+	IChlorophyllRequest,
 	ILandsatRequest,
 	IMonthlyAvgManyYearsRequest,
 	IMonthlyAvgRequest,
@@ -53,13 +54,25 @@ export const adaptGetMonthlyAvgData = (obj: ITileOptions): IMonthlyAvgRequest =>
 	month_id: Number(dayjs(obj.startDate).format('MM')),
 });
 
-/** MONTHLY AVG MANY YEARS */
 export const adaptGetMonthlyAvgManyYearsData = (
-	obj: ITileOptions,
+        obj: ITileOptions,
 ): IMonthlyAvgManyYearsRequest => ({
-	data_type: typeDictionary[obj.productType],
-	device: deviceDictionary[obj.source],
-	parameter: parameterDictionary[obj.parameter],
-	time_of_day: photoTimeDictionary[obj.photoTime],
-	month_id: Number(dayjs(obj.startDate).format('MM')),
+        data_type: typeDictionary[obj.productType],
+        device: deviceDictionary[obj.source],
+        parameter: parameterDictionary[obj.parameter],
+        time_of_day: photoTimeDictionary[obj.photoTime],
+        month_id: Number(dayjs(obj.startDate).format('MM')),
 });
+
+/** CHLOROFILL */
+export const adaptGetChlorophyllData = (_obj: ITileOptions): IChlorophyllRequest => ({
+        // Временно для тестирования отображения: сервер пока не принимает параметры.
+});
+
+/*export const adaptGetChlorophyllData = (obj: ITileOptions): IChlorophyllRequest => ({
+        data_type: typeDictionary[obj.productType],
+        device: deviceDictionary[obj.source] ?? obj.source,
+        parameter: parameterDictionary[obj.parameter],
+        years_id: obj.startDate ? Number(dayjs(obj.startDate).format('YYYY')) : undefined,
+        month_id: obj.startDate ? Number(dayjs(obj.startDate).format('MM')) : undefined,
+});*/

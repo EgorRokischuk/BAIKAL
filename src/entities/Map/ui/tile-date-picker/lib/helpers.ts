@@ -12,15 +12,20 @@ import {
 	adaptGetMonthlyAvgManyYearsAvailableDates,
 } from './mappers';
 
+const CHLOROPHYLL_AVAILABLE_DATES = [
+        '2024-06-17', // Временно для тестирования отображения
+];
+
 export const useDateHelper = (type: string) => {
-	const isShouldDisableYear = ['landsat', 'monthlyAvg', 'groundData'].includes(type);
-	const isShouldDisableMonth = [
-		'landsat',
-		'monthlyAvg',
-		'monthlyAvgManyYears',
-		'groundData',
-	].includes(type);
-	const isShouldDisableDay = ['landsat', 'groundData'].includes(type);
+        const isShouldDisableYear = ['landsat', 'monthlyAvg', 'groundData', 'chlorophyll'].includes(type);
+        const isShouldDisableMonth = [
+                'landsat',
+                'monthlyAvg',
+                'monthlyAvgManyYears',
+                'groundData',
+                'chlorophyll',
+        ].includes(type);
+        const isShouldDisableDay = ['landsat', 'groundData', 'chlorophyll'].includes(type);
 
 	return { isShouldDisableYear, isShouldDisableMonth, isShouldDisableDay };
 };
@@ -45,15 +50,21 @@ export const useGetAvailableDate = (type: string) => {
 			skip: tileOptions.type !== 'monthlyAvgManyYears' || !tileOptions.photoTime,
 		});
 
-	const { data: groundData, isFetching: isGroundDataLoading } = useGetGroundDataAvailableDatesQuery(
-		undefined,
-		{
-			skip: tileOptions.type !== 'groundData',
-		},
-	);
+        const { data: groundData, isFetching: isGroundDataLoading } = useGetGroundDataAvailableDatesQuery(
+                undefined,
+                {
+                        skip: tileOptions.type !== 'groundData',
+                },
+        );
 
-	switch (type) {
+        if (type === 'chlorophyll') {
+                return { data: CHLOROPHYLL_AVAILABLE_DATES, isLoading: false };
+        }
+
+        switch (type) {
 		case 'landsat':
+				return { data: landsat, isLoading: isLandsatLoading };
+		case 'monthlyAvg':
 			return { data: landsat, isLoading: isLandsatLoading };
 		case 'monthlyAvg':
 			return { data: monthlyAvg, isLoading: isMonthlyAvgLoading };
