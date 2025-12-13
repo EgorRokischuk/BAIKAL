@@ -1,22 +1,31 @@
 .block {
-    position: fixed;
-    z-index: 1000;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 40px;
-    text-align: center;
-    align-content: center;
-    background-color: rgba(0, 0, 0, 0.15);
-    backdrop-filter: blur(5px);
+	position: absolute;
+	left: 12px;
+	bottom: 8px;
+	z-index: 1000;
+	background: none;
+	padding: 0;
+	margin: 0;
 
-    &__text {
-        &_light {
-            color: #FFF;
-        }
+	pointer-events: none;
+}
 
-        &_dark {
-            color: #000;
-        }
-    }
+.block__text_light {
+	font-size: 14px;
+	font-weight: 400;
+	color: #ffffff;
+
+	text-shadow:
+		0 0 2px rgba(0, 0, 0, 0.6),
+		0 0 4px rgba(0, 0, 0, 0.6);
+}
+
+.block__text_dark {
+	font-size: 11px;
+	font-weight: 400;
+	color: #000000;
+
+	text-shadow:
+		0 0 2px rgba(255, 255, 255, 0.9),
+		0 0 4px rgba(255, 255, 255, 0.9);
 }

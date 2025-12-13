@@ -12,6 +12,13 @@ const initialState: IMapState = {
 	},
 	isPointsVisible: false,
 	tileLink: '',
+
+	legend: {
+		min: null,
+		max: null,
+		visible: false,
+	},
+
 	tileOptions: {
 		type: '',
 		productType: 'baikalRiver',
@@ -30,15 +37,35 @@ const mapSlice = createSlice({
 		setZoom: (state, action: PayloadAction<number>) => {
 			state.zoom = action.payload;
 		},
+
 		setLocation: (state, action: PayloadAction<LatLngLiteral>) => {
 			state.location = action.payload;
 		},
+
 		setPointsVisibillity: (state, action: PayloadAction<boolean>) => {
 			state.isPointsVisible = action.payload;
 		},
+
 		setTileLink: (state, action: PayloadAction<string>) => {
 			state.tileLink = action.payload;
 		},
+
+		// 👇 НОВОЕ: обновление легенды
+		setLegend: (
+			state,
+			action: PayloadAction<{ min: number; max: number }>,
+		) => {
+			state.legend.min = action.payload.min;
+			state.legend.max = action.payload.max;
+			state.legend.visible = true;
+		},
+
+		hideLegend: (state) => {
+			state.legend.visible = false;
+			state.legend.min = null;
+			state.legend.max = null;
+		},
+
 		setMapDate: (
 			state,
 			action: PayloadAction<{
@@ -47,6 +74,8 @@ const mapSlice = createSlice({
 			}>,
 		) => {
 			state.tileLink = '';
+			state.legend.visible = false;
+
 			state.tileOptions[action.payload.key] = action.payload.value;
 
 			if (state.tileOptions.productType === 'groundData') {
@@ -58,6 +87,7 @@ const mapSlice = createSlice({
 				};
 			}
 		},
+
 		setTileOptions: (
 			state,
 			action: PayloadAction<{
@@ -66,7 +96,9 @@ const mapSlice = createSlice({
 			}>,
 		) => {
 			state.tileLink = '';
+			state.legend.visible = false;
 			state.isPointsVisible = false;
+
 			state.tileOptions[action.payload.key] = action.payload.value;
 
 			if (state.tileOptions.productType === 'groundData') {
@@ -78,14 +110,14 @@ const mapSlice = createSlice({
 						state.tileOptions.source = '';
 						break;
 				}
-
-				state.isPointsVisible = false;
 			} else {
 				if (action.payload.value === 'landsat') state.tileOptions.type = 'landsat';
-				if (['viirs', 'terra', 'aqua'].includes(action.payload.value)) state.tileOptions.type = '';
+				if (['viirs', 'terra', 'aqua'].includes(action.payload.value))
+					state.tileOptions.type = '';
 				state.tileOptions.startDate = null;
 			}
 		},
+
 		resetState: () => initialState,
 	},
 });
