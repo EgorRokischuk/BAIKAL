@@ -1,9 +1,13 @@
 export interface IUser {
-	fullname: string;
-	username: string;
-	email: string;
-	phoneNumber: string;
-	userRights: Array<string>;
+        fullname: string;
+        username: string;
+        email: string;
+        phoneNumber: string;
+        userRights: Array<string>;
+}
+
+export interface IUserByLogin extends IUser {
+        id: number;
 }
 
 export interface ILogin {

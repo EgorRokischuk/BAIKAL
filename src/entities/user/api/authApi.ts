@@ -4,8 +4,8 @@ import { baseApi } from '@/shared/config/api/baseApi';
 import { LS_ACCESS_TOKEN, LS_REFRESH_TOKEN } from '@/shared/config/constants/authConstants';
 import { removeFromLS, setToLS } from '@/shared/lib/manageLocalStorage';
 import { userActions } from '../model/slices';
-import { IExtraArgument, ILogin, ILoginResponse, IRegister, IUser } from '../types';
-import { adaptLogin, adaptProfile, adaptRegister, IProfileDTO } from './dto';
+import { IExtraArgument, ILogin, ILoginResponse, IRegister, IUser, IUserByLogin } from '../types';
+import { adaptLogin, adaptProfile, adaptRegister, adaptUserByLogin, IProfileDTO, IUserByLoginDTO } from './dto';
 
 const authApi = baseApi.injectEndpoints({
 	endpoints: (build) => ({
@@ -115,11 +115,19 @@ const authApi = baseApi.injectEndpoints({
                                 }
                         },
                 }),
-                resendVerificationCode: build.mutation<string, string>({
+                getUserByLogin: build.query<IUserByLogin, string>({
                         query: (login) => ({
+                                url: 'users/get_user_by_login',
+                                method: 'GET',
+                                params: { login },
+                        }),
+                        transformResponse: (response) => adaptUserByLogin(response as IUserByLoginDTO),
+                }),
+                resendVerificationCode: build.mutation<string, number>({
+                        query: (userId) => ({
                                 url: 'users/resend_verification_code',
                                 method: 'POST',
-                                params: { login },
+                                params: { user_id: userId },
                         }),
                         async onQueryStarted(_, { queryFulfilled, dispatch }) {
                                 try {
@@ -142,6 +150,7 @@ const {
         useProfileQuery,
         useRefreshQuery,
         useVerifyEmailMutation,
+        useLazyGetUserByLoginQuery,
         useResendVerificationCodeMutation,
 } = authApi;
 
@@ -152,5 +161,6 @@ export {
         useProfileQuery,
         useRefreshQuery,
         useVerifyEmailMutation,
+        useLazyGetUserByLoginQuery,
         useResendVerificationCodeMutation,
 };

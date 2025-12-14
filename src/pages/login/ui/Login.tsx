@@ -3,7 +3,13 @@ import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { globalActions } from '@/app/providers/store';
 import { AuthForm, AuthTextField } from '@/widgets/auth-form';
-import { useLoginMutation, useResendVerificationCodeMutation, type ILogin } from '@/entities/User';
+import {
+        useLazyGetUserByLoginQuery,
+        useLoginMutation,
+        useResendVerificationCodeMutation,
+        type ILogin,
+        type IUserByLogin,
+} from '@/entities/User';
 import { ROUTES } from '@/shared/config/router/routes';
 import { useAppDispatch } from '@/shared/hooks/useAppDispatch';
 import { Button } from '@/shared/ui/Button';
@@ -24,8 +30,10 @@ const Login: React.FC = () => {
         });
         const dispatch = useAppDispatch();
         const [forgotStep, setForgotStep] = useState<'code' | 'password' | 'success' | null>(null);
+        const [forgotUser, setForgotUser] = useState<IUserByLogin | null>(null);
 
         const [loginMutation] = useLoginMutation();
+        const [fetchUserByLogin, { isFetching: isFetchingUser }] = useLazyGetUserByLoginQuery();
         const [sendResetCode, { isLoading: isSendingCode }] = useResendVerificationCodeMutation();
 
         const onLogin = async (data: ILogin) => {
@@ -34,22 +42,30 @@ const Login: React.FC = () => {
 
         const loginValue = watch('login');
         const loginHint = (loginValue || '').trim();
-        const handleForgotClose = () => setForgotStep(null);
+        const handleForgotClose = () => {
+                setForgotStep(null);
+                setForgotUser(null);
+        };
         const handleForgotClick = async () => {
                 const trimmedLogin = loginHint;
 
                 if (!trimmedLogin) {
-                        dispatch(globalActions.setErrorMessage('Укажите логин, чтобы отправить код на почту'));
+                        dispatch(globalActions.setErrorMessage('Укажите логин, чтобы отправить код'));
                         return;
                 }
 
                 try {
-                        await sendResetCode(trimmedLogin).unwrap();
+                        const user = await fetchUserByLogin(trimmedLogin).unwrap();
+
+                        await sendResetCode(user.id).unwrap();
+                        setForgotUser(user);
                         setForgotStep('code');
                 } catch (e) {
                         if (__IS_DEV__) console.error(e);
                 }
         };
+
+        const isSendingForgot = isSendingCode || isFetchingUser;
 
         return (
                 <div>
@@ -89,9 +105,9 @@ const Login: React.FC = () => {
                                         className={styles.forgotPassword}
                                         type="button"
                                         onClick={handleForgotClick}
-                                        disabled={isSendingCode}
+                                        disabled={isSendingForgot}
                                 >
-                                        {isSendingCode ? 'Отправляем код...' : 'Забыли пароль?'}
+                                        {isSendingForgot ? 'Отправляем код...' : 'Забыли пароль?'}
                                 </button>
 
                                 <Button
@@ -125,7 +141,8 @@ const Login: React.FC = () => {
                         </AuthForm>
 
                         <ForgotPasswordModal
-                                emailHint={loginHint}
+                                emailHint={forgotUser?.email ?? ''}
+                                userId={forgotUser?.id ?? null}
                                 open={Boolean(forgotStep)}
                                 step={forgotStep}
                                 onClose={handleForgotClose}

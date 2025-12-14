@@ -1,8 +1,7 @@
 import { MenuProps, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { globalActions } from '@/app/providers/store';
-import { getFullProfile } from '@/entities/User/model/selector';
-import { userActions } from '@/entities/User/model/slices';
+import { getFullProfile, userActions } from '@/entities/User';
 import { LS_ACCESS_TOKEN, LS_REFRESH_TOKEN } from '@/shared/config/constants/authConstants';
 import { ROUTES } from '@/shared/config/router/routes';
 import { useAppDispatch } from '@/shared/hooks/useAppDispatch';
