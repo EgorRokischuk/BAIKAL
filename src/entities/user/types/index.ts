@@ -1,9 +1,10 @@
 export interface IUser {
-	fullname: string;
-	username: string;
-	email: string;
-	phoneNumber: string;
-	userRights: Array<string>;
+        fullname: string;
+        username: string;
+        email: string;
+        phoneNumber: string;
+        userRights: Array<string>;
+        registeredAt?: string;
 }
 
 export interface ILogin {
@@ -12,9 +13,9 @@ export interface ILogin {
 }
 
 export interface ILoginResponse {
-	access_token: string;
-	refresh_token: string;
-	token_type: 'bearer';
+        access_token: string;
+        refresh_token: string;
+        token_type: 'bearer';
 }
 
 export interface IRegister extends ILogin {
@@ -25,9 +26,23 @@ export interface IRegister extends ILogin {
 }
 
 export interface IExtraArgument {
-	navigate: (path: string) => void;
+        navigate: (path: string) => void;
 }
 
 export interface IUserState {
-	fullProfile: IUser | null;
+        fullProfile: IUser | null;
+}
+
+export interface IUserProfileUpdate {
+        fullname: string;
+        username: string;
+        email: string;
+        phoneNumber: string;
+}
+
+export interface IUserHistoryRecord {
+        date: string;
+        email: string;
+        product: string;
+        comment?: string;
 }

@@ -4,8 +4,24 @@ import { baseApi } from '@/shared/config/api/baseApi';
 import { LS_ACCESS_TOKEN, LS_REFRESH_TOKEN } from '@/shared/config/constants/authConstants';
 import { removeFromLS, setToLS } from '@/shared/lib/manageLocalStorage';
 import { userActions } from '../model/slices';
-import { IExtraArgument, ILogin, ILoginResponse, IRegister, IUser } from '../types';
-import { adaptLogin, adaptProfile, adaptRegister, IProfileDTO } from './dto';
+import {
+        IExtraArgument,
+        ILogin,
+        ILoginResponse,
+        IRegister,
+        IUser,
+        IUserHistoryRecord,
+        IUserProfileUpdate,
+} from '../types';
+import {
+        adaptHistoryRecord,
+        adaptLogin,
+        adaptProfile,
+        adaptProfileUpdate,
+        adaptRegister,
+        IProfileDTO,
+        IUserHistoryRecordDTO,
+} from './dto';
 
 const authApi = baseApi.injectEndpoints({
 	endpoints: (build) => ({
@@ -55,11 +71,11 @@ const authApi = baseApi.injectEndpoints({
 				}
 			},
 		}),
-		profile: build.query<IUser, void>({
-			query: () => ({
-				url: 'users/me',
-				method: 'GET',
-			}),
+		 profile: build.query<IUser, void>({
+                        query: () => ({
+                                url: 'users/me',
+                                method: 'GET',
+                        }),
 			async onQueryStarted(_, { queryFulfilled, dispatch }) {
 				try {
 					const response = await queryFulfilled;
@@ -73,12 +89,48 @@ const authApi = baseApi.injectEndpoints({
 				const data = baseQueryReturnValue as IProfileDTO;
 
 				return adaptProfile(data);
-			},
-			providesTags: [ApiTags.PROFILE],
-		}),
-		refresh: build.query<ILoginResponse, void>({
-			query: () => ({
-				url: 'users/refresh',
+                        },
+                        providesTags: [ApiTags.PROFILE],
+                }),
+                updateProfile: build.mutation<IUser, IUserProfileUpdate>({
+                        query: (profile) => ({
+                                url: 'users/me',
+                                method: 'PUT',
+                                body: adaptProfileUpdate(profile),
+                        }),
+                        async onQueryStarted(_, { queryFulfilled, dispatch }) {
+                                try {
+                                        const response = await queryFulfilled;
+
+                                        dispatch(userActions.setProfile(response.data));
+                                        dispatch(globalActions.setSuccessMessage('Профиль обновлен'));
+                                } catch (e) {
+                                        if (__IS_DEV__) console.error(e);
+                                        dispatch(globalActions.setErrorMessage('Не удалось сохранить данные'));
+                                }
+                        },
+                        transformResponse: (baseQueryReturnValue) => {
+                                const data = baseQueryReturnValue as IProfileDTO;
+
+                                return adaptProfile(data);
+                        },
+                        invalidatesTags: [ApiTags.PROFILE],
+                }),
+                profileHistory: build.query<Array<IUserHistoryRecord>, void>({
+                        query: () => ({
+                                url: 'users/history',
+                                method: 'GET',
+                        }),
+                        transformResponse: (baseQueryReturnValue) => {
+                                const data = baseQueryReturnValue as Array<IUserHistoryRecordDTO>;
+
+                                return data.map((record) => adaptHistoryRecord(record));
+                        },
+                        providesTags: [ApiTags.PROFILE],
+                }),
+                refresh: build.query<ILoginResponse, void>({
+                        query: () => ({
+                                url: 'users/refresh',
 				method: 'GET',
 			}),
 			async onQueryStarted(_, { queryFulfilled, dispatch }) {
@@ -145,6 +197,8 @@ const {
         useLoginMutation,
         useRegisterMutation,
         useProfileQuery,
+        useUpdateProfileMutation,
+        useProfileHistoryQuery,
         useRefreshQuery,
         usePasswordResetRequestMutation,
         usePasswordResetConfirmMutation,
@@ -155,6 +209,8 @@ export {
         useLoginMutation,
         useRegisterMutation,
         useProfileQuery,
+        useUpdateProfileMutation,
+        useProfileHistoryQuery,
         useRefreshQuery,
         usePasswordResetRequestMutation,
         usePasswordResetConfirmMutation,

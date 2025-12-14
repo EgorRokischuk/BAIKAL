@@ -8,31 +8,27 @@ import { ExternalResources } from '@/pages/external-resources';
 import { Login } from '@/pages/login';
 import { Map } from '@/pages/map';
 import { NotFound } from '@/pages/not-found';
+import { PersonalArea } from '@/pages/personal-area';
 import { Publications } from '@/pages/publications';
 import { Register } from '@/pages/register';
-import { Support } from '@/pages/support';
 import { ROUTES } from '@/shared/config/router/routes';
 import { UnAuthRoute } from '../ui/UnAuthRoute';
 
 const navBarItems = [
-	{ name: 'Продукты и данные', route: '/' },
-	{ name: 'О проекте', route: '/about' },
-	{
-		name: 'Публикации',
-		route: '/publications',
+        { name: 'Продукты и данные', route: '/' },
+        { name: 'О проекте', route: '/about' },
+        {
+                name: 'Публикации',
+                route: '/publications',
 	},
-	{
-		name: 'Внешние ресурсы',
-		route: '/externalResources',
-	},
-	{
-		name: 'Руководство пользователя',
-		route: '/guide',
-	},
-	{
-		name: 'Обратная связь',
-		route: '/support',
-	},
+        {
+                name: 'Внешние ресурсы',
+                route: '/externalResources',
+        },
+        {
+                name: 'Руководство пользователя',
+                route: '/guide',
+        },
 ];
 
 const router = createBrowserRouter([
@@ -67,30 +63,24 @@ const router = createBrowserRouter([
 					{
 						path: '*',
 						element: <Navigate to={ROUTES.exceptions.accessDenied.page} />,
-					},
-					{
-						path: ROUTES.exceptions.notFound.route,
-						element: <NotFound />,
-					},
-					{
-						path: ROUTES.exceptions.accessDenied.route,
-						element: <AccessDenied />,
-					},
-				],
-			},
-			{
-				path: ROUTES.support.route,
-				element: <AuthLayout showUserMenu navbarItems={navBarItems} />,
-				children: [
-					{
-						index: true,
-						element: <Support />,
-					},
-				],
-			},
-			{
-				path: ROUTES.auth.route,
-				element: (
+                                        },
+                                        {
+                                                path: ROUTES.profile.route,
+                                                element: <PersonalArea />,
+                                        },
+                                        {
+                                                path: ROUTES.exceptions.notFound.route,
+                                                element: <NotFound />,
+                                        },
+                                        {
+                                                path: ROUTES.exceptions.accessDenied.route,
+                                                element: <AccessDenied />,
+                                        },
+                                ],
+                        },
+                        {
+                                path: ROUTES.auth.route,
+                                element: (
 					<UnAuthRoute>
 						<AuthLayout />
 					</UnAuthRoute>

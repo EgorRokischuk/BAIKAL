@@ -1,0 +1,101 @@
+.personalArea {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.header__info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.header__text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.header__date {
+  text-align: right;
+  min-width: 180px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px 28px;
+}
+
+.form__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.centered {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+}
+
+.history {
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.tableWrapper {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  padding: 12px 10px;
+  border-bottom: 1px solid #e0e0e0;
+  text-align: left;
+  font-weight: 500;
+}
+
+.table th {
+  background: #f7f9fb;
+  font-weight: 600;
+}
+
+.feedback {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.feedback__hint {
+  color: #4f4f4f;
+}
