@@ -4,10 +4,15 @@ import { ISupportTicketRequest } from '@/entities/SupportTicket/types';
 import { FileInput } from '@/shared/ui/FileInput';
 import { InputField } from '@/shared/ui/InputField';
 
-export const SupportTicketFields: React.FC = () => {
-	const {
-		control,
-		formState: { errors },
+interface ISupportTicketFieldsProps {
+        fieldClassName?: string;
+        fileInputClassName?: string;
+}
+
+export const SupportTicketFields: React.FC<ISupportTicketFieldsProps> = ({ fieldClassName, fileInputClassName }) => {
+        const {
+                control,
+                formState: { errors },
 	} = useFormContext<ISupportTicketRequest>();
 
 	return (
@@ -16,10 +21,11 @@ export const SupportTicketFields: React.FC = () => {
 				name="subject"
 				control={control}
 				render={({ field: { ref, ...field } }) => (
-					<InputField
-						label="Тема"
-						error={Boolean(errors.subject)}
-						helperText={errors.subject?.message as string}
+                                        <InputField
+                                                className={fieldClassName}
+                                                label="Тема"
+                                                error={Boolean(errors.subject)}
+                                                helperText={errors.subject?.message as string}
 						inputRef={ref}
 						{...field}
 					/>
@@ -30,10 +36,11 @@ export const SupportTicketFields: React.FC = () => {
 				name="description"
 				control={control}
 				render={({ field: { ref, ...field } }) => (
-					<InputField
-						label="Подробно опишите проблему"
-						multiline
-						rows={5}
+                                        <InputField
+                                                className={fieldClassName}
+                                                label="Подробно опишите проблему"
+                                                multiline
+                                                rows={5}
 						error={Boolean(errors.description)}
 						helperText={errors.description?.message as string}
 						inputRef={ref}
@@ -49,10 +56,11 @@ export const SupportTicketFields: React.FC = () => {
 					name="email"
 					control={control}
 					render={({ field: { ref, ...field } }) => (
-						<InputField
-							label="Электронная почта"
-							error={Boolean(errors.email)}
-							helperText={errors.email?.message as string}
+                                                <InputField
+                                                        className={fieldClassName}
+                                                        label="Электронная почта"
+                                                        error={Boolean(errors.email)}
+                                                        helperText={errors.email?.message as string}
 							inputRef={ref}
 							{...field}
 						/>
@@ -60,11 +68,11 @@ export const SupportTicketFields: React.FC = () => {
 				/>
 			</div>
 
-			<Controller
-				name="file"
-				control={control}
-				render={() => <FileInput name="file" multiple={false} />}
-			/>
-		</>
-	);
+                        <Controller
+                                name="file"
+                                control={control}
+                                render={() => <FileInput className={fileInputClassName} name="file" multiple={false} />}
+                        />
+                </>
+        );
 };

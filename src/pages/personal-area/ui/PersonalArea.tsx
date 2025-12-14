@@ -100,7 +100,9 @@ const PersonalArea: React.FC = () => {
                         <div className={s.card}>
                                 <div className={s.header}>
                                         <div className={s.header__info}>
-                                                <Avatar alt={profile?.email} sizes="68px" />
+                                                <div className={s.header__avatar}>
+                                                        <Avatar alt={profile?.email} sizes="72px" />
+                                                </div>
 
                                                 <div className={s.header__text}>
                                                         <Typography variant="h5" fontWeight={600}>
@@ -111,8 +113,10 @@ const PersonalArea: React.FC = () => {
                                         </div>
 
                                         <div className={s.header__date}>
-                                                <Typography color="text.secondary">{'зарегистрирован(а)'}</Typography>
-                                                <Typography variant="body1" fontWeight={600}>
+                                                <Typography color="text.secondary" fontWeight={600}>
+                                                        {'зарегистрирован(а)'}
+                                                </Typography>
+                                                <Typography variant="body1" fontWeight={700}>
                                                         {registeredDate}
                                                 </Typography>
                                         </div>
@@ -121,15 +125,22 @@ const PersonalArea: React.FC = () => {
 
                         <div className={s.card}>
                                 <Tabs
+                                        className={s.tabs}
                                         value={activeTab}
                                         onChange={(_, value) => setActiveTab(value)}
                                         textColor="primary"
                                         indicatorColor="primary"
                                         variant="scrollable"
+                                        TabIndicatorProps={{ style: { display: 'none' } }}
                                 >
-                                        <Tab label="Личные данные" />
-                                        <Tab label="История скачиваний" />
-                                        <Tab label="Обратная связь" />
+                                        <Tab className={s.tab} classes={{ selected: s.tabSelected }} disableRipple label="Личные данные" />
+                                        <Tab
+                                                className={s.tab}
+                                                classes={{ selected: s.tabSelected }}
+                                                disableRipple
+                                                label="История скачиваний"
+                                        />
+                                        <Tab className={s.tab} classes={{ selected: s.tabSelected }} disableRipple label="Обратная связь" />
                                 </Tabs>
                         </div>
 
@@ -152,6 +163,7 @@ const PersonalArea: React.FC = () => {
                                                                                         control={profileForm.control}
                                                                                         render={({ field, fieldState }) => (
                                                                                                 <InputField
+                                                                                                        className={s.textField}
                                                                                                         label="ФИО"
                                                                                                         error={fieldState.invalid}
                                                                                                         helperText={fieldState.error?.message}
@@ -164,6 +176,7 @@ const PersonalArea: React.FC = () => {
                                                                                         control={profileForm.control}
                                                                                         render={({ field, fieldState }) => (
                                                                                                 <InputField
+                                                                                                        className={s.textField}
                                                                                                         label="Номер телефона"
                                                                                                         error={fieldState.invalid}
                                                                                                         helperText={fieldState.error?.message}
@@ -176,6 +189,7 @@ const PersonalArea: React.FC = () => {
                                                                                         control={profileForm.control}
                                                                                         render={({ field, fieldState }) => (
                                                                                                 <InputField
+                                                                                                        className={s.textField}
                                                                                                         label="Логин"
                                                                                                         error={fieldState.invalid}
                                                                                                         helperText={fieldState.error?.message}
@@ -188,6 +202,7 @@ const PersonalArea: React.FC = () => {
                                                                                         control={profileForm.control}
                                                                                         render={({ field, fieldState }) => (
                                                                                                 <InputField
+                                                                                                        className={s.textField}
                                                                                                         label="Email"
                                                                                                         error={fieldState.invalid}
                                                                                                         helperText={fieldState.error?.message}
@@ -198,6 +213,7 @@ const PersonalArea: React.FC = () => {
                                                                         </div>
                                                                         <div className={s.form__actions}>
                                                                                 <Button
+                                                                                        className={`${s.button} ${s.buttonOutlined}`}
                                                                                         variant="outlined"
                                                                                         color="primary"
                                                                                         onClick={() => profileForm.reset()}
@@ -205,6 +221,7 @@ const PersonalArea: React.FC = () => {
                                                                                         {'Отмена'}
                                                                                 </Button>
                                                                                 <Button
+                                                                                        className={`${s.button} ${s.buttonContained}`}
                                                                                         type="submit"
                                                                                         variant="contained"
                                                                                         color="primary"
@@ -265,9 +282,13 @@ const PersonalArea: React.FC = () => {
                                                                                         'Если у Вас возникла проблема или ошибка, пожалуйста, подробно опишите ее, и мы обязательно Вам поможем!'
                                                                                 }
                                                                         </Typography>
-                                                                        <SupportTicketFields />
+                                                                        <SupportTicketFields
+                                                                                fieldClassName={s.textField}
+                                                                                fileInputClassName={s.feedback__file}
+                                                                        />
                                                                         <div className={s.form__actions}>
                                                                                 <Button
+                                                                                        className={`${s.button} ${s.buttonOutlined}`}
                                                                                         variant="outlined"
                                                                                         color="primary"
                                                                                         onClick={() =>
@@ -280,6 +301,7 @@ const PersonalArea: React.FC = () => {
                                                                                         {'Отмена'}
                                                                                 </Button>
                                                                                 <Button
+                                                                                        className={`${s.button} ${s.buttonContained}`}
                                                                                         type="submit"
                                                                                         variant="contained"
                                                                                         color="primary"

@@ -1,0 +1,41 @@
+.fileInput {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #f5f7fb;
+  border: 1px solid #cbd4de;
+  border-radius: 10px;
+  padding: 10px 14px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.fileInput__button {
+  padding: 10px 14px;
+  background: linear-gradient(180deg, #f7fafc 0%, #eef2f7 100%);
+  border: 1px solid #cbd4de;
+  border-radius: 10px;
+  color: #3c4753;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.fileInput__button:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+}
+
+.fileInput__name {
+  color: #6c727a;
+  font-size: 14px;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.fileInput__native {
+  display: none;
+}
