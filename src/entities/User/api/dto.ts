@@ -1,47 +1,57 @@
-import { ILogin, IRegister, IUser } from '../types';
+import { ILogin, IRegister, IUser, IUserWithId } from '../types';
 
 export interface IRegisterDTO {
-	fio: string;
-	password: string;
-	login: string;
-	mail: string;
-	phone_number: string;
+        fio: string;
+        password: string;
+        login: string;
+        mail: string;
+        phone_number: string;
 }
 
 export const adaptRegister = (register: IRegister): IRegisterDTO => ({
-	fio: register.fullname,
-	password: register.password,
-	login: register.login,
-	mail: register.email,
-	phone_number: register.phoneNumber,
+        fio: register.fullname,
+        password: register.password,
+        login: register.login,
+        mail: register.email,
+        phone_number: register.phoneNumber,
 });
 
 export interface ILoginDTO {
-	grant_type: string;
-	username: string;
-	password: string;
+        grant_type: string;
+        username: string;
+        password: string;
 }
 
 export const adaptLogin = (login: ILogin): ILoginDTO => ({
-	grant_type: 'password',
-	username: login.login,
-	password: login.password,
+        grant_type: 'password',
+        username: login.login,
+        password: login.password,
 });
 
 export interface IProfileDTO {
-	fio: string;
-	login: string;
-	mail: string;
-	phone_number: string;
-	date_created: string;
-	roles: Array<string>;
-	locked: boolean;
+        fio: string;
+        login: string;
+        mail: string;
+        phone_number: string;
+        date_created: string;
+        roles: Array<string>;
+        locked: boolean;
 }
 
 export const adaptProfile = (profile: IProfileDTO): IUser => ({
-	fullname: profile.fio,
-	username: profile.login,
-	email: profile.mail,
-	phoneNumber: profile.phone_number,
-	userRights: profile.roles,
+        fullname: profile.fio,
+        username: profile.login,
+        email: profile.mail,
+        phoneNumber: profile.phone_number,
+        userRights: profile.roles,
+});
+
+export interface IUserWithIdDTO extends IProfileDTO {
+        id: number;
+}
+
+export const adaptUserWithId = (user: IUserWithIdDTO): IUserWithId => ({
+        id: user.id,
+        locked: user.locked,
+        ...adaptProfile(user),
 });

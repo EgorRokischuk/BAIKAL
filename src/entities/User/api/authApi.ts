@@ -4,8 +4,15 @@ import { baseApi } from '@/shared/config/api/baseApi';
 import { LS_ACCESS_TOKEN, LS_REFRESH_TOKEN } from '@/shared/config/constants/authConstants';
 import { removeFromLS, setToLS } from '@/shared/lib/manageLocalStorage';
 import { userActions } from '../model/slices';
-import { IExtraArgument, ILogin, ILoginResponse, IRegister, IUser } from '../types';
-import { adaptLogin, adaptProfile, adaptRegister, IProfileDTO } from './dto';
+import { IExtraArgument, ILogin, ILoginResponse, IRegister, IUser, IUserWithId } from '../types';
+import {
+        adaptLogin,
+        adaptProfile,
+        adaptRegister,
+        adaptUserWithId,
+        IProfileDTO,
+        IUserWithIdDTO,
+} from './dto';
 
 const authApi = baseApi.injectEndpoints({
 	endpoints: (build) => ({
@@ -115,11 +122,11 @@ const authApi = baseApi.injectEndpoints({
                                 }
                         },
                 }),
-                resendVerificationCode: build.mutation<string, string>({
-                        query: (login) => ({
+                resendVerificationCode: build.mutation<string, number>({
+                        query: (userId) => ({
                                 url: 'users/resend_verification_code',
                                 method: 'POST',
-                                params: { login },
+                                params: { user_id: userId },
                         }),
                         async onQueryStarted(_, { queryFulfilled, dispatch }) {
                                 try {
@@ -133,6 +140,18 @@ const authApi = baseApi.injectEndpoints({
                                 }
                         },
                 }),
+                getUserByLogin: build.query<IUserWithId, string>({
+                        query: (login) => ({
+                                url: 'users',
+                                method: 'GET',
+                                params: { login },
+                        }),
+                        transformResponse: (baseQueryReturnValue) => {
+                                const data = baseQueryReturnValue as IUserWithIdDTO;
+
+                                return adaptUserWithId(data);
+                        },
+                }),
         }),
 });
 
@@ -143,6 +162,7 @@ const {
         useRefreshQuery,
         useVerifyEmailMutation,
         useResendVerificationCodeMutation,
+        useLazyGetUserByLoginQuery,
 } = authApi;
 
 export {
@@ -153,4 +173,5 @@ export {
         useRefreshQuery,
         useVerifyEmailMutation,
         useResendVerificationCodeMutation,
+        useLazyGetUserByLoginQuery,
 };

@@ -1,9 +1,14 @@
 export interface IUser {
-	fullname: string;
-	username: string;
-	email: string;
-	phoneNumber: string;
-	userRights: Array<string>;
+        fullname: string;
+        username: string;
+        email: string;
+        phoneNumber: string;
+        userRights: Array<string>;
+}
+
+export interface IUserWithId extends IUser {
+        id: number;
+        locked: boolean;
 }
 
 export interface ILogin {

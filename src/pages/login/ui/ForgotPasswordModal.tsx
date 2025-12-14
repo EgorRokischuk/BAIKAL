@@ -16,6 +16,7 @@ interface ForgotPasswordModalProps {
         open: boolean;
         step: ForgotStep;
         emailHint: string;
+        userId: number | null;
         onClose: () => void;
         onCodeConfirmed: () => void;
         onPasswordSaved: () => void;
@@ -40,6 +41,7 @@ const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({
         open,
         step,
         emailHint,
+        userId,
         onClose,
         onCodeConfirmed,
         onPasswordSaved,
@@ -92,13 +94,13 @@ const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({
         });
 
         const handleResendCode = async () => {
-                if (!emailHint) {
-                        dispatch(globalActions.setErrorMessage('Сначала укажите логин на форме авторизации'));
+                if (!userId) {
+                        dispatch(globalActions.setErrorMessage('Не удалось определить пользователя'));
                         return;
                 }
 
                 try {
-                        await resendVerificationCode(emailHint).unwrap();
+                        await resendVerificationCode(userId).unwrap();
                 } catch (e) {
                         if (__IS_DEV__) console.error(e);
                 }

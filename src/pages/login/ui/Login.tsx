@@ -3,7 +3,12 @@ import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { globalActions } from '@/app/providers/store';
 import { AuthForm, AuthTextField } from '@/widgets/auth-form';
-import { useLoginMutation, useResendVerificationCodeMutation, type ILogin } from '@/entities/User';
+import {
+        useLazyGetUserByLoginQuery,
+        useLoginMutation,
+        useResendVerificationCodeMutation,
+        type ILogin,
+} from '@/entities/User';
 import { ROUTES } from '@/shared/config/router/routes';
 import { useAppDispatch } from '@/shared/hooks/useAppDispatch';
 import { Button } from '@/shared/ui/Button';
@@ -24,9 +29,11 @@ const Login: React.FC = () => {
         });
         const dispatch = useAppDispatch();
         const [forgotStep, setForgotStep] = useState<'code' | 'password' | 'success' | null>(null);
+        const [forgotUserId, setForgotUserId] = useState<number | null>(null);
 
         const [loginMutation] = useLoginMutation();
         const [sendResetCode, { isLoading: isSendingCode }] = useResendVerificationCodeMutation();
+        const [getUserByLogin, { isFetching: isFetchingUser }] = useLazyGetUserByLoginQuery();
 
         const onLogin = async (data: ILogin) => {
                 await loginMutation(data);
@@ -34,7 +41,10 @@ const Login: React.FC = () => {
 
         const loginValue = watch('login');
         const loginHint = (loginValue || '').trim();
-        const handleForgotClose = () => setForgotStep(null);
+        const handleForgotClose = () => {
+                setForgotUserId(null);
+                setForgotStep(null);
+        };
         const handleForgotClick = async () => {
                 const trimmedLogin = loginHint;
 
@@ -44,10 +54,14 @@ const Login: React.FC = () => {
                 }
 
                 try {
-                        await sendResetCode(trimmedLogin).unwrap();
+                        const user = await getUserByLogin(trimmedLogin).unwrap();
+
+                        setForgotUserId(user.id);
+                        await sendResetCode(user.id).unwrap();
                         setForgotStep('code');
                 } catch (e) {
                         if (__IS_DEV__) console.error(e);
+                        dispatch(globalActions.setErrorMessage('Не удалось отправить код. Проверьте логин.'));
                 }
         };
 
@@ -89,9 +103,9 @@ const Login: React.FC = () => {
                                         className={styles.forgotPassword}
                                         type="button"
                                         onClick={handleForgotClick}
-                                        disabled={isSendingCode}
+                                        disabled={isSendingCode || isFetchingUser}
                                 >
-                                        {isSendingCode ? 'Отправляем код...' : 'Забыли пароль?'}
+                                        {isFetchingUser || isSendingCode ? 'Отправляем код...' : 'Забыли пароль?'}
                                 </button>
 
                                 <Button
@@ -124,11 +138,12 @@ const Login: React.FC = () => {
                                 </div>
                         </AuthForm>
 
-                        <ForgotPasswordModal
-                                emailHint={loginHint}
-                                open={Boolean(forgotStep)}
-                                step={forgotStep}
-                                onClose={handleForgotClose}
+                                <ForgotPasswordModal
+                                        emailHint={loginHint}
+                                        userId={forgotUserId}
+                                        open={Boolean(forgotStep)}
+                                        step={forgotStep}
+                                        onClose={handleForgotClose}
                                 onCodeConfirmed={() => setForgotStep('password')}
                                 onPasswordSaved={() => setForgotStep('success')}
                                 onBackToCode={() => setForgotStep('code')}
