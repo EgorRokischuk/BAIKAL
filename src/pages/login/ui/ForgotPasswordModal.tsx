@@ -1,8 +1,9 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Typography } from '@mui/material';
-import { Controller, useForm } from 'react-hook-form';
+import { useEffect, useState } from 'react';
+import { Controller, useForm, useWatch } from 'react-hook-form';
 import { z } from 'zod';
-import { useResendVerificationCodeMutation, useVerifyEmailMutation } from '@/entities/User';
+import { usePasswordResetConfirmMutation, usePasswordResetRequestMutation } from '@/entities/User';
 import { globalActions } from '@/app/providers/store';
 import { useAppDispatch } from '@/shared/hooks/useAppDispatch';
 import { ModalCarcass } from '@/shared/ui/ModalCarcass';
@@ -10,20 +11,16 @@ import { Button } from '@/shared/ui/Button';
 import { AuthTextField } from '@/widgets/auth-form';
 import * as styles from './ForgotPasswordModal.module.scss';
 
-type ForgotStep = 'code' | 'password' | 'success' | null;
+type ForgotStep = 'email' | 'waiting' | 'password' | 'success';
 
 interface ForgotPasswordModalProps {
         open: boolean;
-        step: ForgotStep;
-        emailHint: string;
         onClose: () => void;
-        onCodeConfirmed: () => void;
-        onPasswordSaved: () => void;
-        onBackToCode: () => void;
+        initialEmail?: string;
 }
 
-const codeSchema = z.object({
-        code: z.string().min(1, 'Введите код'),
+const emailSchema = z.object({
+        email: z.string().email('Введите корректный email'),
 });
 
 const passwordSchema = z
@@ -36,29 +33,24 @@ const passwordSchema = z
                 path: ['passwordAgain'],
         });
 
-const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({
-        open,
-        step,
-        emailHint,
-        onClose,
-        onCodeConfirmed,
-        onPasswordSaved,
-        onBackToCode,
-}) => {
-        const [verifyEmail, { isLoading: isVerifyLoading }] = useVerifyEmailMutation();
-        const [resendVerificationCode, { isLoading: isResendLoading }] = useResendVerificationCodeMutation();
+const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({ open, onClose, initialEmail = '' }) => {
+        const [step, setStep] = useState<ForgotStep>('email');
+        const [requestReset, { isLoading: isRequesting }] = usePasswordResetRequestMutation();
+        const [confirmReset, { isLoading: isConfirming }] = usePasswordResetConfirmMutation();
         const dispatch = useAppDispatch();
 
         const {
-                control: codeControl,
-                handleSubmit: handleCodeSubmit,
-                formState: { errors: codeErrors },
-                reset: resetCode,
-        } = useForm<{ code: string }>({
+                control: emailControl,
+                handleSubmit: handleEmailSubmit,
+                formState: { errors: emailErrors },
+                reset: resetEmail,
+        } = useForm<{ email: string }>({
                 mode: 'onSubmit',
-                resolver: zodResolver(codeSchema),
-                defaultValues: { code: '' },
+                resolver: zodResolver(emailSchema),
+                defaultValues: { email: initialEmail },
         });
+
+        const currentEmail = useWatch({ control: emailControl, name: 'email' });
 
         const {
                 control: passwordControl,
@@ -71,36 +63,63 @@ const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({
                 defaultValues: { password: '', passwordAgain: '' },
         });
 
+        useEffect(() => {
+                if (open) {
+                        setStep('email');
+                        resetEmail({ email: initialEmail });
+                        resetPassword();
+                }
+        }, [open, initialEmail, resetEmail, resetPassword]);
+
+        useEffect(() => {
+                if (step !== 'waiting') return undefined;
+
+                const intervalId = setInterval(async () => {
+                        try {
+                                await confirmReset().unwrap();
+                                setStep('password');
+                                clearInterval(intervalId);
+                        } catch (e) {
+                                if (__IS_DEV__) console.error(e);
+                        }
+                }, 5000);
+
+                return () => clearInterval(intervalId);
+        }, [step, confirmReset]);
+
         const handleClose = () => {
-                resetCode();
+                resetEmail({ email: initialEmail });
                 resetPassword();
+                setStep('email');
                 onClose();
         };
 
-        const handleCodeFormSubmit = handleCodeSubmit(async (data) => {
+        const handleEmailFormSubmit = handleEmailSubmit(async (data) => {
                 try {
-                        await verifyEmail(data.code).unwrap();
-                        onCodeConfirmed();
+                        await requestReset(data.email).unwrap();
+                        setStep('waiting');
                 } catch (e) {
                         if (__IS_DEV__) console.error(e);
                 }
         });
 
-        const handlePasswordFormSubmit = handlePasswordSubmit(() => {
-                onPasswordSaved();
-                resetPassword();
-        });
-
-        const handleResendCode = async () => {
-                if (!emailHint) {
-                        dispatch(globalActions.setErrorMessage('Сначала укажите логин на форме авторизации'));
-                        return;
-                }
-
+        const handlePasswordFormSubmit = handlePasswordSubmit(async (data) => {
                 try {
-                        await resendVerificationCode(emailHint).unwrap();
+                        await confirmReset({ new_password: data.password }).unwrap();
+                        setStep('success');
+                        resetPassword();
                 } catch (e) {
                         if (__IS_DEV__) console.error(e);
+                }
+        });
+
+        const handleCheckConfirmation = async () => {
+                try {
+                        await confirmReset().unwrap();
+                        setStep('password');
+                } catch (e) {
+                        if (__IS_DEV__) console.error(e);
+                        dispatch(globalActions.setErrorMessage('Подтверждение сброса еще не выполнено'));
                 }
         };
 
@@ -146,14 +165,16 @@ const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({
                                                         variant="outlined"
                                                         color="error"
                                                         className={styles.modalButton}
-                                                        onClick={() => {
-                                                                resetPassword();
-                                                                onBackToCode();
-                                                        }}
+                                                        onClick={() => setStep('waiting')}
                                                 >
                                                         {'Назад'}
                                                 </Button>
-                                                <Button type="submit" variant="contained" color="primary" className={styles.modalButton}>
+                                                <Button
+                                                        type="submit"
+                                                        variant="contained"
+                                                        color="primary"
+                                                        className={styles.modalButton}
+                                                >
                                                         {'Сохранить'}
                                                 </Button>
                                         </div>
@@ -177,35 +198,54 @@ const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({
                         );
                 }
 
+                if (step === 'waiting') {
                         return (
-                                <form className={styles.modalForm} onSubmit={handleCodeFormSubmit}>
+                                <div className={styles.modalForm}>
                                         <Typography className={styles.modalText}>
-                                                {`Введите код, отправленный на почту пользователя с логином ${emailHint}`}
+                                                {`Мы отправили ссылку для сброса пароля на ${currentEmail || 'указанный email'}. После подтверждения по ссылке вы сможете задать новый пароль.`}
                                         </Typography>
 
+                                        <div className={styles.modalActions}>
+                                                <Button
+                                                        variant="outlined"
+                                                        color="error"
+                                                        className={styles.modalButton}
+                                                        onClick={() => setStep('email')}
+                                                >
+                                                        {'Изменить email'}
+                                                </Button>
+                                                <Button
+                                                        variant="contained"
+                                                        color="primary"
+                                                        className={styles.modalButton}
+                                                        onClick={handleCheckConfirmation}
+                                                        disabled={isConfirming}
+                                                >
+                                                        {isConfirming ? 'Проверяем...' : 'Проверить подтверждение'}
+                                                </Button>
+                                        </div>
+                                </div>
+                        );
+                }
+
+                return (
+                        <form className={styles.modalForm} onSubmit={handleEmailFormSubmit}>
+                                <Typography className={styles.modalText}>{'Укажите email для отправки ссылки на смену пароля'}</Typography>
+
                                 <Controller
-                                        name="code"
-                                        control={codeControl}
+                                        name="email"
+                                        control={emailControl}
                                         render={({ field: { ref, ...field } }) => (
                                                 <AuthTextField
                                                         requiredMark
-                                                        placeholder="Код"
-                                                        error={Boolean(codeErrors.code)}
-                                                        helperText={codeErrors.code?.message}
+                                                        placeholder="Email"
+                                                        error={Boolean(emailErrors.email)}
+                                                        helperText={emailErrors.email?.message}
                                                         inputRef={ref}
                                                         {...field}
                                                 />
                                         )}
                                 />
-
-                                <button
-                                        type="button"
-                                        className={styles.resendButton}
-                                        onClick={handleResendCode}
-                                        disabled={isResendLoading}
-                                >
-                                        {isResendLoading ? 'Отправляем...' : 'Отправить код повторно'}
-                                </button>
 
                                 <div className={styles.modalActions}>
                                         <Button
@@ -221,19 +261,19 @@ const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({
                                                 variant="contained"
                                                 color="primary"
                                                 className={styles.modalButton}
-                                                disabled={isVerifyLoading}
+                                                disabled={isRequesting}
                                         >
-                                                {isVerifyLoading ? 'Проверяем...' : 'Подтвердить'}
+                                                {isRequesting ? 'Отправляем...' : 'Отправить ссылку'}
                                         </Button>
                                 </div>
                         </form>
                 );
         };
 
-        const modalTitle = step === 'password' ? 'Придумайте новый пароль' : step === 'success' ? '' : '';
+        const modalTitle = step === 'password' ? 'Придумайте новый пароль' : '';
 
         return (
-                <ModalCarcass open={open} onClose={handleClose} width={520} title={modalTitle || ''}>
+                <ModalCarcass open={open} onClose={handleClose} width={520} title={modalTitle}>
                         {renderContent()}
                 </ModalCarcass>
         );

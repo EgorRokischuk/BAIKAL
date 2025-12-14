@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { globalActions } from '@/app/providers/store';
 import { AuthForm, AuthTextField } from '@/widgets/auth-form';
-import { useLoginMutation, useResendVerificationCodeMutation, type ILogin } from '@/entities/User';
+import { useLoginMutation, type ILogin } from '@/entities/User';
 import { ROUTES } from '@/shared/config/router/routes';
 import { useAppDispatch } from '@/shared/hooks/useAppDispatch';
 import { Button } from '@/shared/ui/Button';
@@ -23,10 +23,9 @@ const Login: React.FC = () => {
                 defaultValues,
         });
         const dispatch = useAppDispatch();
-        const [forgotStep, setForgotStep] = useState<'code' | 'password' | 'success' | null>(null);
+        const [isForgotOpen, setIsForgotOpen] = useState(false);
 
         const [loginMutation] = useLoginMutation();
-        const [sendResetCode, { isLoading: isSendingCode }] = useResendVerificationCodeMutation();
 
         const onLogin = async (data: ILogin) => {
                 await loginMutation(data);
@@ -34,22 +33,8 @@ const Login: React.FC = () => {
 
         const loginValue = watch('login');
         const loginHint = (loginValue || '').trim();
-        const handleForgotClose = () => setForgotStep(null);
-        const handleForgotClick = async () => {
-                const trimmedLogin = loginHint;
-
-                if (!trimmedLogin) {
-                        dispatch(globalActions.setErrorMessage('Укажите логин, чтобы отправить код на почту'));
-                        return;
-                }
-
-                try {
-                        await sendResetCode(trimmedLogin).unwrap();
-                        setForgotStep('code');
-                } catch (e) {
-                        if (__IS_DEV__) console.error(e);
-                }
-        };
+        const handleForgotClose = () => setIsForgotOpen(false);
+        const handleForgotClick = () => setIsForgotOpen(true);
 
         return (
                 <div>
@@ -85,13 +70,8 @@ const Login: React.FC = () => {
                                         )}
                                 />
 
-                                <button
-                                        className={styles.forgotPassword}
-                                        type="button"
-                                        onClick={handleForgotClick}
-                                        disabled={isSendingCode}
-                                >
-                                        {isSendingCode ? 'Отправляем код...' : 'Забыли пароль?'}
+                                <button className={styles.forgotPassword} type="button" onClick={handleForgotClick}>
+                                        {'Забыли пароль?'}
                                 </button>
 
                                 <Button
@@ -124,15 +104,7 @@ const Login: React.FC = () => {
                                 </div>
                         </AuthForm>
 
-                        <ForgotPasswordModal
-                                emailHint={loginHint}
-                                open={Boolean(forgotStep)}
-                                step={forgotStep}
-                                onClose={handleForgotClose}
-                                onCodeConfirmed={() => setForgotStep('password')}
-                                onPasswordSaved={() => setForgotStep('success')}
-                                onBackToCode={() => setForgotStep('code')}
-                        />
+                        <ForgotPasswordModal initialEmail={loginHint} open={isForgotOpen} onClose={handleForgotClose} />
                 </div>
         );
 };

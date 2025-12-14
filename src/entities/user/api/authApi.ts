@@ -98,38 +98,43 @@ const authApi = baseApi.injectEndpoints({
 									  }
                         },
                 }),
-                verifyEmail: build.mutation<string, string>({
-                        query: (token) => ({
-                                url: `users/verify_email/${token}`,
-                                method: 'GET',
+                passwordResetRequest: build.mutation<string, string>({
+                        query: (email) => ({
+                                url: 'users/password_reset/request',
+                                method: 'POST',
+                                params: { email },
                         }),
                         async onQueryStarted(_, { queryFulfilled, dispatch }) {
                                 try {
                                         await queryFulfilled;
 
-                                        dispatch(globalActions.setSuccessMessage('Код подтвержден'));
+                                        dispatch(globalActions.setSuccessMessage('Ссылка для сброса пароля отправлена'));
                                 } catch (e) {
                                         if (__IS_DEV__) console.error(e);
 
-                                        dispatch(globalActions.setErrorMessage('Код не подтвержден'));
+                                        dispatch(globalActions.setErrorMessage('Не удалось отправить ссылку для сброса'));
                                 }
                         },
                 }),
-                resendVerificationCode: build.mutation<string, string>({
-                        query: (login) => ({
-                                url: 'users/resend_verification_code',
+                passwordResetConfirm: build.mutation<string, { new_password?: string } | void>({
+                        query: (body) => ({
+                                url: 'users/password_reset/confirm',
                                 method: 'POST',
-                                params: { login },
+                                body: body?.new_password ? { new_password: body.new_password } : undefined,
                         }),
-                        async onQueryStarted(_, { queryFulfilled, dispatch }) {
+                        async onQueryStarted(arg, { queryFulfilled, dispatch }) {
                                 try {
                                         await queryFulfilled;
 
-                                        dispatch(globalActions.setSuccessMessage('Код отправлен на почту'));
+                                        if (arg && 'new_password' in arg && arg.new_password)
+                                                dispatch(globalActions.setSuccessMessage('Пароль успешно изменен'));
                                 } catch (e) {
                                         if (__IS_DEV__) console.error(e);
 
-                                        dispatch(globalActions.setErrorMessage('Не удалось отправить код повторно'));
+                                        const message = arg && 'new_password' in arg && arg.new_password
+                                                ? 'Не удалось изменить пароль'
+                                                : 'Подтверждение сброса пароля не выполнено';
+                                        dispatch(globalActions.setErrorMessage(message));
                                 }
                         },
                 }),
@@ -141,8 +146,8 @@ const {
         useRegisterMutation,
         useProfileQuery,
         useRefreshQuery,
-        useVerifyEmailMutation,
-        useResendVerificationCodeMutation,
+        usePasswordResetRequestMutation,
+        usePasswordResetConfirmMutation,
 } = authApi;
 
 export {
@@ -151,6 +156,6 @@ export {
         useRegisterMutation,
         useProfileQuery,
         useRefreshQuery,
-        useVerifyEmailMutation,
-        useResendVerificationCodeMutation,
+        usePasswordResetRequestMutation,
+        usePasswordResetConfirmMutation,
 };
