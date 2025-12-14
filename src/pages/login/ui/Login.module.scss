@@ -1,0 +1,37 @@
+.formWrapper {
+    gap: 18px;
+}
+
+.forgotPassword {
+    align-self: flex-end;
+    margin-top: -6px;
+    margin-bottom: 4px;
+    background: transparent;
+    border: none;
+    color: #7a7a7a;
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 0;
+}
+
+.primaryButton {
+    height: 46px;
+    border-radius: 10px;
+    text-transform: none;
+    font-weight: 500;
+}
+
+.secondaryRow {
+    display: flex;
+    gap: 12px;
+    justify-content: space-between;
+}
+
+.secondaryButton {
+    flex: 1;
+    height: 44px;
+    border-radius: 10px;
+    text-transform: none;
+    font-weight: 500;
+}

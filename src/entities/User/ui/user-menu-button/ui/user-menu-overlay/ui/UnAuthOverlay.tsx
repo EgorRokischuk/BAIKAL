@@ -20,25 +20,26 @@ const UnAuthOverlay: React.FC<MenuProps> = (props) => {
 				vertical: 'bottom',
 				horizontal: 'left',
 			}}
-			transformOrigin={{
-				vertical: 'top',
-				horizontal: 'left',
-			}}
-		>
-			<div className={s.menu_block}>
-				<div className={s.menu_block__header}>
-					<Typography variant="subtitle1">{'Вы используете гостевой режим'}</Typography>
-				</div>
+                                transformOrigin={{
+                                        vertical: 'top',
+                                        horizontal: 'left',
+                                }}
+                >
+                        <div className={s.menu_block}>
+                                <div className={s.menu_block__header}>
+                                        <Typography variant="subtitle1">{'Вы используете гостевой режим'}</Typography>
+                                </div>
 
-				<div className={s.menu_block__text}>
-					<Typography variant="body2">
-						{`Чтобы получить возможность сохраннять и выгружать данные, а также зайти в личный кабинет
-						- пройдите авторизацию.`}
-						<br />
-						<br />
-						{'Если у Вас все еще нет учетной записи - пройдите регистрацию.'}
-					</Typography>
-				</div>
+                                <div className={s.menu_block__text}>
+                                        <Typography variant="body2">
+                                                {
+                                                        'Чтобы получить возможность сохранять и выгружать данные, а также зайти в личный кабинет — пройдите авторизацию.'
+                                                }
+                                                <br />
+                                                <br />
+                                                {'Если у вас все еще нет учетной записи — пройдите регистрацию.'}
+                                        </Typography>
+                                </div>
 
 				<div className={s.menu_block__buttons}>
 					<button

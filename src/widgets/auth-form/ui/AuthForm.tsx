@@ -1,26 +1,26 @@
 import { Box } from '@mui/material';
+import clsx from 'classnames';
 import React, { ReactNode } from 'react';
-import { Progress } from '@/shared/ui/Progress';
 import * as styles from './AuthForm.module.scss';
 
 interface AuthFormProps {
-	title: string;
-	width?: number;
-	onSubmit?: (event: React.FormEvent<HTMLFormElement>) => void;
-	children: ReactNode;
+        title: string;
+        width?: number;
+        onSubmit?: (event: React.FormEvent<HTMLFormElement>) => void;
+        children: ReactNode;
+        className?: string;
 }
 
-const AuthForm: React.FC<AuthFormProps> = ({ title, width = 400, onSubmit, children }) => {
-	return (
-		<Box className={styles.authFormContainer} width={width}>
-			<h2 className={styles.authFormTitle}>{title}</h2>
-			<Progress color="primary" />
+const AuthForm: React.FC<AuthFormProps> = ({ title, width = 460, onSubmit, children, className }) => {
+        return (
+                <Box className={clsx(styles.authFormContainer, className)} width={width}>
+                        <h2 className={styles.authFormTitle}>{title}</h2>
 
-			<form className={styles.authForm} onSubmit={onSubmit}>
-				{children}
-			</form>
-		</Box>
-	);
+                        <form className={styles.authForm} onSubmit={onSubmit}>
+                                {children}
+                        </form>
+                </Box>
+        );
 };
 
 export { AuthForm };

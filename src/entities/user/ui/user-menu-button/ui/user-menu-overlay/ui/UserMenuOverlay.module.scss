@@ -1,50 +1,68 @@
 .menu_block {
-    color: #FFF;
-    background: #0C4493;
-    width: 336px;
-    height: 290px;
-    
+    padding: 16px;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+    max-width: 380px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
     &__header {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+        color: #202020;
+        font-weight: 600;
+        text-align: center;
+
+        .MuiTypography-root {
+                margin-top: 6px;
+        }
     }
 
     &__text {
-        text-align: justify;
-        margin-left: 20px;
-        margin-right: 20px;
-        margin-top: 15px;
-    }
-
-    &__buttons {
-        margin-top: 25px;   
+        color: #333333;
+        font-size: 14px;
+        line-height: 1.35;
     }
 
     &__links {
-        margin-top: 20%;
-        margin-left: 30px;
-    }
-
-    &__button {
-        display: block;
-        width: 200px;
-        height: 30px;
-        margin-bottom: 10px;
-        text-align: center;
-        color: #0C4493;
-        background-color: #ECECEC;
-        border: none;
-        border-radius: 5px;
-        margin-left: auto;
-        margin-right: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        align-items: center;
     }
 
     &__link {
-        text-decoration: underline;
+        color: #1e5dac;
+        cursor: pointer;
+        transition: color 0.2s ease;
 
         &:hover {
-            cursor: pointer;
+                color: #154782;
+        }
+    }
+
+    &__buttons {
+        display: flex;
+        gap: 12px;
+    }
+
+    &__button {
+        flex: 1;
+        height: 40px;
+        border-radius: 8px;
+        border: 1px solid #1e5dac;
+        background: #1e5dac;
+        color: #ffffff;
+        cursor: pointer;
+        transition: background 0.2s ease, box-shadow 0.2s ease;
+
+        &:last-child {
+                background: #ffffff;
+                color: #1e5dac;
+        }
+
+        &:hover {
+                box-shadow: 0 4px 10px rgba(30, 93, 172, 0.3);
         }
     }
 }
