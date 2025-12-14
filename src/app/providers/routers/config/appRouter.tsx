@@ -5,6 +5,7 @@ import { MainLayout } from '@/app/layouts/MainLayout';
 import { About } from '@/pages/about';
 import { AccessDenied } from '@/pages/access-denied';
 import { ExternalResources } from '@/pages/external-resources';
+import { Guide } from '@/pages/guide';
 import { Login } from '@/pages/login';
 import { Map } from '@/pages/map';
 import { NotFound } from '@/pages/not-found';
@@ -62,7 +63,7 @@ const router = createBrowserRouter([
 					},
 					{
 						path: ROUTES.guide.route,
-						element: <Navigate to={ROUTES.exceptions.accessDenied.page} />,
+						element: <Guide />,
 					},
 					{
 						path: '*',
