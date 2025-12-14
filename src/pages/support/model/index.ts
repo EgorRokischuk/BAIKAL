@@ -8,8 +8,7 @@ export const supportTicketSchema = z.object({
 });
 
 export const defaultValues: ISupportTicketRequest = {
-	subject: '',
-	description: '',
-	email: '',
-	file: new File([], 'empty'),
+        subject: '',
+        description: '',
+        email: '',
 };

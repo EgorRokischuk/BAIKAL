@@ -3,18 +3,18 @@ import React from 'react';
 
 const InputField: React.FC<TextFieldProps> = ({ label, sx, ...props }) => {
   const baseSx: SxProps<Theme> = {
-    backgroundColor: '#f5f7fb',
+    backgroundColor: '#ffffff',
     borderRadius: '10px',
     '& .MuiOutlinedInput-root': {
-      backgroundColor: '#f5f7fb',
+      backgroundColor: '#ffffff',
       borderRadius: '10px',
       minHeight: 44,
-      '& fieldset': { borderColor: '#cbd4de' },
-      '&:hover fieldset': { borderColor: '#92a4b5' },
-      '&.Mui-focused fieldset': { borderColor: '#1a72de' },
+      '& fieldset': { borderColor: '#000000' },
+      '&:hover fieldset': { borderColor: '#000000' },
+      '&.Mui-focused fieldset': { borderColor: '#1a72de', borderWidth: 2 },
     },
     '& .MuiInputLabel-root': {
-      color: '#59616c',
+      color: '#111827',
       fontWeight: 600,
       fontSize: 14,
     },

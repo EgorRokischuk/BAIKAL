@@ -1,4 +1,3 @@
-import { Typography } from '@mui/material';
 import { Controller, useFormContext } from 'react-hook-form';
 import { ISupportTicketRequest } from '@/entities/SupportTicket/types';
 import { FileInput } from '@/shared/ui/FileInput';
@@ -20,58 +19,57 @@ export const SupportTicketFields: React.FC<ISupportTicketFieldsProps> = ({ field
 			<Controller
 				name="subject"
 				control={control}
-				render={({ field: { ref, ...field } }) => (
+                                render={({ field: { ref, ...field } }) => (
                                         <InputField
                                                 className={fieldClassName}
                                                 label="Тема"
+                                                required
                                                 error={Boolean(errors.subject)}
                                                 helperText={errors.subject?.message as string}
-						inputRef={ref}
-						{...field}
-					/>
+                                                inputRef={ref}
+                                                {...field}
+                                        />
 				)}
 			/>
 
 			<Controller
 				name="description"
 				control={control}
-				render={({ field: { ref, ...field } }) => (
+                                render={({ field: { ref, ...field } }) => (
                                         <InputField
                                                 className={fieldClassName}
                                                 label="Подробно опишите проблему"
                                                 multiline
                                                 rows={5}
-						error={Boolean(errors.description)}
-						helperText={errors.description?.message as string}
-						inputRef={ref}
-						{...field}
-					/>
-				)}
-			/>
+                                                required
+                                                error={Boolean(errors.description)}
+                                                helperText={errors.description?.message as string}
+                                                inputRef={ref}
+                                                {...field}
+                                        />
+                                )}
+                        />
 
-			<div>
-				<Typography>{'Дополнительная информация (не обязательно)'}</Typography>
-
-				<Controller
-					name="email"
-					control={control}
-					render={({ field: { ref, ...field } }) => (
-                                                <InputField
-                                                        className={fieldClassName}
-                                                        label="Электронная почта"
-                                                        error={Boolean(errors.email)}
-                                                        helperText={errors.email?.message as string}
-							inputRef={ref}
-							{...field}
-						/>
-					)}
-				/>
-			</div>
+                        <Controller
+                                name="email"
+                                control={control}
+                                render={({ field: { ref, ...field } }) => (
+                                        <InputField
+                                                className={fieldClassName}
+                                                label="Электронная почта"
+                                                required
+                                                error={Boolean(errors.email)}
+                                                helperText={errors.email?.message as string}
+                                                inputRef={ref}
+                                                {...field}
+                                        />
+                                )}
+                        />
 
                         <Controller
                                 name="file"
                                 control={control}
-                                render={() => <FileInput className={fileInputClassName} name="file" multiple={false} />}
+                                render={() => <FileInput className={fileInputClassName} name="file" multiple />}
                         />
                 </>
         );

@@ -123,7 +123,7 @@ const PersonalArea: React.FC = () => {
                                 </div>
                         </div>
 
-                        <div className={s.card}>
+                        <div className={`${s.card} ${s.contentCard}`}>
                                 <Tabs
                                         className={s.tabs}
                                         value={activeTab}
@@ -131,7 +131,7 @@ const PersonalArea: React.FC = () => {
                                         textColor="primary"
                                         indicatorColor="primary"
                                         variant="scrollable"
-                                        TabIndicatorProps={{ style: { display: 'none' } }}
+                                        TabIndicatorProps={{ className: s.tabIndicator }}
                                 >
                                         <Tab className={s.tab} classes={{ selected: s.tabSelected }} disableRipple label="Личные данные" />
                                         <Tab
