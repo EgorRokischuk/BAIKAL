@@ -1,48 +1,24 @@
 .page {
-  /* фон */
   display: flex;
-  flex-wrap: wrap;
-  gap: 32px;
+  justify-content: center;
   padding: 32px 24px 96px;
   box-sizing: border-box;
 
-  background: #f1f5f9; 
+  background: #f1f5f9;
   min-height: 100vh;
-
-  &__content {
-    flex: 2 1 580px;
-    background: #ffffff;
-    border-radius: 16px;
-    padding: 32px 32px 36px;
-    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
-    box-sizing: border-box;
-  }
-
-  &__sidebar {
-    flex: 1 1 320px;
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-  }
-
-  &__gallery {
-    background: #ffffff;
-    border-radius: 16px;
-    padding: 16px 0;
-    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
-    box-sizing: border-box;
-    width: 100%;
-  }
-
-  &__adminControls {
-    background: #ffffff;
-    border-radius: 12px;
-    padding: 16px 20px 20px;
-    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.05);
-  }
 }
 
-/* Заголовок и текст */
+.page__content {
+  width: 100%;
+  max-width: 960px;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 32px 32px 36px;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+  box-sizing: border-box;
+}
+
+/* Заголовки */
 
 .page__header {
   margin-bottom: 24px;
@@ -101,12 +77,6 @@
   }
 }
 
-.sectionItem {
-  & + & {
-    margin-top: 14px;
-  }
-}
-
 .list {
   margin: 6px 0 0;
   padding-left: 1.4rem;
@@ -120,17 +90,6 @@
 
 .menuItemTitle {
   font-weight: 600;
-}
-
-/* Ссылки */
-
-.link {
-  color: #2563eb;
-  text-decoration: none;
-
-  &:hover {
-    text-decoration: underline;
-  }
 }
 
 /* Адаптив */
@@ -147,11 +106,6 @@
 
 @media (max-width: 768px) {
   .page {
-    flex-direction: column;
-  }
-
-  .page__content,
-  .page__sidebar {
-    flex: 1 1 auto;
+    padding: 20px 12px 72px;
   }
 }
