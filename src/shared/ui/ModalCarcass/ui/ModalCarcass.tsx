@@ -25,6 +25,9 @@ export const ModalCarcass: React.FC<PropsWithChildren<IModalProps>> = ({
                         onClose={onClose}
                         aria-labelledby="modal-title"
                         aria-describedby="modal-description"
+                        slotProps={{
+                                backdrop: { sx: { backgroundColor: 'transparent' } },
+                        }}
                 >
                         <Fade in={open} timeout={500}>
                                 <Box className={s.modal} width={width ?? 400}>
