@@ -95,13 +95,62 @@ const authApi = baseApi.injectEndpoints({
 					removeFromLS(LS_ACCESS_TOKEN);
 					removeFromLS(LS_REFRESH_TOKEN);
 
-					dispatch(globalActions.setAccessToken(''));
-				}
-			},
-		}),
-	}),
+									  }
+                        },
+                }),
+                verifyEmail: build.mutation<string, string>({
+                        query: (token) => ({
+                                url: `users/verify_email/${token}`,
+                                method: 'GET',
+                        }),
+                        async onQueryStarted(_, { queryFulfilled, dispatch }) {
+                                try {
+                                        await queryFulfilled;
+
+                                        dispatch(globalActions.setSuccessMessage('Код подтвержден'));
+                                } catch (e) {
+                                        if (__IS_DEV__) console.error(e);
+
+                                        dispatch(globalActions.setErrorMessage('Код не подтвержден'));
+                                }
+                        },
+                }),
+                resendVerificationCode: build.mutation<string, string>({
+                        query: (login) => ({
+                                url: 'users/resend_verification_code',
+                                method: 'POST',
+                                params: { login },
+                        }),
+                        async onQueryStarted(_, { queryFulfilled, dispatch }) {
+                                try {
+                                        await queryFulfilled;
+
+                                        dispatch(globalActions.setSuccessMessage('Код отправлен на почту'));
+                                } catch (e) {
+                                        if (__IS_DEV__) console.error(e);
+
+                                        dispatch(globalActions.setErrorMessage('Не удалось отправить код повторно'));
+                                }
+                        },
+                }),
+        }),
 });
 
-const { useLoginMutation, useRegisterMutation, useProfileQuery, useRefreshQuery } = authApi;
+const {
+        useLoginMutation,
+        useRegisterMutation,
+        useProfileQuery,
+        useRefreshQuery,
+        useVerifyEmailMutation,
+        useResendVerificationCodeMutation,
+} = authApi;
 
-export { authApi, useLoginMutation, useRegisterMutation, useProfileQuery, useRefreshQuery };
+export {
+        authApi,
+        useLoginMutation,
+        useRegisterMutation,
+        useProfileQuery,
+        useRefreshQuery,
+        useVerifyEmailMutation,
+        useResendVerificationCodeMutation,
+};

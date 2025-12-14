@@ -4,39 +4,41 @@ import { PropsWithChildren } from 'react';
 import * as s from './ModalCarcass.module.scss';
 
 interface IModalProps {
-	open: boolean;
-	width?: number;
-	title: string;
+        open: boolean;
+        width?: number;
+        title: string;
+        onClose?: () => void;
 }
 
 export const ModalCarcass: React.FC<PropsWithChildren<IModalProps>> = ({
-	open,
-	width,
-	title,
-	children,
+        open,
+        width,
+        title,
+        onClose,
+        children,
 }) => {
-	const handleClose = () => {
-		open = false;
-	};
+        const hasTitle = Boolean(title);
 
-	return (
-		<Modal
-			open={open}
-			onClose={handleClose}
-			aria-labelledby="modal-title"
-			aria-describedby="modal-description"
-		>
-			<Fade in={open} timeout={500}>
-				<Box className={s.modal} width={width ?? 400}>
-					<Box id="modal-title" className={s.modal__title}>
-						<Typography variant="modal_title">{title}</Typography>
-					</Box>
+        return (
+                <Modal
+                        open={open}
+                        onClose={onClose}
+                        aria-labelledby="modal-title"
+                        aria-describedby="modal-description"
+                >
+                        <Fade in={open} timeout={500}>
+                                <Box className={s.modal} width={width ?? 400}>
+                                        {hasTitle && (
+                                                <Typography id="modal-title" variant="h6" className={s.modal__title}>
+                                                        {title}
+                                                </Typography>
+                                        )}
 
-					<Box id="modal-description" className={s.modal__content}>
-						{children}
-					</Box>
-				</Box>
-			</Fade>
-		</Modal>
-	);
+                                        <Box id="modal-description" className={s.modal__content}>
+                                                {children}
+                                        </Box>
+                                </Box>
+                        </Fade>
+                </Modal>
+        );
 };
