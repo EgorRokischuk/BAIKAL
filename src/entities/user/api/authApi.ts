@@ -110,7 +110,8 @@ const authApi = baseApi.injectEndpoints({
                                         dispatch(globalActions.setSuccessMessage('Профиль обновлен'));
                                 } catch (e) {
                                         if (__IS_DEV__) console.error(e);
-                                        dispatch(globalActions.setErrorMessage('Не удалось сохранить данные'));
+                                        //dispatch(globalActions.setErrorMessage('Не удалось сохранить данные'));
+                                        dispatch(globalActions.setErrorMessage('Функция в разработке'));
                                 }
                         },
                         transformResponse: (baseQueryReturnValue) => {
@@ -168,7 +169,8 @@ const authApi = baseApi.injectEndpoints({
                                 } catch (e) {
                                         if (__IS_DEV__) console.error(e);
 
-                                        dispatch(globalActions.setErrorMessage('Не удалось отправить ссылку для сброса'));
+                                        //dispatch(globalActions.setErrorMessage('Не удалось отправить ссылку для сброса'));
+                                        dispatch(globalActions.setErrorMessage('Функция в разработке'));
                                 }
                         },
                 }),

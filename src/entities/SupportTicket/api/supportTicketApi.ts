@@ -24,7 +24,8 @@ const supportTicketApi = baseApi.injectEndpoints({
 				} catch (e) {
 					if (__IS_DEV__) console.error(e);
 					dispatch(
-						globalActions.setErrorMessage('Не удалось отправить тикет. Повторите попытку позже.'),
+						//globalActions.setErrorMessage('Не удалось отправить тикет. Повторите попытку позже.'),
+						globalActions.setErrorMessage('Функция в разработке'),
 					);
 				}
 			},
