@@ -12,6 +12,7 @@ const AuthTextField: React.FC<AuthTextFieldProps> = ({
         requiredMark = false,
         InputProps,
         InputLabelProps,
+        FormHelperTextProps,
         ...props
 }) => {
         return (
@@ -28,6 +29,10 @@ const AuthTextField: React.FC<AuthTextFieldProps> = ({
                         InputLabelProps={{
                                 shrink: false,
                                 ...InputLabelProps,
+                        }}
+                        FormHelperTextProps={{
+                                className: styles.helperText,
+                                ...FormHelperTextProps,
                         }}
                         InputProps={{
                                 ...InputProps,

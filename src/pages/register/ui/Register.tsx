@@ -84,7 +84,7 @@ const Register: React.FC = () => {
                                         render={({ field: { ref, ...field } }) => (
                                                 <AuthTextField
                                                         requiredMark
-                                                        placeholder="8__________"
+                                                        placeholder="80000000000"
                                                         error={Boolean(errors.phoneNumber)}
                                                         helperText={errors.phoneNumber?.message}
                                                         inputRef={ref}

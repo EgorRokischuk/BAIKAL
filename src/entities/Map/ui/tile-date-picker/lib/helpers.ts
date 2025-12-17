@@ -13,7 +13,7 @@ import {
 } from './mappers';
 
 const CHLOROPHYLL_AVAILABLE_DATES = [
-        '2024-06-17', // Временно для тестирования отображения
+        //'2024-06-17', // Временно для тестирования отображения
 ];
 
 export const useDateHelper = (type: string) => {
