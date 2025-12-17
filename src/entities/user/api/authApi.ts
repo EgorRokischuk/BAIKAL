@@ -15,18 +15,22 @@ const authApi = baseApi.injectEndpoints({
 				method: 'POST',
 				body: adaptLogin(auth),
 			}),
-			async onQueryStarted(_, { queryFulfilled, dispatch, extra }) {
-				try {
-					const response = await queryFulfilled;
+                        async onQueryStarted(_, { queryFulfilled, dispatch, extra }) {
+                                try {
+                                        const response = await queryFulfilled;
 
-					dispatch(globalActions.setAccessToken(response.data.access_token));
-					setToLS(LS_ACCESS_TOKEN, response.data.access_token);
-					setToLS(LS_REFRESH_TOKEN, response.data.refresh_token);
+                                        dispatch(globalActions.setAccessToken(response.data.access_token));
+                                        setToLS(LS_ACCESS_TOKEN, response.data.access_token);
+                                        setToLS(LS_REFRESH_TOKEN, response.data.refresh_token);
 
-					const typedExtra = extra as IExtraArgument;
-					typedExtra.navigate('/');
-				} catch (e) {
-					if (__IS_DEV__) console.error(e);
+                                        await dispatch(
+                                                authApi.endpoints.profile.initiate(undefined, { forceRefetch: true }),
+                                        ).unwrap();
+
+                                        const typedExtra = extra as IExtraArgument;
+                                        typedExtra.navigate('/');
+                                } catch (e) {
+                                        if (__IS_DEV__) console.error(e);
 					dispatch(globalActions.setErrorMessage('Неверный логин или пароль!'));
 				}
 			},

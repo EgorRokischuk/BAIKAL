@@ -2,6 +2,16 @@
     font-size: 15px;
 }
 
+.helperText {
+    font-size: 16px !important;
+    line-height: 22px !important;
+}
+
+:global(.MuiFormHelperText-root).helperText {
+    font-size: 16px !important;
+    line-height: 22px !important;
+}
+
 .requiredMark {
     color: #eb2f2f;
     font-size: 18px;
