@@ -77,12 +77,49 @@ const authApi = baseApi.injectEndpoints({
 				const data = baseQueryReturnValue as IProfileDTO;
 
 				return adaptProfile(data);
-			},
-			providesTags: [ApiTags.PROFILE],
-		}),
-		refresh: build.query<ILoginResponse, void>({
-			query: () => ({
-				url: 'users/refresh',
+                        },
+                        providesTags: [ApiTags.PROFILE],
+                }),
+                // updateProfile: build.mutation<IUser, IUserProfileUpdate>({
+                //         query: (profile) => ({
+                //                 url: 'users/me',
+                //                 method: 'PUT',
+                //                 body: adaptProfileUpdate(profile),
+                //         }),
+                //         async onQueryStarted(_, { queryFulfilled, dispatch }) {
+                //                 try {
+                //                         const response = await queryFulfilled;
+
+                //                         dispatch(userActions.setProfile(response.data));
+                //                         dispatch(globalActions.setSuccessMessage('Профиль обновлен'));
+                //                 } catch (e) {
+                //                         if (__IS_DEV__) console.error(e);
+                //                         //dispatch(globalActions.setErrorMessage('Не удалось сохранить данные'));
+                //                         dispatch(globalActions.setErrorMessage('Функция в разработке'));
+                //                 }
+                //         },
+                //         transformResponse: (baseQueryReturnValue) => {
+                //                 const data = baseQueryReturnValue as IProfileDTO;
+
+                //                 return adaptProfile(data);
+                //         },
+                //         invalidatesTags: [ApiTags.PROFILE],
+                // }),
+                // profileHistory: build.query<Array<IUserHistoryRecord>, void>({
+                //         query: () => ({
+                //                 url: 'users/history',
+                //                 method: 'GET',
+                //         }),
+                //         transformResponse: (baseQueryReturnValue) => {
+                //                 const data = baseQueryReturnValue as Array<IUserHistoryRecordDTO>;
+
+                //                 return data.map((record) => adaptHistoryRecord(record));
+                //         },
+                //         providesTags: [ApiTags.PROFILE],
+                // }),
+                refresh: build.query<ILoginResponse, void>({
+                        query: () => ({
+                                url: 'users/refresh',
 				method: 'GET',
 			}),
 			async onQueryStarted(_, { queryFulfilled, dispatch }) {
@@ -116,11 +153,12 @@ const authApi = baseApi.injectEndpoints({
                                 } catch (e) {
                                         if (__IS_DEV__) console.error(e);
 
-                                        dispatch(globalActions.setErrorMessage('Не удалось отправить ссылку для сброса'));
+                                        //dispatch(globalActions.setErrorMessage('Не удалось отправить ссылку для сброса'));
+                                        dispatch(globalActions.setErrorMessage('Функция в разработке'));
                                 }
                         },
                 }),
-                passwordResetConfirm: build.mutation<string, { new_password?: string } | void>({
+                passwordResetConfirm: build.mutation<string, { new_password?: string } | undefined>({
                         query: (body) => ({
                                 url: 'users/password_reset/confirm',
                                 method: 'POST',
