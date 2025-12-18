@@ -61,13 +61,11 @@ export const useGetAvailableDate = (type: string) => {
                 return { data: CHLOROPHYLL_AVAILABLE_DATES, isLoading: false };
         }
 
-        switch (type) {
+		switch (type) {
 		case 'landsat':
 				return { data: landsat, isLoading: isLandsatLoading };
 		case 'monthlyAvg':
-			return { data: landsat, isLoading: isLandsatLoading };
-		case 'monthlyAvg':
-			return { data: monthlyAvg, isLoading: isMonthlyAvgLoading };
+				return { data: monthlyAvg, isLoading: isMonthlyAvgLoading };
 		case 'monthlyAvgManyYears':
 			return { data: monthlyAvgManyYears, isLoading: isMonthlyAvgManyYearsLoading };
 		case 'groundData':
