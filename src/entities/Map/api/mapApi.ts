@@ -100,20 +100,20 @@ const mapApi = baseApi.injectEndpoints({
 
 		/** MONTHLY AVG */
 		getMonthlyAvgDates: build.query<Array<string>, IMonthlyAvgAvailableDatesRequest>({
-			query: (options) => ({
-				url: 'files/satellite_data/get_available_dates_monthly_avg',
-				method: 'GET',
-				params: { ...options },
-			}),
-			async onQueryStarted(_, { queryFulfilled, dispatch }) {
-				try {
-					const response = await queryFulfilled;
-					if (!response.data.length) {
-						dispatch(globalActions.setErrorMessage('Данные отсутствуют'));
-					}
-				} catch (e) {
-					if (__IS_DEV__) console.error(e);
-				}
+				query: ({ silent, ...options }) => ({
+						url: 'files/satellite_data/get_available_dates_monthly_avg',
+						method: 'GET',
+						params: { ...options },
+				}),
+				async onQueryStarted(args, { queryFulfilled, dispatch }) {
+						try {
+								const response = await queryFulfilled;
+								if (!response.data.length && !args?.silent) {
+										dispatch(globalActions.setErrorMessage('Данные отсутствуют'));
+								}
+						} catch (e) {
+								if (__IS_DEV__) console.error(e);
+						}
 			},
 		}),
 
@@ -173,20 +173,20 @@ const mapApi = baseApi.injectEndpoints({
 
 		/** MONTHLY AVG MANY YEARS */
 		getMonthlyAvgManyYearsDates: build.query<Array<string>, IMonthlyAvgAvailableDatesRequest>({
-			query: (options) => ({
-				url: 'files/satellite_data/get_available_dates_monthly_avg_many_years',
-				method: 'GET',
-				params: { ...options },
-			}),
-			async onQueryStarted(_, { queryFulfilled, dispatch }) {
-				try {
-					const response = await queryFulfilled;
-					if (!response.data.length) {
-						dispatch(globalActions.setErrorMessage('Данные отсутствуют'));
-					}
-				} catch (e) {
-					if (__IS_DEV__) console.error(e);
-				}
+				query: ({ silent, ...options }) => ({
+						url: 'files/satellite_data/get_available_dates_monthly_avg_many_years',
+						method: 'GET',
+						params: { ...options },
+				}),
+				async onQueryStarted(args, { queryFulfilled, dispatch }) {
+						try {
+								const response = await queryFulfilled;
+								if (!response.data.length && !args?.silent) {
+										dispatch(globalActions.setErrorMessage('Данные отсутствуют'));
+								}
+						} catch (e) {
+								if (__IS_DEV__) console.error(e);
+						}
 			},
 		}),
 

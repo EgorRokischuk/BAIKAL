@@ -89,7 +89,9 @@ interface IBaseMonthlyAvgRequestParams extends IBaseSatelliteRequestParams {
 	time_of_day: string;
 }
 
-export interface IMonthlyAvgAvailableDatesRequest extends IBaseMonthlyAvgRequestParams {}
+export interface IMonthlyAvgAvailableDatesRequest extends IBaseMonthlyAvgRequestParams {
+        silent?: boolean;
+}
 
 export interface IMonthlyAvgRequest extends IBaseMonthlyAvgRequestParams {
 	years_id: number;
@@ -108,7 +110,9 @@ interface IBaseMonthlyAvgManyYearsRequestParams extends IBaseSatelliteRequestPar
 }
 
 export interface IMonthlyAvgManyYearsAvailableDatesRequest
-	extends IBaseMonthlyAvgManyYearsRequestParams {}
+        extends IBaseMonthlyAvgManyYearsRequestParams {
+        silent?: boolean;
+}
 
 export interface IMonthlyAvgManyYearsRequest extends IBaseMonthlyAvgManyYearsRequestParams {
 	month_id: number;
