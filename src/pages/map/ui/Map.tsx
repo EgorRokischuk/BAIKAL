@@ -1,5 +1,7 @@
 import { MapContainer } from 'react-leaflet';
 import { GroundDataPoints } from '@/widgets/ground-data-points';
+import { InterestObjects } from '@/widgets/interest-objects';
+import { MapLegend } from '@/widgets/map-legend';
 import { MapMenu } from '@/widgets/map-menu';
 import { MapTiles } from '@/widgets/map-tiles';
 import { SetPointLocation } from '@/features/GEE/point-location-set';
@@ -10,7 +12,6 @@ import { GeeShape, PointInfo } from '@/entities/GEE';
 import { getMapZoom } from '@/entities/Map';
 import { useAppSelector } from '@/shared/hooks/useAppSelector';
 import { MAP_PROPS } from '../config/constants';
-import { MapLegend } from '@/widgets/map-legend/ui/MapLegend';
 import * as s from './Map.module.scss';
 
 const Map: React.FC = () => {
@@ -21,6 +22,7 @@ const Map: React.FC = () => {
                         <MapContainer zoom={zoom} zoomControl={false} doubleClickZoom={false} {...MAP_PROPS}>
                                 <MapLegend />
                                 <MapTiles />
+                                <InterestObjects />
                                 <GroundDataPoints />
 
                                 <ChangeZoom />

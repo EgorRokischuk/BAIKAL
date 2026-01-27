@@ -19,6 +19,7 @@ export interface IMapState {
 	location: LatLngLiteral;
 	isPointsVisible: boolean;
 	tileLink: string;
+	tileOpacity: number;
 	legend: {
 		min: number | null;
 		max: number | null;

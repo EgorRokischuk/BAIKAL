@@ -3,8 +3,9 @@ import { TabMenu } from '@/entities/Map';
 import { useAppSelector } from '@/shared/hooks/useAppSelector';
 import { Panel } from '@/shared/ui/Panel';
 import { MENU_STRUCTURE } from '../config/constants';
-import { MenuActions } from './MenuActions';
 import * as s from './MapMenu.module.scss';
+import { MenuActions } from './MenuActions';
+import { TileOpacityControl } from './tile-opacity-control/TileOpacityControl';
 
 const MapMenu: React.FC = () => {
 	const isLoading = useAppSelector(({ global }) => global.isLoading);
@@ -17,6 +18,7 @@ const MapMenu: React.FC = () => {
 					<div className={s.menu_content}>
 						<TabMenu tabs={MENU_STRUCTURE} />
 					</div>
+					<TileOpacityControl />
 				</Panel.Content>
 
 				<Panel.Actions>

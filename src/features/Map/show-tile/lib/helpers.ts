@@ -48,5 +48,26 @@ export const useGetTileLink = () => {
                 }
         };
 
-	return { getTileLinkMutation, isLoading };
+	const shouldDisable = () => {
+		const hasBaseSelection = Boolean(
+			tileOptions.productType && tileOptions.parameter && tileOptions.source,
+		);
+
+		if (!hasBaseSelection) return true;
+
+		switch (tileOptions.type) {
+			case 'landsat':
+				return !tileOptions.startDate;
+			case 'monthlyAvg':
+				return !tileOptions.photoTime || !tileOptions.startDate;
+			case 'monthlyAvgManyYears':
+				return !tileOptions.photoTime || !tileOptions.startDate;
+			case 'chlorophyll':
+				return !tileOptions.startDate;
+			default:
+				return true;
+		}
+	};
+
+	return { getTileLinkMutation, isLoading, shouldDisable };
 };

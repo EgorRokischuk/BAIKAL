@@ -10,7 +10,9 @@ import { useGetTileLink } from '../lib/helpers';
 const ShowTile: React.FC = () => {
 	const dispatch = useAppDispatch();
 	const tileLink = useAppSelector(getTileLink);
-	const { getTileLinkMutation, isLoading } = useGetTileLink();
+	const { getTileLinkMutation, isLoading, shouldDisable } = useGetTileLink();
+
+	const disabled = tileLink ? false : isLoading() || shouldDisable();
 
 	const changeTileVisibility = async () => {
 		if (tileLink) {
@@ -22,7 +24,7 @@ const ShowTile: React.FC = () => {
 	};
 
 	return (
-		<Button variant="contained" disabled={isLoading()} onClick={changeTileVisibility}>
+		<Button variant="contained" disabled={disabled} onClick={changeTileVisibility}>
 			{tileLink ? 'Скрыть' : 'Подтвердить'}
 		</Button>
 	);

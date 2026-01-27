@@ -31,6 +31,7 @@ export {
 	getMapLocation,
 	getIsPointsVisible,
 	getTileLink,
+	getTileOpacity,
 	getGroundDataOptions,
 	getMapDateByKey,
 	getTileOptions,

@@ -11,3 +11,7 @@
     top: 18vh;
     left: 10px
 }
+
+:global(.leaflet-interactive:focus) {
+    outline: none;
+}

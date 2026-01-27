@@ -12,6 +12,7 @@ const initialState: IMapState = {
 	},
 	isPointsVisible: false,
 	tileLink: '',
+	tileOpacity: 1,
 
 	legend: {
 		min: null,
@@ -48,6 +49,11 @@ const mapSlice = createSlice({
 
 		setTileLink: (state, action: PayloadAction<string>) => {
 			state.tileLink = action.payload;
+		},
+
+		setTileOpacity: (state, action: PayloadAction<number>) => {
+			const nextOpacity = Number.isFinite(action.payload) ? action.payload : state.tileOpacity;
+			state.tileOpacity = Math.min(1, Math.max(0, nextOpacity));
 		},
 
 		setLegend: (

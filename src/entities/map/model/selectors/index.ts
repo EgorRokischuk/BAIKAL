@@ -6,6 +6,7 @@ export const getMapZoom = (state: IState) => state.map.zoom;
 export const getMapLocation = (state: IState) => state.map.location;
 export const getIsPointsVisible = (state: IState) => state.map.isPointsVisible;
 export const getTileLink = (state: IState) => state.map.tileLink;
+export const getTileOpacity = (state: IState) => state.map.tileOpacity;
 export const getMapDateByKey = (key: 'startDate' | 'endDate') => (state: IState) =>
 	state.map.tileOptions[key];
 export const getTileOptions = (state: IState) => state.map.tileOptions;
