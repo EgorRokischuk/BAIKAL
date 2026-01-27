@@ -35,6 +35,7 @@ export default (env: IEnvVariables) => {
 		'process.env.PORT': JSON.stringify(process.env.PORT || port),
 		'process.env.API_URL': JSON.stringify(process.env.API_URL),
 		'process.env.TILE_API_URL': JSON.stringify(process.env.TILE_API_URL),
+		'process.env.ORGANIZATION_URL': JSON.stringify(process.env.ORGANIZATION_URL ?? ''),
 	};
 
 	const config: webpack.Configuration = buildWebpack({

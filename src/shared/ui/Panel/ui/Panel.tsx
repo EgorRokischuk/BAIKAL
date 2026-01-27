@@ -1,5 +1,4 @@
 import { ArrowBackIos, ArrowForwardIos } from '@mui/icons-material';
-import InfoIcon from '@mui/icons-material/Info';
 import { Box, IconButton, Slide, Typography } from '@mui/material';
 import classNames from 'classnames';
 import { PropsWithChildren, useRef, useState } from 'react';
@@ -21,14 +20,7 @@ const PanelContent: React.FC<PropsWithChildren> = ({ children }) => {
 };
 
 const PanelActions: React.FC<PropsWithChildren> = ({ children }) => {
-	return (
-		<Box className={s.panel__footer}>
-			{children}
-			<IconButton>
-				<InfoIcon />
-			</IconButton>
-		</Box>
-	);
+	return <Box className={s.panel__footer}>{children}</Box>;
 };
 
 const Panel: IPanel = ({ children, dir = 'right', header = 'Panel', width = '320px' }) => {
@@ -39,11 +31,6 @@ const Panel: IPanel = ({ children, dir = 'right', header = 'Panel', width = '320
         const handleOpen = () => {
                 setOpenButtonVisible(false);
                 setCollapsed(true);
-        };
-
-        const handleClose = () => {
-                setCollapsed(false);
-                setOpenButtonVisible(false);
         };
 
         return (

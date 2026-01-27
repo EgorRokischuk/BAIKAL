@@ -17,7 +17,10 @@ import { UnAuthRoute } from '../ui/UnAuthRoute';
 
 const navBarItems = [
 	{ name: 'Продукты и данные', route: '/' },
-	{ name: 'О проекте', route: '/about' },
+	{
+		name: 'Руководство',
+		route: '/guide',
+	},
 	{
 		name: 'Публикации',
 		route: '/publications',
@@ -27,13 +30,10 @@ const navBarItems = [
 		route: '/externalResources',
 	},
 	{
-		name: 'Руководство пользователя',
-		route: '/guide',
-	},
-	{
 		name: 'Обратная связь',
 		route: '/support',
 	},
+	{ name: 'О проекте', route: '/about' },
 ];
 
 const router = createBrowserRouter([
@@ -112,3 +112,4 @@ const router = createBrowserRouter([
 ]);
 
 export { router };
+

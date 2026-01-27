@@ -8,11 +8,19 @@ interface IHeaderProps {
 }
 
 const MemoHeader: React.FC<IHeaderProps> = ({ isUserMenuVisible }) => {
+	const organizationUrl = process.env.ORGANIZATION_URL || '/';
+
 	return (
 		<div>
 			<div className={s.header}>
 				<div className={s.header__image}>
-					<img style={{ maxWidth: '100%' }} src="/logo.png" />
+					<a
+						href={organizationUrl}
+						className={s.header__logo_link}
+						aria-label="Перейти на сайт организации"
+					>
+						<img style={{ maxWidth: '100%' }} src="/logo.png" alt="Логотип" />
+					</a>
 				</div>
 
 				<div className={s.header__title}>
