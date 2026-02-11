@@ -29,11 +29,17 @@ const Accordions: React.FC = () => {
 	const summarySx = {
 		minHeight: 32,
 		padding: '0 8px',
+		justifyContent: 'center',
+		borderTop: '1px solid #d6dbe6',
+		borderBottom: '1px solid #d6dbe6',
 		'&.Mui-expanded': {
 			minHeight: 32,
 		},
 		'& .MuiAccordionSummary-content': {
 			margin: '6px 0',
+			width: '100%',
+			justifyContent: 'center',
+			textAlign: 'center',
 		},
 		'& .MuiAccordionSummary-content.Mui-expanded': {
 			margin: '6px 0',

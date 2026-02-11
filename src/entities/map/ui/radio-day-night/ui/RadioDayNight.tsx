@@ -72,19 +72,54 @@ const RadioDayNight: React.FC = () => {
                 }
         }, [availableOptions, dispatch, isLoadingAvailability, selectedRadio]);
 
-        const onValueChange = (_: unknown, value: string) => {
-                dispatch(mapActions.setTileOptions({ key: 'photoTime', value }));
-        };
+	const onValueChange = (_: unknown, value: string) => {
+		dispatch(mapActions.setTileOptions({ key: 'photoTime', value }));
+	};
 
-        return (
-                <div className={s.radio_group}>
-                        <RadioGroup value={selectedRadio} onChange={onValueChange}>
-                                {availableOptions.map(({ value, label }) => (
-                                        <FormControlLabel key={value} value={value} control={<Radio />} label={label} />
-                                ))}
-                        </RadioGroup>
-                </div>
-        );
+	const radioGroupSx = {
+		display: 'inline-flex',
+		width: 'fit-content',
+		flexWrap: 'nowrap',
+		alignItems: 'center',
+		justifyContent: 'flex-start',
+		gap: '8px',
+		'& .MuiFormControlLabel-root': {
+			margin: 0,
+			marginLeft: 0,
+			marginRight: 0,
+			padding: 0,
+			display: 'inline-flex',
+			alignItems: 'center',
+			justifyContent: 'flex-start',
+			minHeight: 'auto',
+			flex: '0 0 auto',
+			columnGap: 1,
+		},
+		'& .MuiFormControlLabel-label': {
+			fontSize: 17,
+			lineHeight: 1.1,
+			whiteSpace: 'nowrap',
+			marginLeft: 0,
+		},
+		'& .MuiRadio-root': {
+			padding: 0,
+		},
+	};
+
+	return (
+		<div className={s.radio_group}>
+			<RadioGroup row value={selectedRadio} onChange={onValueChange} sx={radioGroupSx}>
+				{availableOptions.map(({ value, label }) => (
+					<FormControlLabel
+						key={value}
+						value={value}
+						control={<Radio size="small" />}
+						label={label}
+					/>
+				))}
+			</RadioGroup>
+		</div>
+	);
 };
 
 export { RadioDayNight };
