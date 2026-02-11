@@ -21,6 +21,7 @@ import {
 	IMonthlyAvgManyYearsPointRequest,
 	IMonthlyAvgPointRequest,
 	ITileOptions,
+	IChlorophyllAvailableDatesRequest,
 } from '../types';
 
 const mapApi = baseApi.injectEndpoints({
@@ -248,9 +249,26 @@ const mapApi = baseApi.injectEndpoints({
                 }),
 
                 /** CHLOROPHYLL */
+                getChlorophyllAvailableDates: build.query<Array<string>, IChlorophyllAvailableDatesRequest>({
+                        query: (options) => ({
+                                url: 'files/ground_data/get_available_dates_chlorophyll_monthly_avg',
+                                method: 'GET',
+                                params: { ...options },
+                        }),
+                        async onQueryStarted(_, { queryFulfilled, dispatch }) {
+                                try {
+                                        const response = await queryFulfilled;
+                                        if (!response.data.length) {
+                                                dispatch(globalActions.setErrorMessage('Р”Р°РЅРЅС‹Рµ РѕС‚СЃСѓС‚СЃС‚РІСѓСЋС‚'));
+                                        }
+                                } catch (e) {
+                                        if (__IS_DEV__) console.error(e);
+                                }
+                        },
+                }),
                 getChlorophyllTileLink: build.mutation<IGetTileLinkResponse, ITileOptions>({
                         query: (options) => ({
-                                url: 'files/ground_data/get_chlorofill_link',
+                                url: 'files/ground_data/get_chlorophyll_monthly_avg_tiles',
                                 method: 'GET',
                                 params: { ...adaptGetChlorophyllData(options) },
                         }),
@@ -290,7 +308,7 @@ const mapApi = baseApi.injectEndpoints({
 
                 getChlorophyllFile: build.mutation<string, ITileOptions>({
                         query: (options) => ({
-                                url: 'files/ground_data/get_chlorofill_link',
+                                url: 'files/ground_data/get_chlorophyll_monthly_avg_file_link',
                                 method: 'GET',
                                 params: { ...adaptGetChlorophyllData(options) },
                         }),
@@ -366,6 +384,7 @@ const {
 	useGetMonthlyAvgManyYearsTileLinkMutation,
 	useGetMonthlyAvgManyYearsFileMutation,
 	useGetMonthlyAvgManyYearsPointMutation,
+	useGetChlorophyllAvailableDatesQuery,
 	useGetChlorophyllTileLinkMutation,
 	useGetChlorophyllFileMutation,
 	useGetGroundDataAvailableDatesQuery,
@@ -388,6 +407,7 @@ export {
 	useGetMonthlyAvgManyYearsTileLinkMutation,
 	useGetMonthlyAvgManyYearsFileMutation,
 	useGetMonthlyAvgManyYearsPointMutation,
+	useGetChlorophyllAvailableDatesQuery,
 	useGetChlorophyllTileLinkMutation,
 	useGetChlorophyllFileMutation,
 	useGetGroundDataAvailableDatesQuery,

@@ -62,10 +62,16 @@ export interface IGetTileLinkResponse {
         min_temp: number;
 }
 
-export type IChlorophyllRequest = Partial<IBaseSatelliteRequestParams> & {
-        years_id?: number;
-        month_id?: number;
-};
+export interface IChlorophyllAvailableDatesRequest {
+	data_type: string;
+	device: string;
+}
+
+export interface IChlorophyllRequest {
+	data_type: string;
+	device: string;
+	month_id: number;
+}
 
 /**
  * LANDSAT REQUEST TYPES

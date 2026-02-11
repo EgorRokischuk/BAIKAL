@@ -13,7 +13,7 @@ export const adaptRegister = (register: IRegister): IRegisterDTO => ({
 	password: register.password,
 	login: register.login,
 	mail: register.email,
-	phone_number: register.phoneNumber,
+	phone_number: register.phoneNumber.replace(/\D/g, ''),
 });
 
 export interface ILoginDTO {

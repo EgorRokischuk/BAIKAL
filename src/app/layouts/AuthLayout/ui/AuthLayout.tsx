@@ -1,5 +1,6 @@
 import { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
+import clsx from 'classnames';
 import { Footer } from '@/widgets/footer';
 import { Header } from '@/widgets/header';
 import { IMenuItem, Navbar } from '@/widgets/navbar';
@@ -10,16 +11,21 @@ import { AuthLayoutSkeleton } from './AuthLayout.skeleton';
 interface IAuthLayoutProps {
 	showUserMenu?: boolean;
 	navbarItems?: Array<IMenuItem>;
+	showHeader?: boolean;
 }
 
-const AuthLayout: React.FC<IAuthLayoutProps> = ({ showUserMenu = false, navbarItems = [] }) => {
+const AuthLayout: React.FC<IAuthLayoutProps> = ({
+	showUserMenu = false,
+	navbarItems = [],
+	showHeader = true,
+}) => {
 	return (
 		<Suspense fallback={<AuthLayoutSkeleton />}>
 			<section>
-				<Header isUserMenuVisible={showUserMenu} />
-				{!!navbarItems.length && <Navbar menuItems={navbarItems} />}
+				{showHeader && <Header isUserMenuVisible={showUserMenu} />}
+				{showHeader && !!navbarItems.length && <Navbar menuItems={navbarItems} />}
 
-				<main className={s.auth}>
+				<main className={clsx(s.auth, !showHeader && s.authNoHeader)}>
 					<div className={s.container}>
 						<Suspense fallback={<h1>{'loading...'}</h1>}>
 							<Outlet />

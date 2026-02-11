@@ -16,6 +16,11 @@ const GeeDatePicker: React.FC<ITileDatePickerProps> = ({ dateKey = 'dateStart', 
 	const dispatch = useAppDispatch();
 	const isLoading = useAppSelector(({ global }) => global.isLoading);
 	const date = useAppSelector(getGeeDateByKey(dateKey));
+	const dateStart = useAppSelector(getGeeDateByKey('dateStart'));
+	const dateEnd = useAppSelector(getGeeDateByKey('dateEnd'));
+
+	const minDate = dateKey === 'dateEnd' && dateStart ? dateStart : dayjs('1990-01-01');
+	const maxDate = dateKey === 'dateStart' && dateEnd ? dateEnd : dayjs();
 
 	return (
 		<LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="ru">
@@ -23,8 +28,8 @@ const GeeDatePicker: React.FC<ITileDatePickerProps> = ({ dateKey = 'dateStart', 
 				{...props}
 				disabled={isLoading}
 				value={date ? dayjs(date, 'DD.MM.YYYY') : null}
-				onChange={(date) => {
-					dispatch(geeActions.setDate({ key: dateKey, value: date }));
+				onChange={(nextDate) => {
+					dispatch(geeActions.setDate({ key: dateKey, value: nextDate }));
 				}}
 				slotProps={{
 					textField: {
@@ -32,6 +37,12 @@ const GeeDatePicker: React.FC<ITileDatePickerProps> = ({ dateKey = 'dateStart', 
 							'& .MuiInputBase-input': {
 								fontSize: '16px',
 							},
+						},
+						inputProps: {
+							draggable: false,
+							onDragStart: (event) => event.preventDefault(),
+							onDrop: (event) => event.preventDefault(),
+							onDragOver: (event) => event.preventDefault(),
 						},
 					},
 					desktopPaper: {
@@ -44,8 +55,8 @@ const GeeDatePicker: React.FC<ITileDatePickerProps> = ({ dateKey = 'dateStart', 
 						},
 					},
 				}}
-				minDate={dayjs('1990-01-01')}
-				maxDate={dayjs(Date.now())}
+				minDate={minDate}
+				maxDate={maxDate}
 			/>
 		</LocalizationProvider>
 	);

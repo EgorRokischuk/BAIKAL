@@ -1,12 +1,31 @@
-$bg-img: url('../../../../shared/assets/gallery/auth_bg-color_blur.png');
+$auth-map: url('../../../../shared/assets/gallery/auth_bg_map.png');
+$auth-overlay: linear-gradient(
+    140deg,
+    rgba(8, 18, 32, 0.46) 0%,
+    rgba(12, 28, 48, 0.46) 45%,
+    rgba(20, 44, 72, 0.45) 100%
+);
+$auth-glow: radial-gradient(
+    120% 120% at 0% 0%,
+    rgba(25, 105, 203, 0.125) 0%,
+    rgba(4, 10, 20, 0) 60%
+);
 
 .auth {
     display: flex;
-    height: calc(100vh - 70px);
+    min-height: calc(100vh - 70px);
     max-height: 100%;
-    background-image: $bg-img;
+    background-image: $auth-overlay, $auth-glow, $auth-map;
+    background-color: #0b1e33;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
-  
+
+.authNoHeader {
+    min-height: 100vh;
+}
+
 .container {
-	width: 100%;
+    width: 100%;
 }

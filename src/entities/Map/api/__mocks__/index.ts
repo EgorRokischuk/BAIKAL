@@ -33,6 +33,14 @@ const mapGetMonthlyAvgManyYearsAvailableDates = http.get(
 	},
 );
 
+const mapGetChlorophyllAvailableDates = http.get(
+	url + '/files/ground_data/get_available_dates_chlorophyll_monthly_avg',
+	async () => {
+		await delay(3000);
+		return HttpResponse.json(['2024-06', '2024-07', '2024-08'], { status: 200 });
+	},
+);
+
 const mapGetTileLink = http.get(
 	new RegExp(String.raw`${url}/files/satellite_data/get_.+_tiles`),
 	async () => {
@@ -97,17 +105,30 @@ const mapGetGroundDataPoints = http.get(url + '/files/ground_data/get_points', a
         });
 });
 
-const mapGetChlorophyllLink = http.get(url + '/files/ground_data/get_chlorofill_link', async () => {
-        await delay(3000);
-        return HttpResponse.json(
-                {
-                        link: '/u/product/chlorophyll/tiles/{z}/{x}/{-y}.png',
-                        min_temp: 0,
-                        max_temp: 30,
-                },
-                { status: 200 },
-        );
-});
+const mapGetChlorophyllTiles = http.get(
+        url + '/files/ground_data/get_chlorophyll_monthly_avg_tiles',
+        async () => {
+                await delay(3000);
+                return HttpResponse.json(
+                        {
+                                link: '/u/product/chlorophyll/tiles/{z}/{x}/{-y}.png',
+                                min_temp: 0,
+                                max_temp: 30,
+                        },
+                        { status: 200 },
+                );
+        },
+);
+
+const mapGetChlorophyllFile = http.get(
+        url + '/files/ground_data/get_chlorophyll_monthly_avg_file_link',
+        async () => {
+                await delay(3000);
+                return HttpResponse.json('/u/product/chlorophyll/chlorophyll_monthly_avg.tif', {
+                        status: 200,
+                });
+        },
+);
 
 export const mapHandlers = [
         mapGetLandsatAvailableDates,
@@ -120,5 +141,7 @@ export const mapHandlers = [
         mapGetGroundDataSources,
         mapGetGroundDataPoints,
         mapGetGroundDataAvailableDates,
-        mapGetChlorophyllLink,
+        mapGetChlorophyllAvailableDates,
+        mapGetChlorophyllTiles,
+        mapGetChlorophyllFile,
 ];

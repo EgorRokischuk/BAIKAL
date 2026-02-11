@@ -8,6 +8,7 @@ import {
 	ILandsatAvailableDatesRequest,
 	IMonthlyAvgAvailableDatesRequest,
 	IMonthlyAvgManyYearsAvailableDatesRequest,
+	IChlorophyllAvailableDatesRequest,
 	ITileOptions,
 } from '@/entities/Map/types';
 
@@ -35,4 +36,11 @@ export const adaptGetMonthlyAvgManyYearsAvailableDates = (
 	device: deviceDictionary[obj.source],
 	parameter: parameterDictionary[obj.parameter],
 	time_of_day: photoTimeDictionary[obj.photoTime],
+});
+
+export const adaptGetChlorophyllAvailableDates = (
+	obj: ITileOptions,
+): IChlorophyllAvailableDatesRequest => ({
+	data_type: typeDictionary[obj.productType],
+	device: deviceDictionary[obj.source],
 });

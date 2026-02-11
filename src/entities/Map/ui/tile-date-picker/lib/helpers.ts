@@ -3,6 +3,7 @@ import {
 	useGetLandsatDatesQuery,
 	useGetMonthlyAvgDatesQuery,
 	useGetMonthlyAvgManyYearsDatesQuery,
+	useGetChlorophyllAvailableDatesQuery,
 } from '@/entities/Map/api/mapApi';
 import { getTileOptions } from '@/entities/Map/model/selectors';
 import { useAppSelector } from '@/shared/hooks/useAppSelector';
@@ -10,11 +11,8 @@ import {
 	adaptGetLandsatAvailableDates,
 	adaptGetMonthlyAvgAvailableDates,
 	adaptGetMonthlyAvgManyYearsAvailableDates,
+	adaptGetChlorophyllAvailableDates,
 } from './mappers';
-
-const CHLOROPHYLL_AVAILABLE_DATES = [
-        //'2024-06-17', // Временно для тестирования отображения
-];
 
 export const useDateHelper = (type: string) => {
         const isShouldDisableYear = ['landsat', 'monthlyAvg', 'groundData', 'chlorophyll'].includes(type);
@@ -25,7 +23,7 @@ export const useDateHelper = (type: string) => {
                 'groundData',
                 'chlorophyll',
         ].includes(type);
-        const isShouldDisableDay = ['landsat', 'groundData', 'chlorophyll'].includes(type);
+        const isShouldDisableDay = ['landsat', 'groundData'].includes(type);
 
 	return { isShouldDisableYear, isShouldDisableMonth, isShouldDisableDay };
 };
@@ -50,16 +48,17 @@ export const useGetAvailableDate = (type: string) => {
 			skip: tileOptions.type !== 'monthlyAvgManyYears' || !tileOptions.photoTime,
 		});
 
+        const { data: chlorophyll, isFetching: isChlorophyllLoading } =
+                useGetChlorophyllAvailableDatesQuery(adaptGetChlorophyllAvailableDates(tileOptions), {
+                        skip: tileOptions.type !== 'chlorophyll',
+                });
+
         const { data: groundData, isFetching: isGroundDataLoading } = useGetGroundDataAvailableDatesQuery(
                 undefined,
                 {
                         skip: tileOptions.type !== 'groundData',
                 },
         );
-
-        if (type === 'chlorophyll') {
-                return { data: CHLOROPHYLL_AVAILABLE_DATES, isLoading: false };
-        }
 
 		switch (type) {
 		case 'landsat':
@@ -68,6 +67,8 @@ export const useGetAvailableDate = (type: string) => {
 				return { data: monthlyAvg, isLoading: isMonthlyAvgLoading };
 		case 'monthlyAvgManyYears':
 			return { data: monthlyAvgManyYears, isLoading: isMonthlyAvgManyYearsLoading };
+		case 'chlorophyll':
+			return { data: chlorophyll, isLoading: isChlorophyllLoading };
 		case 'groundData':
 			return { data: groundData, isLoading: isGroundDataLoading };
 		default:

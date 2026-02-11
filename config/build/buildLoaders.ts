@@ -58,7 +58,7 @@ export function buildLoaders({ isDev }: IBuildOptions): ModuleOptions['rules'] {
 					svgoConfig: {
 						plugins: [
 							{
-								name: 'converColors',
+								name: 'convertColors',
 								params: {
 									currentColor: true,
 								},

@@ -64,15 +64,9 @@ export const adaptGetMonthlyAvgManyYearsData = (
         month_id: Number(dayjs(obj.startDate).format('MM')),
 });
 
-/** CHLOROFILL */
-export const adaptGetChlorophyllData = (_obj: ITileOptions): IChlorophyllRequest => ({
-        // Временно для тестирования отображения: сервер пока не принимает параметры.
+/** CHLOROPHYLL */
+export const adaptGetChlorophyllData = (obj: ITileOptions): IChlorophyllRequest => ({
+	data_type: typeDictionary[obj.productType],
+	device: deviceDictionary[obj.source],
+	month_id: Number(dayjs(obj.startDate).format('MM')),
 });
-
-/*export const adaptGetChlorophyllData = (obj: ITileOptions): IChlorophyllRequest => ({
-        data_type: typeDictionary[obj.productType],
-        device: deviceDictionary[obj.source] ?? obj.source,
-        parameter: parameterDictionary[obj.parameter],
-        years_id: obj.startDate ? Number(dayjs(obj.startDate).format('YYYY')) : undefined,
-        month_id: obj.startDate ? Number(dayjs(obj.startDate).format('MM')) : undefined,
-});*/

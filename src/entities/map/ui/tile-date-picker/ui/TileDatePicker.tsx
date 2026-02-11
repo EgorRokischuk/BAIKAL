@@ -27,6 +27,7 @@ const TileDatePicker: React.FC<ITileDatePickerProps> = ({
 
         const { isShouldDisableYear, isShouldDisableMonth, isShouldDisableDay } = useDateHelper(type);
         const { data, isLoading } = useGetAvailableDate(type);
+        const isMonthOnly = type === 'chlorophyll';
 
         const isDisabled = isLoading || (type !== 'groundData' && !(data || []).length);
 
@@ -35,6 +36,9 @@ const TileDatePicker: React.FC<ITileDatePickerProps> = ({
                         <DatePicker
                                 {...props}
                                 disabled={isDisabled}
+				views={isMonthOnly ? ['year', 'month'] : undefined}
+				openTo={isMonthOnly ? 'month' : undefined}
+				format={isMonthOnly ? 'MM.YYYY' : undefined}
 				value={date ? dayjs(date, 'DD.MM.YYYY') : null}
 				onChange={(date) => {
 					dispatch(mapActions.setMapDate({ key: dateKey, value: date }));

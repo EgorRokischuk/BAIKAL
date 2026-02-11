@@ -93,7 +93,7 @@ const router = createBrowserRouter([
 				path: ROUTES.auth.route,
 				element: (
 					<UnAuthRoute>
-						<AuthLayout />
+						<AuthLayout showHeader={false} />
 					</UnAuthRoute>
 				),
 				children: [

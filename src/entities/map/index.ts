@@ -13,6 +13,7 @@ export {
 	useGetMonthlyAvgManyYearsTileLinkMutation,
 	useGetMonthlyAvgManyYearsFileMutation,
 	useGetMonthlyAvgManyYearsPointMutation,
+	useGetChlorophyllAvailableDatesQuery,
 	useGetChlorophyllTileLinkMutation,
 	useGetChlorophyllFileMutation,
 	useGetGroundDataAvailableDatesQuery,

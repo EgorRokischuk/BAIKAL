@@ -15,8 +15,9 @@ export const registerSchema = z
 		phoneNumber: z
 			.string()
 			.min(1, { message: 'Обязательное поле' })
-			.max(11, { message: 'Номер телефона должен содержать 11 цифр' })
-			.regex(/^[0-9]{1,11}$/, 'Номер телефона должен состоять только из цифр'),
+			.refine((value) => value.replace(/\D/g, '').length === 11, {
+				message: 'Номер телефона должен содержать 11 цифр',
+			}),
 		password: z
 			.string()
 			.min(8, { message: 'Длина пароля не должна составлять менее 8 символов' })
