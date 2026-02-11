@@ -65,6 +65,7 @@ export interface IGetTileLinkResponse {
 export interface IChlorophyllAvailableDatesRequest {
 	data_type: string;
 	device: string;
+	parameter: string;
 }
 
 export interface IChlorophyllRequest {

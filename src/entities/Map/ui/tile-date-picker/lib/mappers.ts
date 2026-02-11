@@ -43,4 +43,5 @@ export const adaptGetChlorophyllAvailableDates = (
 ): IChlorophyllAvailableDatesRequest => ({
 	data_type: typeDictionary[obj.productType],
 	device: deviceDictionary[obj.source],
+	parameter: parameterDictionary[obj.parameter],
 });

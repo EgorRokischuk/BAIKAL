@@ -34,7 +34,7 @@ const mapGetMonthlyAvgManyYearsAvailableDates = http.get(
 );
 
 const mapGetChlorophyllAvailableDates = http.get(
-	url + '/files/ground_data/get_available_dates_chlorophyll_monthly_avg',
+	url + '/files/ground_data/get_available_dates_chlorophyll',
 	async () => {
 		await delay(3000);
 		return HttpResponse.json(['2024-06', '2024-07', '2024-08'], { status: 200 });

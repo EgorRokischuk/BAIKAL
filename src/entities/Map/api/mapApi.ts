@@ -251,7 +251,7 @@ const mapApi = baseApi.injectEndpoints({
                 /** CHLOROPHYLL */
                 getChlorophyllAvailableDates: build.query<Array<string>, IChlorophyllAvailableDatesRequest>({
                         query: (options) => ({
-                                url: 'files/ground_data/get_available_dates_chlorophyll_monthly_avg',
+                                url: 'files/ground_data/get_available_dates_chlorophyll',
                                 method: 'GET',
                                 params: { ...options },
                         }),
