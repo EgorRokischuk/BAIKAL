@@ -36,6 +36,8 @@ const TileDatePicker: React.FC<ITileDatePickerProps> = ({
 	const disableFloatingLabel = type === 'monthlyAvg' || type === 'monthlyAvgManyYears';
 
         const isDisabled = isLoading || (type !== 'groundData' && !(data || []).length);
+	const groundStartDate = groundDataOptions.startDate ? dayjs(groundDataOptions.startDate) : null;
+	const groundEndDate = groundDataOptions.endDate ? dayjs(groundDataOptions.endDate) : null;
 	const resolvedViews = propViews ?? (isMonthOnly ? ['year', 'month'] : undefined);
 	const resolvedOpenTo =
 		propOpenTo ??
@@ -55,6 +57,7 @@ const TileDatePicker: React.FC<ITileDatePickerProps> = ({
 			: undefined);
 	const placeholderLabel =
 		disableFloatingLabel && typeof labelProp === 'string' ? labelProp : undefined;
+	const preventDrag = type === 'groundData';
 
         return (
                 <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="ru">
@@ -77,6 +80,19 @@ const TileDatePicker: React.FC<ITileDatePickerProps> = ({
 						InputLabelProps: {
 							...(slotPropsProp?.textField?.InputLabelProps ?? {}),
 							shrink: disableFloatingLabel ? false : slotPropsProp?.textField?.InputLabelProps?.shrink,
+						},
+						inputProps: {
+							...(slotPropsProp?.textField?.inputProps ?? {}),
+							draggable: preventDrag ? false : slotPropsProp?.textField?.inputProps?.draggable,
+							onDragStart: preventDrag
+								? (event) => event.preventDefault()
+								: slotPropsProp?.textField?.inputProps?.onDragStart,
+							onDrop: preventDrag
+								? (event) => event.preventDefault()
+								: slotPropsProp?.textField?.inputProps?.onDrop,
+							onDragOver: preventDrag
+								? (event) => event.preventDefault()
+								: slotPropsProp?.textField?.inputProps?.onDragOver,
 						},
 						sx: {
 							'& .MuiInputBase-input': {
@@ -108,11 +124,15 @@ const TileDatePicker: React.FC<ITileDatePickerProps> = ({
 					isShouldDisableDay && !(data ?? []).includes(convertToDateInput(v))
 				}
 				minDate={
-							type === 'groundData' && dateKey === 'endDate'
-									? dayjs(groundDataOptions.startDate)
-									: dayjs((data ?? [])[0] ?? '1990-01-01')
-						}
-				maxDate={dayjs(`${dayjs(Date.now()).year()}-12-31`)}
+					type === 'groundData' && dateKey === 'endDate' && groundStartDate
+						? groundStartDate
+						: dayjs((data ?? [])[0] ?? '1990-01-01')
+				}
+				maxDate={
+					type === 'groundData' && dateKey === 'startDate' && groundEndDate
+						? groundEndDate
+						: dayjs(`${dayjs(Date.now()).year()}-12-31`)
+				}
 			/>
 		</LocalizationProvider>
 	);
