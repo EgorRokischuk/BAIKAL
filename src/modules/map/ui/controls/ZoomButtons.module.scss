@@ -1,0 +1,23 @@
+.block {
+  position: absolute;
+  z-index: 600;
+  right: 12px;
+  top: 12px;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid #cbd9ec;
+  border-radius: 10px;
+  padding: 4px;
+  max-width: calc(100% - 16px);
+}
+
+.disabled {
+  opacity: 0.66;
+}
+
+@media (max-width: 760px) {
+  .block {
+    right: 8px;
+    top: 8px;
+    padding: 3px;
+  }
+}

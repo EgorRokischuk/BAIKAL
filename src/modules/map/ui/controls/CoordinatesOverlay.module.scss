@@ -1,0 +1,29 @@
+.block {
+  position: absolute;
+  z-index: 600;
+  right: 12px;
+  bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid #cbd9ec;
+  border-radius: 8px;
+  padding: 6px 8px;
+  color: #29435f;
+  font-size: 0.75rem;
+  font-weight: 700;
+  pointer-events: none;
+  max-width: calc(100% - 16px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (max-width: 760px) {
+  .block {
+    right: 8px;
+    bottom: 10px;
+    padding: 4px 6px;
+    font-size: 0.7rem;
+  }
+}

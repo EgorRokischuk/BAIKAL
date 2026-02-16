@@ -1,0 +1,83 @@
+.page {
+  width: 100%;
+  min-height: 100%;
+  display: grid;
+  gap: 12px;
+  padding: 14px;
+}
+
+.card {
+  width: 100%;
+  padding: 16px;
+  border-radius: 18px;
+  border: 1px solid #cfdeef;
+  background: #f8fbff;
+  box-shadow: 0 11px 22px rgba(22, 52, 93, 0.1);
+}
+
+.historyWrap {
+  margin-top: 10px;
+  overflow-x: auto;
+  border: 1px solid #d4e2f2;
+  border-radius: 12px;
+  background: #fbfdff;
+}
+
+.historyTable {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 560px;
+
+  th,
+  td {
+    padding: 10px 12px;
+    text-align: left;
+    border-bottom: 1px solid #cadcf0;
+    font-size: 0.84rem;
+  }
+
+  th {
+    background: #f3f8ff;
+    color: #20496f;
+    border-bottom: 2px solid #c6d8ee;
+    font-weight: 800;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+  }
+
+  tbody tr:nth-child(even) {
+    background: #f7fbff;
+  }
+
+  tbody tr:hover {
+    background: #edf4ff;
+  }
+
+  tbody tr:last-child td {
+    border-bottom: 0;
+  }
+}
+
+@media (max-width: 760px) {
+  .page {
+    padding: 8px;
+    gap: 10px;
+  }
+
+  .card {
+    border-radius: 14px;
+    padding: 12px;
+  }
+
+  .historyTable {
+    min-width: 0;
+
+    th,
+    td {
+      padding: 8px 9px;
+      font-size: 0.78rem;
+      white-space: normal;
+      word-break: break-word;
+    }
+  }
+}

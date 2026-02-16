@@ -1,0 +1,51 @@
+.panel {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+
+.content {
+  border: 1px solid var(--panel-border);
+  border-radius: 10px;
+  background: #fff;
+  padding: 8px;
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+
+.actions {
+  margin-top: 4px;
+  flex-wrap: wrap;
+}
+
+.opacityBox {
+  margin-top: 4px;
+  display: grid;
+  gap: 4px;
+}
+
+.compactTabs {
+  min-height: 34px;
+
+  :global(.MuiTab-root) {
+    min-height: 34px;
+    padding: 4px 8px;
+    font-size: 0.76rem;
+    text-transform: none;
+    font-weight: 700;
+  }
+
+  :global(.MuiTabs-indicator) {
+    height: 2px;
+  }
+}
+
+.baseMapMenuTrigger {
+  border: 1px solid #c8d9ed;
+  border-radius: 8px;
+  width: 30px;
+  height: 30px;
+  color: #2f5a8b;
+  background: #fff;
+}

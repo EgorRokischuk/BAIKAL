@@ -1,0 +1,21 @@
+﻿<svg width="1200" height="720" viewBox="0 0 1200 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="720" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="hsl(213, 62%, 46%)"/>
+      <stop offset="1" stop-color="hsl(227, 74%, 27%)"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1020 112) rotate(140) scale(540 480)">
+      <stop stop-color="white" stop-opacity="0.42"/>
+      <stop offset="1" stop-color="white" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="720" fill="url(#bg)"/>
+  <rect width="1200" height="720" fill="url(#glow)"/>
+  <g opacity="0.32">
+    <path d="M-30 610C130 520 246 503 340 524C447 548 556 623 694 637C845 652 1022 565 1230 425" stroke="white" stroke-width="10"/>
+    <path d="M-40 670C118 581 231 566 325 585C433 606 545 676 690 689C846 703 1025 621 1242 476" stroke="white" stroke-width="6"/>
+  </g>
+  <rect x="58" y="58" width="320" height="66" rx="14" fill="rgba(255,255,255,0.16)"/>
+  <text x="84" y="101" fill="white" font-family="Segoe UI, Arial, sans-serif" font-size="34" font-weight="700">Baikal Resource 08</text>
+  <text x="84" y="654" fill="rgba(255,255,255,0.9)" font-family="Segoe UI, Arial, sans-serif" font-size="30" font-weight="500">Информационный портал</text>
+</svg>

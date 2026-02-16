@@ -1,0 +1,50 @@
+.container {
+  min-height: clamp(420px, 66vh, 720px);
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+.card {
+  width: min(100%, 720px);
+  border-radius: 20px;
+  border: 1px solid var(--panel-border);
+  background:
+    radial-gradient(circle at 8% 12%, rgba(27, 96, 192, 0.12), transparent 44%),
+    radial-gradient(circle at 92% 84%, rgba(27, 96, 192, 0.1), transparent 50%),
+    rgba(255, 255, 255, 0.94);
+  box-shadow: var(--panel-shadow);
+  padding: clamp(20px, 4vw, 38px);
+}
+
+.code {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 88px;
+  height: 40px;
+  padding: 0 16px;
+  border-radius: 999px;
+  background: rgba(31, 79, 147, 0.1);
+  color: var(--accent);
+  font-weight: 800;
+  letter-spacing: 0.05em;
+}
+
+.title {
+  margin-top: 18px;
+  font-weight: 800;
+  line-height: 1.15;
+}
+
+.description {
+  margin-top: 10px;
+  color: var(--text-muted);
+  max-width: 56ch;
+}
+
+.actions {
+  margin-top: 28px;
+  display: flex;
+  gap: 12px;
+}

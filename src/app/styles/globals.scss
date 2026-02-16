@@ -1,0 +1,69 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
+@import 'leaflet/dist/leaflet.css';
+
+:root {
+  --bg-gradient: radial-gradient(circle at 12% 20%, #dbe8f7 0%, #eef3f9 35%, #f6f8fb 100%);
+  --panel-bg: rgba(255, 255, 255, 0.9);
+  --panel-border: #d7e2ef;
+  --panel-shadow: 0 14px 34px rgba(30, 62, 105, 0.1);
+  --text-main: #1d2b3a;
+  --text-muted: #5d6b7d;
+  --accent: #1f4f93;
+  --accent-soft: #cfe0f8;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-width: 320px;
+  font-family: 'Manrope', 'Segoe UI', sans-serif;
+  color: var(--text-main);
+  background: var(--bg-gradient);
+  overflow-x: hidden;
+  text-rendering: optimizeLegibility;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img,
+svg,
+video,
+canvas {
+  max-width: 100%;
+  height: auto;
+}
+
+:where(main, section, article, aside, header, footer, .MuiBox-root, .MuiPaper-root, .MuiStack-root) {
+  min-width: 0;
+}
+
+:where(p, h1, h2, h3, h4, h5, h6, span, a, li, .MuiTypography-root) {
+  overflow-wrap: anywhere;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+.leaflet-container {
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+}

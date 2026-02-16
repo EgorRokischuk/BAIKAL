@@ -1,0 +1,95 @@
+.page {
+  display: grid;
+  gap: 14px;
+  width: 100%;
+  padding: 14px;
+}
+
+.card {
+  padding: 22px;
+  border-radius: 18px;
+  background: #f8fbff;
+  border: 1px solid #cfdeef;
+  box-shadow: 0 12px 24px rgba(24, 54, 95, 0.11);
+  width: 100%;
+}
+
+.header {
+  margin-bottom: 16px;
+  display: grid;
+  gap: 6px;
+}
+
+.title {
+  margin: 0;
+  font-size: 1.66rem;
+  line-height: 1.2;
+}
+
+.subtitle {
+  margin: 0;
+  color: var(--text-muted);
+  max-width: min(940px, 100%);
+}
+
+.section + .section {
+  margin-top: 12px;
+}
+
+.section {
+  border: 1px solid #d4e2f2;
+  background: #fbfdff;
+  border-radius: 14px;
+  padding: 12px 14px;
+}
+
+.sectionTitle {
+  margin: 0 0 8px;
+  font-size: 1.1rem;
+}
+
+.sectionSubtitle {
+  margin: 0 0 6px;
+  font-size: 0.96rem;
+  color: #3f5c7d;
+}
+
+.text {
+  margin: 0 0 8px;
+  line-height: 1.55;
+}
+
+.sectionList,
+.list {
+  margin: 0;
+  display: grid;
+  gap: 5px;
+  color: var(--text-main);
+  line-height: 1.52;
+  padding-left: 1.16rem;
+}
+
+.menuItemTitle {
+  font-weight: 800;
+}
+
+@media (max-width: 760px) {
+  .page {
+    padding: 8px;
+    gap: 10px;
+  }
+
+  .card {
+    border-radius: 14px;
+    padding: 14px;
+  }
+
+  .title {
+    font-size: 1.34rem;
+  }
+
+  .section {
+    border-radius: 12px;
+    padding: 10px 11px;
+  }
+}

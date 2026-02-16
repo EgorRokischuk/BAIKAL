@@ -1,0 +1,211 @@
+﻿.page {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  min-height: 0;
+  overflow: hidden;
+  min-width: 0;
+}
+
+.mapCard {
+  border-radius: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  overflow: hidden;
+}
+
+.panelCard {
+  position: absolute;
+  z-index: 1200;
+  top: 12px;
+  left: 12px;
+  width: min(392px, calc(100% - 24px));
+  max-height: calc(100% - 24px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  border-radius: 12px;
+  padding: 8px;
+  border: 1px solid var(--panel-border);
+  transition: transform 0.24s ease, opacity 0.2s ease;
+  min-width: 0;
+}
+
+.panelOpened {
+  transform: translateX(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.panelClosed {
+  transform: translateX(calc(-100% - 24px));
+  opacity: 0;
+  pointer-events: none;
+}
+
+.panelForceHidden {
+  display: none !important;
+}
+
+.toggleButton {
+  position: absolute;
+  z-index: 1250;
+  top: 12px;
+  border: 1px solid var(--panel-border);
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: var(--panel-shadow);
+}
+
+.toggleOpened {
+  left: calc(min(392px, calc(100% - 24px)) + 16px);
+}
+
+.toggleClosed {
+  left: 12px;
+}
+
+.timelineOverlay {
+  position: absolute;
+  z-index: 1260;
+  top: 12px;
+  left: 12px;
+  max-width: min(410px, calc(100% - 24px));
+  padding: 8px 10px;
+  border-radius: 11px;
+  border: 1px solid rgba(174, 197, 228, 0.95);
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 10px 24px rgba(19, 52, 97, 0.16);
+  backdrop-filter: blur(2px);
+}
+
+.timelineDate {
+  color: #1e4774;
+  font-size: 12px;
+  line-height: 1.3;
+  font-weight: 800;
+}
+
+.timelineProgress {
+  margin-top: 3px;
+  color: #4c6685;
+  font-size: 11px;
+  line-height: 1.3;
+  font-weight: 600;
+}
+
+.timelineActions {
+  margin-top: 6px;
+}
+
+.timelinePrimary,
+.timelineFinish,
+.timelineStep {
+  min-height: 30px;
+  text-transform: none;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.timelinePrimary {
+  background: linear-gradient(145deg, #2a63b2 0%, #184a90 100%);
+
+  &:global(.Mui-disabled) {
+    color: #365c87;
+    background: #d6e6f9;
+    border: 1px solid #b7cde9;
+  }
+}
+
+.timelineFinish {
+  color: #24496f;
+  border-color: #9fbad9;
+  background: rgba(255, 255, 255, 0.82);
+}
+
+.timelineStep {
+  color: #29507a;
+  border-color: #9fbad9;
+  background: rgba(255, 255, 255, 0.86);
+}
+
+.mapSignature {
+  position: absolute;
+  z-index: 1100;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 8px;
+  padding: 3px 10px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.74);
+  border: 1px solid rgba(200, 214, 232, 0.9);
+  color: #4c5f75;
+  font-size: 11px;
+  line-height: 1.3;
+  text-align: center;
+  white-space: nowrap;
+  backdrop-filter: blur(2px);
+  max-width: calc(100% - 16px);
+}
+
+@media (max-width: 1024px) {
+  .page {
+    height: auto;
+    min-height: 0;
+    display: grid;
+    gap: 10px;
+  }
+
+  .mapCard {
+    min-height: min(74svh, 860px);
+  }
+
+  .panelCard {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 100%;
+    max-height: none;
+    transform: none;
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .toggleButton,
+  .mapSignature {
+    display: none;
+  }
+}
+
+@media (max-width: 520px) {
+  .panelCard {
+    width: calc(100% - 16px);
+    max-height: calc(100% - 16px);
+    top: 8px;
+    left: 8px;
+    padding: 6px;
+  }
+
+  .toggleButton {
+    top: 8px;
+  }
+
+  .toggleOpened {
+    left: calc(100% - 52px);
+  }
+
+  .timelineOverlay {
+    top: 8px;
+    left: 8px;
+    max-width: calc(100% - 16px);
+    padding: 7px 8px;
+  }
+
+  .timelinePrimary,
+  .timelineFinish,
+  .timelineStep {
+    min-height: 28px;
+    font-size: 11px;
+  }
+}

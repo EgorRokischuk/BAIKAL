@@ -1,0 +1,56 @@
+.page {
+  display: grid;
+  width: 100%;
+  place-items: start stretch;
+  padding: 14px;
+}
+
+.card {
+  width: 100%;
+  padding: 18px;
+  border-radius: 18px;
+  border: 1px solid #d0e0f3;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(34, 97, 178, 0.16) 0, transparent 34%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(242, 248, 255, 0.97));
+  box-shadow: 0 12px 25px rgba(24, 57, 102, 0.11);
+}
+
+.fileField {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  border: 1px solid #c8dbf2;
+  border-radius: 12px;
+  padding: 8px 10px;
+  background: linear-gradient(150deg, #f8fbff, #f2f8ff);
+}
+
+.hiddenInput {
+  display: none;
+}
+
+.fileName {
+  flex: 1;
+  min-width: 0;
+}
+
+@media (max-width: 720px) {
+  .page {
+    padding: 8px;
+  }
+
+  .card {
+    border-radius: 14px;
+    padding: 12px;
+  }
+
+  .fileField {
+    flex-wrap: wrap;
+  }
+
+  .fileName {
+    width: 100%;
+  }
+}

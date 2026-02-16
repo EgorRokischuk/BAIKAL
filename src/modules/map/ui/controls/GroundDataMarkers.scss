@@ -1,0 +1,20 @@
+.ground-data-marker-icon-soft {
+  filter: saturate(0.78) brightness(1.06);
+  opacity: 0.94;
+}
+
+.marker-cluster-small,
+.marker-cluster-medium,
+.marker-cluster-large {
+  background: rgba(219, 104, 104, 0.24);
+}
+
+.marker-cluster-small div,
+.marker-cluster-medium div,
+.marker-cluster-large div {
+  color: #ffffff;
+  border: 2px solid rgba(255, 255, 255, 0.95);
+  background: linear-gradient(150deg, #df8c8c 0%, #cf5757 56%, #bb4747 100%);
+  font-weight: 800;
+  box-shadow: 0 8px 20px rgba(170, 66, 66, 0.24);
+}

@@ -1,0 +1,42 @@
+.chatCard {
+  border: 1px solid #d4e2f2;
+  border-radius: 18px;
+  background: #fbfdff;
+  box-shadow: 0 11px 22px rgba(24, 57, 100, 0.11);
+  padding: 14px;
+  display: grid;
+  gap: 10px;
+}
+
+.messages {
+  display: grid;
+  gap: 8px;
+  max-height: 360px;
+  overflow: auto;
+  padding-right: 4px;
+}
+
+.message {
+  border-radius: 12px;
+  padding: 9px 11px;
+  max-width: min(92%, 720px);
+  white-space: pre-wrap;
+  line-height: 1.45;
+}
+
+.assistant {
+  justify-self: start;
+  background: #eef5ff;
+  border: 1px solid #bcd3ec;
+}
+
+.user {
+  justify-self: end;
+  background: #f3f6fa;
+  border: 1px solid #d7e0ea;
+}
+
+.footerNote {
+  font-size: 11px;
+  color: var(--text-muted);
+}
