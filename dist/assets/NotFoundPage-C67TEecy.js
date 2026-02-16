@@ -1,0 +1,1 @@
+import{j as o}from"./index-Ck6Yw7HL.js";import{E as r}from"./ErrorPageView-Cr91GpG0.js";const i=()=>o.jsx(r,{code:"404",title:"Страница не найдена",description:"Похоже, адрес введён неверно или страница была перемещена. Перейдите на главную и продолжите работу с сервисом."});export{i as NotFoundPage};

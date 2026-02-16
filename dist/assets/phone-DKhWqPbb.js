@@ -1,0 +1,1 @@
+const a=s=>s.replace(/\D/g,""),f=s=>{const c=a(s);if(!c)return"";let t=c;t.startsWith("8")?t=`7${t.slice(1)}`:t.startsWith("9")&&(t=`7${t}`),t=t.slice(0,11);const o=t.slice(0,1),e=t.slice(1,4),n=t.slice(4,7),r=t.slice(7,9),l=t.slice(9,11);let i=`+${o}`;return e&&(i+=` (${e}`,e.length===3&&(i+=")")),n&&(i+=` ${n}`),r&&(i+=` - ${r}`),l&&(i+=` - ${l}`),i};export{f};
