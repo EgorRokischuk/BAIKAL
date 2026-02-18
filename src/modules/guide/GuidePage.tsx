@@ -1,12 +1,12 @@
 import { Box, Paper } from '@mui/material';
 import { useAppSelector } from '@/store/hooks';
-import { selectAccessToken } from '@/store/slices/authSelectors';
+import { selectProfile } from '@/store/slices/authSelectors';
 import { GuideAssistantChat } from './GuideAssistantChat';
 import styles from './GuidePage.module.scss';
 
 export const GuidePage = () => {
-  const accessToken = useAppSelector(selectAccessToken);
-  const isAuthorized = Boolean(accessToken);
+  const profile = useAppSelector(selectProfile);
+  const isAuthorized = Boolean(profile);
 
   return (
     <Box className={styles.page}>

@@ -82,7 +82,7 @@ export const ExternalResourcesPage = () => {
       })
       .filter((item): item is CarouselCardModel & { distance: number } => item !== null)
       .sort((a, b) => a.distance - b.distance)
-      .map(({ distance: _distance, ...item }) => item);
+      .map(({ position, resourceIndex }) => ({ position, resourceIndex }));
   }, [activeIndex, resources]);
 
   const goToPrev = () => {

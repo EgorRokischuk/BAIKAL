@@ -98,6 +98,14 @@ export const UserMenu = () => {
             >
               История скачиваний
             </MenuItem>
+            <MenuItem
+              onClick={() => {
+                navigate(ROUTES.statistics);
+                setAnchor(null);
+              }}
+            >
+              Статистика
+            </MenuItem>
             {canOpenAdminPanel && (
               <MenuItem
                 onClick={() => {

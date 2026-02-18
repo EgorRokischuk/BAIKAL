@@ -1,0 +1,182 @@
+.card {
+  width: 100%;
+  padding: 16px;
+  border-radius: 18px;
+  border: 1px solid #cfdeef;
+  background: #f8fbff;
+  box-shadow: 0 11px 22px rgba(22, 52, 93, 0.1);
+}
+
+.tabBody {
+  margin-top: 8px;
+}
+
+.controlsGrid {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.sliderField {
+  border: 1px dashed #bfd2e8;
+  border-radius: 10px;
+  padding: 8px 10px;
+  background: #f5f9ff;
+}
+
+.togglesRow {
+  margin-top: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+}
+
+.metricHint {
+  margin-top: 8px;
+  color: #365979;
+  font-size: 0.84rem;
+}
+
+.chartContainer {
+  border: 1px solid #ccddf0;
+  border-radius: 12px;
+  background: #ffffff;
+  padding: 10px;
+}
+
+.emptyChart {
+  min-height: 260px;
+  display: grid;
+  place-items: center;
+}
+
+.chartSvg {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+}
+
+.gridLine {
+  stroke: #e0eaf5;
+  stroke-width: 1;
+}
+
+.axisLine {
+  stroke: #7b97b3;
+  stroke-width: 1.2;
+}
+
+.tickLine {
+  stroke: #9db4cc;
+  stroke-width: 1;
+}
+
+.tickLabel {
+  fill: #4d6a87;
+  font-size: 11px;
+}
+
+.xLabel {
+  fill: #4a667f;
+  font-size: 11px;
+}
+
+.histBar {
+  fill: #2478d6;
+  fill-opacity: 0.82;
+}
+
+.axisTitle {
+  fill: #315576;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.legend {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+}
+
+.legendItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.78rem;
+  color: #294d71;
+}
+
+.legendColor {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1px solid rgba(23, 49, 84, 0.28);
+}
+
+.tableWrap {
+  margin-top: 6px;
+  overflow-x: auto;
+  border: 1px solid #d4e2f2;
+  border-radius: 12px;
+  background: #fbfdff;
+}
+
+.dataTable {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 640px;
+
+  th,
+  td {
+    padding: 9px 11px;
+    border-bottom: 1px solid #cadcf0;
+    text-align: left;
+    font-size: 0.81rem;
+  }
+
+  th {
+    white-space: nowrap;
+    background: #f3f8ff;
+    color: #21486e;
+    font-weight: 800;
+  }
+
+  tbody tr:nth-child(even) {
+    background: #f7fbff;
+  }
+
+  tbody tr:last-child td {
+    border-bottom: 0;
+  }
+}
+
+.emptyCell {
+  text-align: center;
+  color: #557594;
+  padding: 18px 12px;
+}
+
+@media (max-width: 760px) {
+  .card {
+    border-radius: 14px;
+    padding: 12px;
+  }
+
+  .controlsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .dataTable {
+    min-width: 0;
+
+    th,
+    td {
+      padding: 8px 9px;
+      font-size: 0.76rem;
+      white-space: normal;
+      word-break: break-word;
+    }
+  }
+}

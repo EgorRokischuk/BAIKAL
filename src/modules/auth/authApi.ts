@@ -33,6 +33,13 @@ interface MockAuthUser {
   profile: UserProfile;
 }
 
+interface RejectedQueryError {
+  status?: number | string;
+  error?: {
+    status?: number | string;
+  };
+}
+
 const MOCK_AUTH_USERS_DEFAULT: MockAuthUser[] = [
   {
     login: 'admin',
@@ -127,6 +134,21 @@ const getMockUserByUsername = (username: string | null, users: MockAuthUser[]): 
   return users.find((user) => user.login === username);
 };
 
+const getRejectedStatus = (error: unknown): number | string | undefined => {
+  if (!error || typeof error !== 'object') {
+    return undefined;
+  }
+
+  const candidate = error as RejectedQueryError;
+  return candidate.error?.status ?? candidate.status;
+};
+
+const resetAuthSession = (dispatch: (action: unknown) => unknown) => {
+  removeFromStorage(STORAGE_KEYS.accessToken);
+  removeFromStorage(STORAGE_KEYS.refreshToken);
+  dispatch(authActions.logout());
+};
+
 export const authApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     login: build.mutation<LoginResponse, LoginPayload>({
@@ -171,6 +193,7 @@ export const authApi = baseApi.injectEndpoints({
 
           await dispatch(authApi.endpoints.profile.initiate(undefined, { forceRefetch: true })).unwrap();
         } catch {
+          resetAuthSession(dispatch);
           dispatch(appActions.showError('Неверный логин или пароль.'));
         }
       },
@@ -282,7 +305,14 @@ export const authApi = baseApi.injectEndpoints({
         try {
           const { data } = await queryFulfilled;
           dispatch(authActions.setProfile(data));
-        } catch {
+        } catch (error) {
+          const status = getRejectedStatus(error);
+
+          if (status === 401 || status === 403) {
+            resetAuthSession(dispatch);
+            return;
+          }
+
           dispatch(authActions.setProfile(null));
         }
       },
@@ -441,9 +471,7 @@ export const authApi = baseApi.injectEndpoints({
           setToStorage(STORAGE_KEYS.refreshToken, data.refresh_token);
           dispatch(authActions.setAccessToken(data.access_token));
         } catch {
-          removeFromStorage(STORAGE_KEYS.accessToken);
-          removeFromStorage(STORAGE_KEYS.refreshToken);
-          dispatch(authActions.logout());
+          resetAuthSession(dispatch);
         }
       },
     }),

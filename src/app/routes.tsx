@@ -20,6 +20,9 @@ const ProfilePage = lazy(() => import('@/modules/auth/ui/ProfilePage').then((mod
 const DownloadHistoryPage = lazy(() =>
   import('@/modules/auth/ui/DownloadHistoryPage').then((module) => ({ default: module.DownloadHistoryPage })),
 );
+const StatisticsPage = lazy(() =>
+  import('@/modules/auth/ui/StatisticsPage').then((module) => ({ default: module.StatisticsPage })),
+);
 const AdminPanelPage = lazy(() =>
   import('@/modules/admin/ui/AdminPanelPage').then((module) => ({ default: module.AdminPanelPage })),
 );
@@ -65,6 +68,10 @@ export const router = createBrowserRouter([
           {
             path: ROUTES.downloadHistory,
             element: <RequireAuth>{withSuspense(<DownloadHistoryPage />)}</RequireAuth>,
+          },
+          {
+            path: ROUTES.statistics,
+            element: <RequireAuth>{withSuspense(<StatisticsPage />)}</RequireAuth>,
           },
           {
             path: ROUTES.adminPanel,

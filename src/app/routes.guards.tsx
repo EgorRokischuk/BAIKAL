@@ -1,17 +1,58 @@
-import type { PropsWithChildren } from 'react';
+import type { FetchBaseQueryError } from '@reduxjs/toolkit/query';
+import { useEffect, type PropsWithChildren } from 'react';
 import { Navigate } from 'react-router-dom';
 import { useProfileQuery } from '@/modules/auth/authApi';
 import { ROUTES } from '@/shared/constants/routes';
 import { STORAGE_KEYS } from '@/shared/constants/storageKeys';
 import { hasAdminRights } from '@/shared/lib/roles';
-import { getFromStorage } from '@/shared/lib/storage';
+import { getFromStorage, removeFromStorage } from '@/shared/lib/storage';
 import { RouteSkeleton } from '@/shared/ui/feedback/RouteSkeleton';
-import { useAppSelector } from '@/store/hooks';
-import { selectProfile } from '@/store/slices/authSelectors';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import { authActions } from '@/store/slices/authSlice';
+import { selectProfile, selectAccessToken } from '@/store/slices/authSelectors';
+
+const isUnauthorizedStatus = (error: unknown) => {
+  const status = (error as FetchBaseQueryError | undefined)?.status;
+  return status === 401 || status === 403;
+};
 
 export const RequireGuest = ({ children }: PropsWithChildren) => {
-  const token = getFromStorage(STORAGE_KEYS.accessToken);
-  return token ? <Navigate to={ROUTES.home} replace /> : <>{children}</>;
+  const dispatch = useAppDispatch();
+  const accessToken = useAppSelector(selectAccessToken);
+  const profile = useAppSelector(selectProfile);
+  const token = accessToken || getFromStorage(STORAGE_KEYS.accessToken);
+
+  const { isLoading, isFetching, isError, error } = useProfileQuery(undefined, {
+    skip: !token || Boolean(profile),
+  });
+
+  useEffect(() => {
+    if (!token || !isError || !isUnauthorizedStatus(error)) {
+      return;
+    }
+
+    removeFromStorage(STORAGE_KEYS.accessToken);
+    removeFromStorage(STORAGE_KEYS.refreshToken);
+    dispatch(authActions.logout());
+  }, [dispatch, error, isError, token]);
+
+  if (!token) {
+    return <>{children}</>;
+  }
+
+  if (profile) {
+    return <Navigate to={ROUTES.home} replace />;
+  }
+
+  if (isLoading || isFetching) {
+    return <RouteSkeleton />;
+  }
+
+  if (isError && isUnauthorizedStatus(error)) {
+    return <>{children}</>;
+  }
+
+  return <Navigate to={ROUTES.home} replace />;
 };
 
 export const RequireAuth = ({ children }: PropsWithChildren) => {

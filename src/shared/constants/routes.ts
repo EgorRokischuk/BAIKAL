@@ -7,6 +7,7 @@
   support: '/support',
   profile: '/profile',
   downloadHistory: '/download-history',
+  statistics: '/statistics',
   adminPanel: '/admin',
   auth: {
     root: '/auth',

@@ -1,6 +1,6 @@
 ﻿# BACKEND_METHODS_TODO
 
-Дата сверки: 2026-02-16  
+Дата сверки: 2026-02-18  
 Проект: `new_project`  
 Базовый префикс API: `/api/v1`
 
@@ -13,6 +13,7 @@
 - `new_project/src/modules/support/supportApi.ts`
 - `new_project/src/modules/admin/ui/AdminPanelPage.tsx`
 - `new_project/src/modules/auth/ui/DownloadHistoryPage.tsx`
+- `new_project/src/modules/auth/ui/DownloadStatisticsBuilder.tsx`
 - `new_project/openapi.json`
 
 Ниже только актуальные пункты: либо метода нет, либо функция сейчас работает на моках/локальных заглушках.
@@ -283,6 +284,122 @@ interface DownloadHistoryCreateRequest {
   "period": "2025-08",
   "format": "GeoTIFF",
   "size": "21 MB"
+}
+```
+
+---
+
+### M-06A. `POST /api/v1/users/me/statistics/time-series`
+Статус: отсутствует; нужен для вкладки конструктора графиков на странице истории скачиваний.
+
+Назначение:
+- получить временные ряды по выбранным продуктам и метрикам для построения line/area/bar/histogram графиков.
+
+Auth:
+- `Bearer` обязателен.
+
+Тело запроса (`application/json`):
+```ts
+type MetricId =
+  | 'temperature_mean'
+  | 'temperature_min'
+  | 'temperature_max'
+  | 'temperature_anomaly'
+  | 'chlorophyll'
+  | 'downloads_count'
+  | 'download_volume_gb';
+
+type GroupBy = 'month' | 'quarter' | 'year';
+type Aggregation = 'avg' | 'sum' | 'min' | 'max' | 'median';
+type Normalization = 'none' | 'index100' | 'delta_percent';
+
+interface TimeSeriesRequest {
+  product_ids: string[];             // например ['viirs', 'modis']
+  metric_id: MetricId;
+  date_from: string;                 // YYYY-MM-DD
+  date_to: string;                   // YYYY-MM-DD
+  group_by: GroupBy;
+  aggregation: Aggregation;
+  normalization: Normalization;
+  smoothing_window?: number;         // >= 1
+  histogram_bins?: number;           // >= 4, если нужен режим histogram
+}
+```
+
+Пример запроса:
+```json
+{
+  "product_ids": ["viirs", "modis", "landsat"],
+  "metric_id": "temperature_mean",
+  "date_from": "2023-01-01",
+  "date_to": "2025-12-01",
+  "group_by": "month",
+  "aggregation": "avg",
+  "normalization": "none",
+  "smoothing_window": 1,
+  "histogram_bins": 10
+}
+```
+
+Ответ `200`:
+```ts
+interface TimeSeriesPoint {
+  timestamp: string; // ISO datetime, начало периода агрегации
+  label: string;     // например '2025-07' или 'Q3 2025'
+  value: number;
+}
+
+interface ProductSeries {
+  product_id: string;
+  product_name: string;
+  color?: string; // опционально, если бэк хочет отдать рекомендованный цвет серии
+  points: TimeSeriesPoint[];
+}
+
+interface HistogramBin {
+  from: number;
+  to: number;
+  count: number;
+}
+
+interface TimeSeriesResponse {
+  metric_id: MetricId;
+  unit: string;
+  normalization: Normalization;
+  group_by: GroupBy;
+  aggregation: Aggregation;
+  series: ProductSeries[];
+  timeline: Array<{ timestamp: string; label: string }>;
+  histogram: HistogramBin[];
+}
+```
+
+Пример ответа:
+```json
+{
+  "metric_id": "temperature_mean",
+  "unit": "°C",
+  "normalization": "none",
+  "group_by": "month",
+  "aggregation": "avg",
+  "series": [
+    {
+      "product_id": "viirs",
+      "product_name": "Температура поверхности (VIIRS)",
+      "points": [
+        { "timestamp": "2025-06-01T00:00:00Z", "label": "2025-06", "value": 13.4 },
+        { "timestamp": "2025-07-01T00:00:00Z", "label": "2025-07", "value": 16.1 }
+      ]
+    }
+  ],
+  "timeline": [
+    { "timestamp": "2025-06-01T00:00:00Z", "label": "2025-06" },
+    { "timestamp": "2025-07-01T00:00:00Z", "label": "2025-07" }
+  ],
+  "histogram": [
+    { "from": 10.0, "to": 12.0, "count": 5 },
+    { "from": 12.0, "to": 14.0, "count": 9 }
+  ]
 }
 ```
 

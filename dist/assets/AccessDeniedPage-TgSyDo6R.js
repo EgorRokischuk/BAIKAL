@@ -1,0 +1,1 @@
+import{j as e}from"./index-DPZaMfmX.js";import{E as r}from"./ErrorPageView-Buex6L6Z.js";const s=()=>e.jsx(r,{code:"401",title:"Доступ ограничен",description:"У вас нет прав для просмотра этой страницы. Вернитесь на главную и продолжите работу с доступными разделами."});export{s as AccessDeniedPage};
