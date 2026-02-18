@@ -284,9 +284,9 @@ export const ReadyProductsPanel = () => {
             variant="fullWidth"
             sx={compactTabsSx}
           >
-            <Tab label="VIIRS" />
-            <Tab label="Terra" />
-            <Tab label="Aqua" />
+            <Tab label="VIIRS/NPP" />
+            <Tab label="MODIS/Terra" />
+            <Tab label="MODIS/Aqua" />
             <Tab label="Landsat" />
           </Tabs>
 
