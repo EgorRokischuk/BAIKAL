@@ -20,7 +20,7 @@ export function buildWebpack(options: IBuildOptions): webpack.Configuration {
 		},
 		resolve: buildResolvers(options),
 		devtool: isDev && 'inline-source-map',
-		devServer: isDev ? buildDevServer(options) : undefined,
+		devServer: buildDevServer(options),
 		performance: {
 			hints: false,
         	maxEntrypointSize: 512000,

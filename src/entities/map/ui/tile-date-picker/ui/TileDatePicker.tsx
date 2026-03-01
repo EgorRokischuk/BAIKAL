@@ -1,6 +1,7 @@
 import { DatePicker, DatePickerProps, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs, { Dayjs } from 'dayjs';
+import { useMemo } from 'react';
 import { useAppDispatch } from '@/shared/hooks/useAppDispatch';
 import { useAppSelector } from '@/shared/hooks/useAppSelector';
 import { convertToDateInput } from '@/shared/lib/datetimeFormat';
@@ -16,6 +17,51 @@ interface ITileDatePickerProps extends DatePickerProps<Dayjs, false> {
 	dateKey?: 'startDate' | 'endDate';
 }
 
+const FALLBACK_MIN_DATE = dayjs('1990-01-01');
+const FALLBACK_MAX_DATE = dayjs(`${dayjs().year()}-12-31`);
+
+const parseAvailableDate = (value: string, type: string): Dayjs | null => {
+	if (!value) return null;
+
+	if (type === 'monthlyAvgManyYears') {
+		const month = Number(value);
+		if (Number.isInteger(month) && month >= 1 && month <= 12) {
+			return dayjs(`${dayjs().year()}-${String(month).padStart(2, '0')}-01`);
+		}
+
+		return null;
+	}
+
+	if (type === 'chlorophyll' || type === 'monthlyAvg') {
+		const parsed = dayjs(`${value}-01`);
+		return parsed.isValid() ? parsed : null;
+	}
+
+	const parsed = dayjs(value);
+	return parsed.isValid() ? parsed : null;
+};
+
+const getAvailableDateBounds = (
+	availableDates: Array<string> | undefined,
+	type: string,
+): { minDate: Dayjs | null; maxDate: Dayjs | null } => {
+	const parsedDates = (availableDates ?? [])
+		.map((value) => parseAvailableDate(value, type))
+		.filter((value): value is Dayjs => value !== null);
+
+	if (!parsedDates.length) return { minDate: null, maxDate: null };
+
+	let minDate = parsedDates[0];
+	let maxDate = parsedDates[0];
+
+	parsedDates.forEach((value) => {
+		if (value.isBefore(minDate)) minDate = value;
+		if (value.isAfter(maxDate)) maxDate = value;
+	});
+
+	return { minDate, maxDate };
+};
+
 const TileDatePicker: React.FC<ITileDatePickerProps> = ({
 	type,
 	dateKey = 'startDate',
@@ -30,14 +76,17 @@ const TileDatePicker: React.FC<ITileDatePickerProps> = ({
 	const date = useAppSelector(getMapDateByKey(dateKey));
 	const groundDataOptions = useAppSelector(getGroundDataOptions);
 
-        const { isShouldDisableYear, isShouldDisableMonth, isShouldDisableDay } = useDateHelper(type);
-        const { data, isLoading } = useGetAvailableDate(type);
-        const isMonthOnly = type === 'chlorophyll';
+	const { isShouldDisableYear, isShouldDisableMonth, isShouldDisableDay } = useDateHelper(type);
+	const { data, isLoading } = useGetAvailableDate(type);
+	const isMonthOnly = type === 'chlorophyll';
 	const disableFloatingLabel = type === 'monthlyAvg' || type === 'monthlyAvgManyYears';
+	const availableDateBounds = useMemo(() => getAvailableDateBounds(data, type), [data, type]);
 
-        const isDisabled = isLoading || (type !== 'groundData' && !(data || []).length);
+	const isDisabled = isLoading || (type !== 'groundData' && !(data || []).length);
 	const groundStartDate = groundDataOptions.startDate ? dayjs(groundDataOptions.startDate) : null;
 	const groundEndDate = groundDataOptions.endDate ? dayjs(groundDataOptions.endDate) : null;
+	const minAvailableDate = availableDateBounds.minDate ?? FALLBACK_MIN_DATE;
+	const maxAvailableDate = availableDateBounds.maxDate ?? FALLBACK_MAX_DATE;
 	const resolvedViews = propViews ?? (isMonthOnly ? ['year', 'month'] : undefined);
 	const resolvedOpenTo =
 		propOpenTo ??
@@ -59,11 +108,11 @@ const TileDatePicker: React.FC<ITileDatePickerProps> = ({
 		disableFloatingLabel && typeof labelProp === 'string' ? labelProp : undefined;
 	const preventDrag = type === 'groundData';
 
-        return (
-                <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="ru">
-                        <DatePicker
-                                {...props}
-                                disabled={isDisabled}
+	return (
+		<LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="ru">
+			<DatePicker
+				{...props}
+				disabled={isDisabled}
 				views={resolvedViews}
 				openTo={resolvedOpenTo}
 				format={resolvedFormat}
@@ -126,12 +175,12 @@ const TileDatePicker: React.FC<ITileDatePickerProps> = ({
 				minDate={
 					type === 'groundData' && dateKey === 'endDate' && groundStartDate
 						? groundStartDate
-						: dayjs((data ?? [])[0] ?? '1990-01-01')
+						: minAvailableDate
 				}
 				maxDate={
 					type === 'groundData' && dateKey === 'startDate' && groundEndDate
 						? groundEndDate
-						: dayjs(`${dayjs(Date.now()).year()}-12-31`)
+						: maxAvailableDate
 				}
 			/>
 		</LocalizationProvider>

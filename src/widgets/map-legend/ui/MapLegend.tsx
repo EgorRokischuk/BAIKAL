@@ -21,13 +21,15 @@ export const MapLegend: React.FC = () => {
 	const { legend, tileOptions } = useAppSelector((s) => s.map);
 
 	if (!legend.visible || legend.min === null || legend.max === null) return null;
+	const minValue = Math.min(legend.min, legend.max);
+	const maxValue = Math.max(legend.min, legend.max);
 
 	const gradient =
 		tileOptions.parameter === 'chlorophyll' ? CHL_GRADIENT : LST_GRADIENT;
 
 	return (
 		<div className={s.legend}>
-			<div className={s.value}>{legend.max.toFixed(1)}</div>
+			<div className={s.value}>{maxValue.toFixed(1)}</div>
 
 			<div className={s.gradient}>
 				{gradient.map((color, i) => (
@@ -35,7 +37,7 @@ export const MapLegend: React.FC = () => {
 				))}
 			</div>
 
-			<div className={s.value}>{legend.min.toFixed(1)}</div>
+			<div className={s.value}>{minValue.toFixed(1)}</div>
 		</div>
 	);
 };

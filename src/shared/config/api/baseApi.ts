@@ -5,8 +5,15 @@ import { LS_ACCESS_TOKEN } from '../constants/authConstants';
 import { apiAccessTokenExpired } from './apiAccessTokenExpired';
 import { ApiTags } from './apiTags';
 
+const DEFAULT_LOCAL_API_BASE_URL = '/api/v1';
+const isLocalDevHost =
+	typeof window !== 'undefined' &&
+	['localhost', '127.0.0.1', '::1'].includes(window.location.hostname);
+
 const baseQuery = fetchBaseQuery({
-	baseUrl: process.env.API_URL,
+	baseUrl: isLocalDevHost
+		? DEFAULT_LOCAL_API_BASE_URL
+		: process.env.API_URL ?? DEFAULT_LOCAL_API_BASE_URL,
 	credentials: 'same-origin',
 	prepareHeaders: (headers) => {
 		const accessToken = getFromLS(LS_ACCESS_TOKEN);
